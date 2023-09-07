@@ -17,18 +17,53 @@
 
 .intro {
   position: absolute;
-  z-index: 2;
   bottom: 12px;
-  left: 12px;
-  width: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   text-align: right;
-  color: config.$black;
-  background: config.$white;
   padding: 12px;
-  @include mixins.border-radius();
-  @include mixins.transparentBackground(0.5, config.$white);
+  color: config.$white;
+  width: config.$content-width;
 
   @include mixins.mobile {
-    display: none;
+    width: 100%;
+  }
+  @include mixins.tablet {
+    width: 100%;
+  }
+}
+
+.banners {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 12px;
+  direction: rtl;
+  margin: auto;
+  margin-top: 50px;
+  width: config.$content-width;
+
+  @include mixins.mobile {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    padding: 0px 12px;
+    width: 100%;
+  }
+
+  div {
+    height: 200px;
+    text-align: center;
+    background: config.$white;
+    border: 1px solid config.$lightgrey;
+    @include mixins.border-radius();
+  }
+}
+
+.timeline {
+  margin-top: 50px;
+  text-align: center;
+
+  p {
+    margin: 12px 0px;
+    font-weight: 300;
   }
 }

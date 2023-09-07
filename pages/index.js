@@ -3,7 +3,7 @@ import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import background from "@/assets/background.jpg";
-import Menu from "@/components/Menu";
+import Timeline from "@/components/Timeline";
 
 export default function Home() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
@@ -12,15 +12,7 @@ export default function Home() {
     <Fragment>
       <div className={classes.heroHeader}>
         <div className={classes.intro}>
-          <h1>عبدالله جاسبی</h1>
-          <p>
-            عبدالله جعفر علی جاسبی (۱۳۲۳، تهران) سیاستمدار میانه‌رو (با گرایش
-            اصولگرایی)[۱] و ارائه دهنده پیشنهاد تشکیل دانشگاه آزاد اسلامی و رئیس
-            این دانشگاه از ابتدای تأسیس آن در سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال
-            حاضر عضو هیئت مؤسس و هیئت امنای دانشگاه آزاد اسلامی است. وی همچنین
-            استاد بازنشسته دانشگاه علم و صنعت ایران، عضو سابق شورای عالی انقلاب
-            فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست جمهوری بوده‌است
-          </p>
+          <h1>پروفسور جاسبی</h1>
         </div>
         <Image
           className={classes.heroImage}
@@ -31,6 +23,20 @@ export default function Home() {
           objectFit="cover"
           loading="eager"
         />
+      </div>
+      <div className={classes.timeline}>
+        <h2>سیر تاریخی</h2>
+        <p>رویدادهای مهم و ماندگار</p>
+        <Timeline />
+      </div>
+      <div className={classes.banners}>
+        <div>دانشگاه</div>
+        <div>بازنشسته</div>
+        <div>اسلامی</div>
+        <div>فرهنگی</div>
+        <div>تأسیس</div>
+        <div>جمهوری</div>
+        <div>سیاستمدار</div>
       </div>
     </Fragment>
   );

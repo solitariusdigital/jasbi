@@ -1,0 +1,42 @@
+@use "styles/_config.scss" as config;
+@use "styles/_mixins.scss" as mixins;
+
+.container {
+  @include mixins.row-space-between-center();
+  width: config.$content-width;
+  margin: auto;
+
+  @include mixins.mobile {
+    padding: 0px 12px;
+    width: 100%;
+  }
+}
+
+.timeline {
+  @include mixins.row-space-between-center();
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  height: 70px;
+  padding: 0px 12px;
+  margin: 0px 12px;
+  background: config.$white;
+  border: 1px solid config.$lightgrey;
+  @include mixins.border-radius();
+
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    min-width: 70px;
+    margin: 0px 8px;
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+        background: config.$brand;
+        @include mixins.border-radius();
+      }
+    }
+  }
+}
