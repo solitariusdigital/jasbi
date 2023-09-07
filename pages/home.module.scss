@@ -6,12 +6,29 @@
   height: 600px;
   width: 100%;
 
-  .heroImage {
-    object-position: 50% 30%;
+  @include mixins.mobile {
+    height: 300px;
   }
 
-  .intro {
-    position: absolute;
-    top: 10px;
+  .heroImage {
+    object-position: 50% 20%;
+  }
+}
+
+.intro {
+  position: absolute;
+  z-index: 2;
+  bottom: 12px;
+  left: 12px;
+  width: 400px;
+  text-align: right;
+  color: config.$black;
+  background: config.$white;
+  padding: 12px;
+  @include mixins.border-radius();
+  @include mixins.transparentBackground(0.5, config.$white);
+
+  @include mixins.mobile {
+    display: none;
   }
 }

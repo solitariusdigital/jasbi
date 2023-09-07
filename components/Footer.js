@@ -9,14 +9,6 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.container}>
-        <div className={classes.buttons}>
-          <button onClick={() => Router.push("/doctors")}>
-            رزرو مراجعه حضوری
-          </button>
-          <button onClick={() => Router.push("/assessment")}>
-            مشاوره آنلاین رایگان
-          </button>
-        </div>
         <div className={classes.information}>
           <div className={classes.row}>
             <LocationOnOutlinedIcon />

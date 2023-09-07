@@ -4,7 +4,6 @@
 .container {
   width: config.$content-width;
   @include mixins.row-space-between-center();
-  height: 50px;
 
   @include mixins.mobile {
     width: 100%;
@@ -12,6 +11,10 @@
 
   @include mixins.tablet {
     width: 100%;
+  }
+
+  @include mixins.desktop {
+    padding: 12px 0px;
   }
 
   .logo {
@@ -25,7 +28,6 @@
 
 .largeMenu {
   width: 100%;
-  height: 100%;
   @include mixins.row-space-between-center();
 
   @include mixins.mobile {
@@ -54,7 +56,8 @@
   @include mixins.desktop {
     &:hover {
       cursor: pointer;
-      color: config.$brand;
+      color: config.$action;
+      border-bottom: 1px solid config.$action;
     }
   }
 
@@ -63,25 +66,9 @@
   }
 }
 
-.nav::after {
-  content: "";
-  display: block;
-  width: 0;
-  border-bottom: 1px solid config.$brand;
-  transition: width 0.3s;
-
-  @include mixins.mobile {
-    border-bottom: 1px solid config.$brand;
-  }
-}
-
-.nav:hover::after {
-  width: 100%;
-}
-
 .navActive {
-  border-bottom: 1px solid config.$brand;
-  color: config.$brand;
+  border-bottom: 1px solid config.$action;
+  color: config.$action;
   font-weight: bold !important;
 
   @include mixins.mobile {
@@ -91,15 +78,12 @@
 
 .smallMenu {
   width: 100%;
-  @include mixins.row-space-between-center();
 
   @include mixins.desktop {
     display: none;
   }
 
   .menuIcon {
-    background: config.$brand;
-
     @include mixins.desktop {
       &:hover {
         cursor: pointer;

@@ -11,6 +11,17 @@ export default function Home() {
   return (
     <Fragment>
       <div className={classes.heroHeader}>
+        <div className={classes.intro}>
+          <h1>عبدالله جاسبی</h1>
+          <p>
+            عبدالله جعفر علی جاسبی (۱۳۲۳، تهران) سیاستمدار میانه‌رو (با گرایش
+            اصولگرایی)[۱] و ارائه دهنده پیشنهاد تشکیل دانشگاه آزاد اسلامی و رئیس
+            این دانشگاه از ابتدای تأسیس آن در سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال
+            حاضر عضو هیئت مؤسس و هیئت امنای دانشگاه آزاد اسلامی است. وی همچنین
+            استاد بازنشسته دانشگاه علم و صنعت ایران، عضو سابق شورای عالی انقلاب
+            فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست جمهوری بوده‌است
+          </p>
+        </div>
         <Image
           className={classes.heroImage}
           src={background}
@@ -20,13 +31,6 @@ export default function Home() {
           objectFit="cover"
           loading="eager"
         />
-        <div className={classes.intro}>
-          <h1>Find clarity in chaos</h1>
-          <p>
-            Major Tom is a full-service marketing agency been purpose-built to
-            help organizations thrive in an increasingly complex landscape.
-          </p>
-        </div>
       </div>
     </Fragment>
   );

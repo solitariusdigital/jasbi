@@ -29,50 +29,6 @@ export const StateProvider = (props) => {
       active: false,
     },
   ]);
-  const [expertiseAreas, setExpertiseAreas] = useState([
-    {
-      title: "فیلر",
-      active: false,
-    },
-    {
-      title: "نوتریژنومیکس",
-      active: false,
-    },
-    {
-      title: "لیزر",
-      active: false,
-    },
-    {
-      title: "کاشت مو و ابرو",
-      active: false,
-    },
-    {
-      title: "بوتاکس",
-      active: false,
-    },
-    {
-      title: "پلاسمای غنی از پلاکت",
-      active: false,
-    },
-    {
-      title: "درمان با فرکانس رادویی",
-      active: false,
-    },
-    {
-      title: "هایفوتراپی",
-      active: false,
-    },
-    {
-      title: "کرایوتراپی",
-      active: false,
-    },
-    {
-      title: "لیفت با نخ",
-      active: false,
-    },
-  ]);
-
-  const [displayExpertise, setDisplayExpertise] = useState("فیلر");
 
   const stateContext = {
     menuMobile,
@@ -83,11 +39,8 @@ export const StateProvider = (props) => {
     setCurrentUser,
     appUsers,
     setAppUsers,
-    expertiseAreas,
-    setExpertiseAreas,
-    displayExpertise,
-    setDisplayExpertise,
   };
+
   return (
     <StateContext.Provider value={stateContext}>
       {props.children}

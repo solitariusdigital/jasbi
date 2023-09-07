@@ -21,10 +21,6 @@ a {
   text-decoration: none;
 }
 
-button {
-  @include mixins.button(config.$brand, config.$black, 120px);
-}
-
 .main {
   min-height: 100vh;
   margin-top: 60px;

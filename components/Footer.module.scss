@@ -25,41 +25,6 @@
     }
   }
 
-  .buttons {
-    display: flex;
-    flex-direction: column;
-
-    button {
-      @include mixins.button(config.$black, config.$black, config.$brand);
-      margin: 12px 0px;
-
-      @include mixins.desktop {
-        &:hover {
-          cursor: pointer;
-          background: config.$white;
-          color: config.$black;
-        }
-      }
-    }
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    width: 100px;
-    margin: 20px 0px;
-    background: config.$black;
-    @include mixins.border-radius();
-
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
   .information {
     display: flex;
     flex-direction: column;
