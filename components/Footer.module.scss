@@ -1,0 +1,80 @@
+@use "styles/_config.scss" as config;
+@use "styles/_mixins.scss" as mixins;
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 250px;
+  background: config.$brand;
+  padding: 12px;
+  height: 100%;
+  min-height: 250px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: config.$content-width;
+    margin: auto;
+
+    @include mixins.mobile {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      @include mixins.button(config.$black, config.$black, config.$brand);
+      margin: 12px 0px;
+
+      @include mixins.desktop {
+        &:hover {
+          cursor: pointer;
+          background: config.$white;
+          color: config.$black;
+        }
+      }
+    }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    margin: 20px 0px;
+    background: config.$black;
+    @include mixins.border-radius();
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .information {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      margin: 8px 0px;
+
+      p {
+        font-weight: 300;
+        margin: 0px 12px;
+        text-align: right;
+      }
+    }
+  }
+}
