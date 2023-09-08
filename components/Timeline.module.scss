@@ -7,8 +7,11 @@
   margin: auto;
 
   @include mixins.mobile {
-    padding: 0px 12px;
-    width: 100%;
+    width: calc(100% - 24px);
+  }
+
+  @include mixins.tablet {
+    width: calc(100% - 24px);
   }
 }
 
@@ -19,11 +22,11 @@
   height: 70px;
   padding: 0px 12px;
   margin: 0px 12px;
-  background: config.$white;
   border: 1px solid config.$lightgrey;
   @include mixins.border-radius();
 
-  .section {
+  .section,
+  .active {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,5 +41,28 @@
         @include mixins.border-radius();
       }
     }
+  }
+
+  .active {
+    background: config.$brand;
+    @include mixins.border-radius();
+  }
+}
+
+.details {
+  width: config.$content-width;
+  padding: 12px;
+  margin: auto;
+  margin-top: 12px;
+  background: config.$white;
+  border: 1px solid config.$lightgrey;
+  @include mixins.border-radius();
+
+  @include mixins.mobile {
+    width: calc(100% - 24px);
+  }
+
+  @include mixins.tablet {
+    width: calc(100% - 24px);
   }
 }

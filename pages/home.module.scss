@@ -3,15 +3,14 @@
 
 .heroHeader {
   position: relative;
-  height: 600px;
-  width: 100%;
+  height: calc(100vh - 50px);
 
   @include mixins.mobile {
     height: 300px;
   }
 
   .heroImage {
-    object-position: 50% 20%;
+    object-position: 50% 15%;
   }
 }
 
@@ -22,14 +21,15 @@
   transform: translateX(-50%);
   z-index: 2;
   text-align: right;
-  padding: 12px;
   color: config.$white;
   width: config.$content-width;
 
   @include mixins.mobile {
+    padding: 0px 12px;
     width: 100%;
   }
   @include mixins.tablet {
+    padding: 0px 12px;
     width: 100%;
   }
 }
@@ -49,12 +49,24 @@
     width: 100%;
   }
 
+  @include mixins.tablet {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    padding: 0px 12px;
+    width: 100%;
+  }
+
   div {
     height: 200px;
     text-align: center;
     background: config.$white;
     border: 1px solid config.$lightgrey;
     @include mixins.border-radius();
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
 

@@ -27,16 +27,16 @@ h1 {
 
 .main {
   min-height: 100vh;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .menu {
+  display: flex;
+  justify-content: center;
   position: fixed;
   z-index: 50;
   top: 0px;
-  display: flex;
-  justify-content: center;
   width: 100%;
-  background: config.$background;
   height: 50px;
+  background: config.$background;
 }
