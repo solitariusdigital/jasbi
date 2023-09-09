@@ -12,7 +12,7 @@ export default function Home() {
     <Fragment>
       <div className={classes.heroHeader}>
         <div className={classes.intro}>
-          <h1>پروفسور جاسبی</h1>
+          <h1>دکتر جاسبی</h1>
         </div>
         <Image
           className={classes.heroImage}

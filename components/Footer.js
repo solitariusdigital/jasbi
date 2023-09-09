@@ -9,7 +9,7 @@ export default function Footer() {
           className={classes.register}
           onClick={() => Router.push("/register")}
         >
-          ورود ​/ ثبت نام
+          ارتباط با دکتر جاسبی ​
         </button>
         <div className={classes.information}>info</div>
       </div>

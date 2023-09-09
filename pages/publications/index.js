@@ -77,7 +77,9 @@ export default function Publications() {
                 <p>شابک {item.shabak}</p>
               </div>
             </div>
-            <p>{item.description.slice(0, 110)} ...</p>
+            <p>
+              {item.description.slice(0, 110)} ... <span>بیشتر</span>
+            </p>
           </div>
         ))}
       </div>

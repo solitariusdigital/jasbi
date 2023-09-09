@@ -42,6 +42,19 @@
         cursor: pointer;
       }
     }
+
+    span {
+      color: config.$action;
+      border-bottom: 1px solid config.$action;
+      font-size: config.$tiny-font;
+      font-weight: bold;
+
+      @include mixins.desktop {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 
@@ -91,4 +104,38 @@
       width: 100%;
     }
   }
+}
+
+.navigation {
+  height: 40px;
+  width: 350px;
+  padding: 8px;
+  margin: auto;
+  margin-bottom: 20px;
+  background: config.$white;
+  box-shadow: config.$card-shadow;
+  border: 1px solid config.$action;
+  @include mixins.border-radius();
+  @include mixins.row-space-between-center();
+  justify-content: space-around;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
+}
+
+.nav {
+  font-weight: bold !important;
+
+  @include mixins.desktop {
+    &:hover {
+      cursor: pointer;
+      color: config.$action;
+    }
+  }
+}
+
+.navActive {
+  color: config.$action;
+  font-weight: bold !important;
 }

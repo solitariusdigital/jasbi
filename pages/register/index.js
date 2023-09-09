@@ -130,7 +130,7 @@ export default function Register() {
   return (
     <Fragment>
       <div className={classes.form}>
-        <p className={classes.title}>ورود ​/ ثبت نام</p>
+        <p className={classes.title}>ارتباط با دکتر جاسبی ​</p>
         <div className={classes.input}>
           <div className={classes.bar}>
             <p className={classes.label}>
