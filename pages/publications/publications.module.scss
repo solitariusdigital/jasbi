@@ -68,7 +68,7 @@
   }
 
   p {
-    margin: 4px 0px;
+    margin: 8px 0px;
     font-size: config.$tiny-font;
   }
 
@@ -118,6 +118,7 @@
   @include mixins.border-radius();
   @include mixins.row-space-between-center();
   justify-content: space-around;
+  user-select: none;
 
   @include mixins.mobile {
     width: 100%;

@@ -5,60 +5,33 @@ import Image from "next/legacy/image";
 export default function Politics() {
   const [type, setType] = useState("after" || "before");
 
-  const [beforeData, setBeforeData] = useState([
+  const [activities, setActivities] = useState([
     {
-      title: "دانشگاه",
+      title: "قبل انقلاب",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      period: "before",
     },
     {
-      title: "تالیف",
+      title: "بعد انقلاب",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      period: "after",
     },
     {
-      title: "پیشرفته",
+      title: "قبل انقلاب",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      period: "before",
     },
     {
-      title: "پیشرفته",
+      title: "بعد انقلاب",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-  ]);
-  const [afterData, setAfterData] = useState([
-    {
-      title: "سمتهای سیاسی بعد از انقلاب و قبل از ورود به حزب جمهوری اسلامی",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-    {
-      title: "فعالیت در حزب جمهوری اسلامی",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-    {
-      title: "دانشگاه آزاد اسلامی",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-    {
-      title: "جامعه اسلامی دانشگاهیان",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-    {
-      title: "جشنواره تلاشگران کیفیت",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-    },
-    {
-      title: "بنیاد آفرینش انس",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      period: "after",
     },
   ]);
+
   return (
     <div className={classes.container}>
       <div className={classes.navigation}>
@@ -66,18 +39,19 @@ export default function Politics() {
           className={type === "after" ? classes.nav : classes.navActive}
           onClick={() => setType("before")}
         >
-          قبل از انقلاب
+          قبل انقلاب
         </p>
         <p
           className={type === "before" ? classes.nav : classes.navActive}
           onClick={() => setType("after")}
         >
-          بعد از انقلاب
+          بعد انقلاب
         </p>
       </div>
-      {type === "before" && (
-        <div className={classes.list}>
-          {beforeData.map((item, index) => (
+      <div className={classes.list}>
+        {activities
+          .filter((item) => item.period === type)
+          .map((item, index) => (
             <div
               className={classes.item}
               key={index}
@@ -97,32 +71,7 @@ export default function Politics() {
               </p>
             </div>
           ))}
-        </div>
-      )}
-      {type === "after" && (
-        <div className={classes.list}>
-          {afterData.map((item, index) => (
-            <div
-              className={classes.item}
-              key={index}
-              onClick={() => {
-                setSelectedItem(item);
-                setDisplayDetails(true);
-                window.scrollTo(0, 0);
-              }}
-            >
-              <div className={classes.row}>
-                <div>
-                  <h3>{item.title}</h3>
-                </div>
-              </div>
-              <p>
-                {item.description.slice(0, 110)} ... <span>بیشتر</span>
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

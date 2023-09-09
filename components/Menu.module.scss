@@ -4,6 +4,7 @@
 .container {
   width: config.$content-width;
   @include mixins.row-space-between-center();
+  user-select: none;
 
   @include mixins.mobile {
     width: 100%;

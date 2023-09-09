@@ -4,15 +4,20 @@ import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function Publications() {
+  const [type, setType] = useState("book" || "article");
+  const [selectedItem, setSelectedItem] = useState({});
+  const [displayDetails, setDisplayDetails] = useState(false);
+
   const [items, setItems] = useState([
     {
       title: "دانشگاه",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "",
       publication: "اول ۱۳۴۲",
       shabak: "123412341234",
+      author: "دکتر عبدالله جاسبی",
+      type: "book",
     },
     {
       title: "تالیف",
@@ -22,6 +27,19 @@ export default function Publications() {
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
       publication: "اول ۱۳۴۲",
       shabak: "123412341234",
+      author: "دکتر پویان",
+      type: "article",
+    },
+    {
+      title: "تالیف",
+      description:
+        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      image:
+        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      publication: "اول ۱۳۴۲",
+      shabak: "123412341234",
+      author: "دکتر عبدالله جاسبی",
+      type: "article",
     },
     {
       title: "پیشرفته",
@@ -31,6 +49,8 @@ export default function Publications() {
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
       publication: "اول ۱۳۴۲",
       shabak: "123412341234",
+      author: "دکتر پویان",
+      type: "book",
     },
     {
       title: "پیشرفته",
@@ -40,48 +60,70 @@ export default function Publications() {
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
       publication: "اول ۱۳۴۲",
       shabak: "123412341234",
+      author: "دکتر عبدالله جاسبی",
+      type: "book",
     },
   ]);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [displayDetails, setDisplayDetails] = useState(false);
 
   return (
     <div className={classes.container}>
+      <div className={classes.navigation}>
+        <p
+          className={type === "book" ? classes.nav : classes.navActive}
+          onClick={() => setType("article")}
+        >
+          مقالات
+        </p>
+        <p
+          className={type === "article" ? classes.nav : classes.navActive}
+          onClick={() => setType("book")}
+        >
+          کتاب ها
+        </p>
+      </div>
       <div className={classes.list}>
-        {items.map((item, index) => (
-          <div
-            className={classes.item}
-            key={index}
-            onClick={() => {
-              setSelectedItem(item);
-              setDisplayDetails(true);
-              window.scrollTo(0, 0);
-            }}
-          >
-            <div className={classes.row}>
-              <Image
-                className={classes.image}
-                src={item.image}
-                placeholder="blur"
-                blurDataURL={item.image}
-                alt="image"
-                loading="eager"
-                width={100}
-                height={150}
-                objectFit="cover"
-                priority
-              />
-              <div>
-                <h3>{item.title}</h3>
-                <p>چاپ {item.publication}</p>
-                <p>شابک {item.shabak}</p>
+        {items
+          .filter((item) => item.type === type)
+          .map((item, index) => (
+            <div
+              className={classes.item}
+              key={index}
+              onClick={() => {
+                setSelectedItem(item);
+                setDisplayDetails(true);
+                window.scrollTo(0, 0);
+              }}
+            >
+              <div className={classes.row}>
+                {item.image && (
+                  <Image
+                    className={classes.image}
+                    src={item.image}
+                    placeholder="blur"
+                    blurDataURL={item.image}
+                    alt="image"
+                    loading="eager"
+                    width={100}
+                    height={150}
+                    objectFit="cover"
+                    priority
+                  />
+                )}
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>نویسنده {item.author}</p>
+                  {item.author !== "دکتر عبدالله جاسبی" && (
+                    <p>زیر نظز دکتر عبدالله جاسبی</p>
+                  )}
+                  <p>چاپ {item.publication}</p>
+                  <p>شابک {item.shabak}</p>
+                </div>
               </div>
+              <p>
+                {item.description.slice(0, 110)} ... <span>بیشتر</span>
+              </p>
             </div>
-            <p>
-              {item.description.slice(0, 110)} ... <span>بیشتر</span>
-            </p>
-          </div>
-        ))}
+          ))}
       </div>
       {displayDetails && (
         <div
@@ -95,21 +137,27 @@ export default function Publications() {
             <div className={classes.row}>
               <div>
                 <h3>{selectedItem.title}</h3>
+                <p>نویسنده {selectedItem.author}</p>
+                {selectedItem.author !== "دکتر عبدالله جاسبی" && (
+                  <p>زیر نظز دکتر عبدالله جاسبی</p>
+                )}
                 <p>چاپ {selectedItem.publication}</p>
                 <p>شابک {selectedItem.shabak}</p>
               </div>
-              <Image
-                className={classes.image}
-                src={selectedItem.image}
-                placeholder="blur"
-                blurDataURL={selectedItem.image}
-                alt="image"
-                loading="eager"
-                width={100}
-                height={150}
-                objectFit="cover"
-                priority
-              />
+              {selectedItem.image && (
+                <Image
+                  className={classes.image}
+                  src={selectedItem.image}
+                  placeholder="blur"
+                  blurDataURL={selectedItem.image}
+                  alt="image"
+                  loading="eager"
+                  width={100}
+                  height={150}
+                  objectFit="cover"
+                  priority
+                />
+              )}
             </div>
             <p>{selectedItem.description}</p>
           </div>

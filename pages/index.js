@@ -35,7 +35,7 @@ export default function Home() {
       </div>
       <div className={classes.banners}>
         <div>دانشگاه</div>
-        <div>بازنشسته</div>
+        <div>انقلاب</div>
         <div>اسلامی</div>
         <div>فرهنگی</div>
         <div>تأسیس</div>

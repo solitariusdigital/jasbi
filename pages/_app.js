@@ -10,13 +10,13 @@ export default function App({ Component, pageProps }) {
     <StateProvider>
       <Layout>
         <DefaultSeo
-          title="عبدالله جاسبی"
+          title="دکتر عبدالله جاسبی"
           description="Biography"
           openGraph={{
             type: "website",
             locale: "fa_IR",
             url: "https://jasbi.com/",
-            siteName: "عبدالله جاسبی",
+            siteName: "دکتر عبدالله جاسبی",
           }}
         />
         <Component {...pageProps} />
