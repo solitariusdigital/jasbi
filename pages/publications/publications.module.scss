@@ -1,2 +1,94 @@
 @use "styles/_config.scss" as config;
 @use "styles/_mixins.scss" as mixins;
+
+.container {
+  position: relative;
+  margin: auto;
+  margin-top: 100px;
+  font-weight: 300;
+  width: config.$content-width;
+
+  @include mixins.mobile {
+    width: calc(100% - 24px);
+  }
+
+  @include mixins.tablet {
+    width: calc(100% - 24px);
+  }
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 12px;
+  direction: rtl;
+
+  @include mixins.mobile {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+
+  @include mixins.tablet {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  }
+
+  .item {
+    padding: 12px;
+    background: config.$white;
+    border: 1px solid config.$lightgrey;
+    @include mixins.border-radius();
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+
+  .image {
+    @include mixins.border-radius();
+  }
+
+  p {
+    margin: 4px 0px;
+    font-size: config.$tiny-font;
+  }
+
+  div {
+    margin-right: 20px;
+  }
+}
+
+.preview {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding: 12px;
+  height: 100%;
+  text-align: right;
+  background: config.$white;
+  border: 1px solid config.$lightgrey;
+  @include mixins.border-radius();
+
+  .details {
+    width: 50%;
+    margin: auto;
+
+    .row {
+      justify-content: center;
+    }
+
+    @include mixins.mobile {
+      width: 100%;
+    }
+
+    @include mixins.tablet {
+      width: 100%;
+    }
+  }
+}

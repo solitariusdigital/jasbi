@@ -25,6 +25,14 @@ h1 {
   font-weight: 300;
 }
 
+.icon {
+  @include mixins.desktop {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .main {
   min-height: 100vh;
   margin-top: 50px;
