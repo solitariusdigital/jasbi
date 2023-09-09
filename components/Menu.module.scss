@@ -29,6 +29,7 @@
 .largeMenu {
   width: 100%;
   @include mixins.row-space-between-center();
+  flex-direction: row-reverse;
 
   @include mixins.mobile {
     display: none;
@@ -50,7 +51,7 @@
 }
 
 .nav {
-  border-bottom: 1px solid config.$background;
+  border-bottom: 1px solid config.$brand;
   font-weight: bold !important;
 
   @include mixins.desktop {
@@ -96,6 +97,7 @@
     padding: 12px;
     height: 50px;
     @include mixins.row-space-between-center();
+    flex-direction: row-reverse;
   }
 
   .menuMobile {

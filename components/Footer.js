@@ -9,6 +9,12 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.container}>
+        <button
+          className={classes.register}
+          onClick={() => Router.push("/register")}
+        >
+          ورود ​/ ثبت نام
+        </button>
         <div className={classes.information}>
           <div className={classes.row}>
             <LocationOnOutlinedIcon />

@@ -6,6 +6,10 @@
   width: config.$content-width;
   margin: auto;
 
+  @include mixins.desktop {
+    width: 60%;
+  }
+
   @include mixins.mobile {
     width: calc(100% - 24px);
   }
@@ -13,17 +17,37 @@
   @include mixins.tablet {
     width: calc(100% - 24px);
   }
+
+  .icon {
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+        color: config.$action;
+      }
+    }
+  }
+
+  .timeline::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .timeline {
-  @include mixins.row-space-between-center();
   overflow: auto;
   scroll-snap-type: x mandatory;
   height: 70px;
   padding: 0px 12px;
   margin: 0px 12px;
   border: 1px solid config.$lightgrey;
+  font-weight: 300;
+  box-shadow: config.$inset-box-shadow;
+  @include mixins.transparentBackground(0.03, config.$action);
   @include mixins.border-radius();
+  @include mixins.row-space-between-center();
+
+  @include mixins.mobile {
+    margin: 0px 4px;
+  }
 
   .section,
   .active {
@@ -31,21 +55,22 @@
     align-items: center;
     justify-content: center;
     height: 50px;
-    min-width: 70px;
+    min-width: 50px;
     margin: 0px 8px;
+    border-radius: 50%;
 
     @include mixins.desktop {
       &:hover {
         cursor: pointer;
-        background: config.$brand;
-        @include mixins.border-radius();
+        background: config.$action;
+        color: config.$white;
       }
     }
   }
 
   .active {
-    background: config.$brand;
-    @include mixins.border-radius();
+    background: config.$action;
+    color: config.$white;
   }
 }
 
@@ -57,6 +82,10 @@
   background: config.$white;
   border: 1px solid config.$lightgrey;
   @include mixins.border-radius();
+
+  @include mixins.desktop {
+    width: 60%;
+  }
 
   @include mixins.mobile {
     width: calc(100% - 24px);

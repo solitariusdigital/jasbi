@@ -6,8 +6,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 export default function Timeline() {
   const [displayDetails, setDisplayDetails] = useState(false);
   const [details, setDetails] = useState("");
-
-  const timeline = [
+  const [timeline, setTimeline] = useState([
     {
       year: "1360",
       desc: "دانشگاه",
@@ -16,6 +15,31 @@ export default function Timeline() {
     {
       year: "1360",
       desc: "بازنشسته",
+      active: false,
+    },
+    {
+      year: "1360",
+      desc: "اسلامی",
+      active: false,
+    },
+    {
+      year: "1360",
+      desc: "تأسیس",
+      active: false,
+    },
+    {
+      year: "1360",
+      desc: "فرهنگی",
+      active: false,
+    },
+    {
+      year: "1360",
+      desc: "جمهوری",
+      active: false,
+    },
+    {
+      year: "1360",
+      desc: "سیاستمدار",
       active: false,
     },
     {
@@ -83,10 +107,9 @@ export default function Timeline() {
       desc: "رویدادهای",
       active: false,
     },
-  ];
+  ]);
 
   const selectYear = (index) => {
-    setDisplayDetails(false);
     timeline.map((item, i) => {
       if (index === i) {
         item.active = true;
@@ -95,16 +118,24 @@ export default function Timeline() {
         item.active = false;
       }
     });
-    setTimeout(() => {
-      setDisplayDetails(true);
-    }, 200);
+    setDisplayDetails(true);
+  };
+
+  const scrollRight = () => {
+    document.getElementById("timeline").scrollLeft += 20;
+  };
+  const scrollLeft = () => {
+    document.getElementById("timeline").scrollLeft -= 20;
   };
 
   return (
     <Fragment>
       <div className={classes.container}>
-        <ArrowBackIosIcon sx={{ color: "#d6d6d6" }} />
-        <div className={classes.timeline}>
+        <ArrowBackIosIcon
+          className={classes.icon}
+          onClick={() => scrollLeft()}
+        />
+        <div className={classes.timeline} id="timeline">
           {timeline
             .map((item, index) => (
               <div
@@ -117,7 +148,10 @@ export default function Timeline() {
             ))
             .reverse()}
         </div>
-        <ArrowForwardIosIcon sx={{ color: "#d6d6d6" }} />
+        <ArrowForwardIosIcon
+          className={classes.icon}
+          onClick={() => scrollRight()}
+        />
       </div>
       {displayDetails && (
         <div className={`${classes.details} animate__animated animate__zoomIn`}>

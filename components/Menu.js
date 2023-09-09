@@ -27,15 +27,6 @@ export default function Menu() {
   return (
     <div className={classes.container}>
       <div className={classes.largeMenu}>
-        <Image
-          className={classes.logo}
-          width={50}
-          height={50}
-          src={logo}
-          alt="logo"
-          onClick={() => window.location.assign("/")}
-          priority
-        />
         <div className={classes.largeNavigation}>
           {navigationTopBar
             .map((nav, index) => (
@@ -53,15 +44,6 @@ export default function Menu() {
       </div>
       <div className={classes.smallMenu}>
         <div className={classes.topBar}>
-          <Image
-            className={classes.logo}
-            width={50}
-            height={50}
-            src={logo}
-            alt="logo"
-            onClick={() => window.location.assign("/")}
-            priority
-          />
           {menuMobile ? (
             <CloseIcon
               className={classes.menuIcon}

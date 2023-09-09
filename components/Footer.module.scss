@@ -12,6 +12,11 @@
   height: 100%;
   min-height: 250px;
 
+  button {
+    @include mixins.button(config.$action, config.$background, 150px);
+    margin-bottom: 20px;
+  }
+
   .container {
     display: flex;
     align-items: center;

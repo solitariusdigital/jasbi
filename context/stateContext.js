@@ -9,23 +9,23 @@ export const StateProvider = (props) => {
   const [menuMobile, setMenuMobile] = useState(false);
   const [navigationTopBar, setNavigationTopBar] = useState([
     {
-      title: "بل کلاس",
+      title: "صفحه اصلی",
       link: "/",
       active: false,
     },
     {
-      title: "پرتال",
+      title: "پژوهشی و علمی",
       link: "/portal",
       active: false,
     },
     {
-      title: "پزشکان",
+      title: "سیاسی و اجرایی",
       link: "/doctors",
       active: false,
     },
     {
-      title: "خدمات کلینیک",
-      link: "/expertises",
+      title: "انتشارات",
+      link: "/doctors",
       active: false,
     },
   ]);

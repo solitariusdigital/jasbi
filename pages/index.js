@@ -24,6 +24,10 @@ export default function Home() {
           loading="eager"
         />
       </div>
+      <div className={classes.information}>
+        <div>زندگینامه</div>
+        <div>رزومه</div>
+      </div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
         <p>رویدادهای مهم و ماندگار</p>

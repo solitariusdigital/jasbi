@@ -25,16 +25,15 @@
   width: config.$content-width;
 
   @include mixins.mobile {
-    padding: 0px 12px;
-    width: 100%;
+    width: calc(100% - 24px);
   }
   @include mixins.tablet {
-    padding: 0px 12px;
-    width: 100%;
+    width: calc(100% - 24px);
   }
 }
 
-.banners {
+.banners,
+.information {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 12px;
@@ -45,14 +44,12 @@
 
   @include mixins.mobile {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    padding: 0px 12px;
-    width: 100%;
+    width: calc(100% - 24px);
   }
 
   @include mixins.tablet {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-    padding: 0px 12px;
-    width: 100%;
+    width: calc(100% - 24px);
   }
 
   div {
@@ -67,6 +64,20 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.information {
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+
+  @include mixins.mobile {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    width: calc(100% - 24px);
+  }
+
+  @include mixins.tablet {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    width: calc(100% - 24px);
   }
 }
 
