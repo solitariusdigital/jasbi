@@ -15,17 +15,17 @@ export const StateProvider = (props) => {
     },
     {
       title: "پژوهشی و علمی",
-      link: "/portal",
+      link: "/academic",
       active: false,
     },
     {
       title: "سیاسی و اجرایی",
-      link: "/doctors",
+      link: "/politics",
       active: false,
     },
     {
       title: "انتشارات",
-      link: "/doctors",
+      link: "/publications",
       active: false,
     },
   ]);
