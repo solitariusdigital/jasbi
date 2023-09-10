@@ -98,7 +98,7 @@
   width: config.$content-width;
 
   @include mixins.mobile {
-    width: 100%;
+    width: calc(100% - 24px);
   }
 
   button {

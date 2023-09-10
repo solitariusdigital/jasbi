@@ -5,7 +5,7 @@ import Image from "next/legacy/image";
 import background from "@/assets/background.jpg";
 import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
-import Form from "@/components/Form";
+import SendForm from "@/components/SendForm";
 
 export default function Home() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
@@ -58,7 +58,7 @@ export default function Home() {
           </Fragment>
         )}
         {displayRegister && !currentUser && <Register />}
-        {displayRegister && currentUser && <Form />}
+        {displayRegister && currentUser && <SendForm />}
       </div>
     </>
   );

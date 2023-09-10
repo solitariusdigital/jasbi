@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import { StateContext } from "@/context/stateContext";
-import classes from "./Register.module.scss";
+import classes from "./Form.module.scss";
 import { fourGenerator } from "@/services/utility";
 import CloseIcon from "@mui/icons-material/Close";
 import secureLocalStorage from "react-secure-storage";

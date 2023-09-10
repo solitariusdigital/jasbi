@@ -1,2 +1,117 @@
 @use "styles/_config.scss" as config;
 @use "styles/_mixins.scss" as mixins;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 500px;
+  font-weight: 300;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
+
+  .title {
+    text-align: center;
+    font-size: config.$big-font;
+    font-weight: bold;
+  }
+
+  button {
+    @include mixins.button(config.$action, config.$white);
+    margin: auto;
+  }
+}
+
+.formAction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px 0px;
+}
+
+.input {
+  margin: 12px 0;
+
+  .bar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .label {
+    color: config.$grey;
+    font-size: config.$small-font;
+    margin-bottom: 4px;
+
+    span {
+      color: config.$red;
+      font-size: config.$tiny-font;
+    }
+  }
+
+  input {
+    @include mixins.input();
+    width: 100%;
+  }
+
+  select {
+    @include mixins.input();
+    height: 50px;
+    width: 100%;
+  }
+
+  textarea {
+    @include mixins.textarea();
+  }
+
+  p {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.imagePreview {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  @include mixins.border-radius();
+}
+
+// input file
+label.file input[type="file"] {
+  position: absolute;
+  top: -1000px;
+}
+.file {
+  cursor: pointer;
+  border: 1px solid config.$grey;
+  padding: 8px;
+  color: config.$grey;
+  display: inline-block;
+  width: 100%;
+  @include mixins.border-radius();
+}
+.file:hover {
+  color: config.$black;
+  border: 1px solid config.$black;
+}
+
+.activationContainer {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0px;
+
+  .activationCode {
+    display: flex;
+    flex-direction: row-reverse;
+
+    p {
+      margin: 0px 4px;
+      height: 35px;
+    }
+  }
+}

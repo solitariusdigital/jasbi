@@ -1,9 +1,9 @@
 import { useState, useContext, useRef, Fragment, useEffect } from "react";
-import classes from "./Register.module.scss";
+import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import { toFarsiNumber, onlyLettersAndNumbers } from "@/services/utility";
 
-export default function Form() {
+export default function SendForm() {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [comment, setComment] = useState("");
@@ -68,7 +68,7 @@ export default function Form() {
           />
         </div>
         <input
-          placeholder={toFarsiNumber(1360)}
+          placeholder="۱۳۷۰"
           type="tel"
           id="year"
           name="year"

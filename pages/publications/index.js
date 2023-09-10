@@ -2,11 +2,13 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./publications.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
+import PublicationsForm from "@/components/PublicationsForm";
 
 export default function Publications() {
   const [type, setType] = useState("book" || "article");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
 
   const [items, setItems] = useState([
     {
@@ -67,64 +69,78 @@ export default function Publications() {
 
   return (
     <div className={classes.container}>
-      <div className={classes.navigation}>
-        <p
-          className={type === "book" ? classes.nav : classes.navActive}
-          onClick={() => setType("article")}
-        >
-          مقالات
-        </p>
-        <p
-          className={type === "article" ? classes.nav : classes.navActive}
-          onClick={() => setType("book")}
-        >
-          کتاب ها
-        </p>
+      {!displayForm && (
+        <div className={classes.navigation}>
+          <p
+            className={type === "book" ? classes.nav : classes.navActive}
+            onClick={() => setType("article")}
+          >
+            مقالات
+          </p>
+          <p
+            className={type === "article" ? classes.nav : classes.navActive}
+            onClick={() => setType("book")}
+          >
+            کتاب
+          </p>
+        </div>
+      )}
+      <div className={classes.button}>
+        <button onClick={() => setDisplayForm(!displayForm)}>
+          {!displayForm ? "بارگذاری" : "برگشت"}
+        </button>
       </div>
-      <div className={classes.list}>
-        {items
-          .filter((item) => item.type === type)
-          .map((item, index) => (
-            <div
-              className={classes.item}
-              key={index}
-              onClick={() => {
-                setSelectedItem(item);
-                setDisplayDetails(true);
-                window.scrollTo(0, 0);
-              }}
-            >
-              <div className={classes.row}>
-                {item.image && (
-                  <Image
-                    className={classes.image}
-                    src={item.image}
-                    placeholder="blur"
-                    blurDataURL={item.image}
-                    alt="image"
-                    loading="eager"
-                    width={100}
-                    height={150}
-                    objectFit="cover"
-                    priority
-                  />
-                )}
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>نویسنده {item.author}</p>
-                  {item.author !== "دکتر عبدالله جاسبی" && (
-                    <p>زیر نظز دکتر عبدالله جاسبی</p>
+      {displayForm && (
+        <div className={classes.form}>
+          <PublicationsForm />
+        </div>
+      )}
+      {!displayForm && (
+        <div className={classes.list}>
+          {items
+            .filter((item) => item.type === type)
+            .map((item, index) => (
+              <div
+                className={classes.item}
+                key={index}
+                onClick={() => {
+                  setSelectedItem(item);
+                  setDisplayDetails(true);
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <div className={classes.row}>
+                  {item.image && (
+                    <Image
+                      className={classes.image}
+                      src={item.image}
+                      placeholder="blur"
+                      blurDataURL={item.image}
+                      alt="image"
+                      loading="eager"
+                      width={100}
+                      height={150}
+                      objectFit="cover"
+                      priority
+                    />
                   )}
-                  <p>چاپ {item.publication}</p>
-                  <p>شابک {item.shabak}</p>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>گردآورنده {item.author}</p>
+                    {item.author !== "دکتر عبدالله جاسبی" && (
+                      <p>زیر نظز دکتر عبدالله جاسبی</p>
+                    )}
+                    <p>چاپ {item.publication}</p>
+                    <p>شابک {item.shabak}</p>
+                  </div>
                 </div>
+                <p>
+                  {item.description.slice(0, 110)} ... <span>بیشتر</span>
+                </p>
               </div>
-              <p>
-                {item.description.slice(0, 110)} ... <span>بیشتر</span>
-              </p>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
       {displayDetails && (
         <div
           className={`${classes.preview} animate__animated animate__slideInDown`}
@@ -137,7 +153,7 @@ export default function Publications() {
             <div className={classes.row}>
               <div>
                 <h3>{selectedItem.title}</h3>
-                <p>نویسنده {selectedItem.author}</p>
+                <p>گردآورنده {selectedItem.author}</p>
                 {selectedItem.author !== "دکتر عبدالله جاسبی" && (
                   <p>زیر نظز دکتر عبدالله جاسبی</p>
                 )}
