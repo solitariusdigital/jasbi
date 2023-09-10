@@ -1,5 +1,5 @@
 import { useState, useContext, useRef, Fragment, useEffect } from "react";
-import classes from "./publications.module.scss";
+import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PublicationsForm from "@/components/PublicationsForm";
