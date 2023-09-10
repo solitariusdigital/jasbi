@@ -45,7 +45,6 @@ export default function PublicationsForm() {
           />
         </div>
         <input
-          placeholder="دانشگاه آزاد"
           type="text"
           id="title"
           name="title"

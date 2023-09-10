@@ -126,12 +126,12 @@ export default function Publications() {
                   )}
                   <div>
                     <h3>{item.title}</h3>
-                    <p>گردآورنده {item.author}</p>
+                    <p>گردآورنده : {item.author}</p>
                     {item.author !== "دکتر عبدالله جاسبی" && (
-                      <p>زیر نظز دکتر عبدالله جاسبی</p>
+                      <p>زیر نظز : دکتر عبدالله جاسبی</p>
                     )}
-                    <p>چاپ {item.publication}</p>
-                    <p>شابک {item.shabak}</p>
+                    <p>چاپ : {item.publication} </p>
+                    <p>شابک : {item.shabak}</p>
                   </div>
                 </div>
                 <p>
@@ -153,12 +153,12 @@ export default function Publications() {
             <div className={classes.row}>
               <div>
                 <h3>{selectedItem.title}</h3>
-                <p>گردآورنده {selectedItem.author}</p>
+                <p>گردآورنده : {selectedItem.author}</p>
                 {selectedItem.author !== "دکتر عبدالله جاسبی" && (
-                  <p>زیر نظز دکتر عبدالله جاسبی</p>
+                  <p>زیر نظز : دکتر عبدالله جاسبی</p>
                 )}
-                <p>چاپ {selectedItem.publication}</p>
-                <p>شابک {selectedItem.shabak}</p>
+                <p>چاپ : {selectedItem.publication}</p>
+                <p>شابک : {selectedItem.shabak}</p>
               </div>
               {selectedItem.image && (
                 <Image
