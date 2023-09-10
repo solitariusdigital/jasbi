@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import { StateContext } from "@/context/stateContext";
-import classes from "./register.module.scss";
+import classes from "./Register.module.scss";
 import { fourGenerator } from "@/services/utility";
 import CloseIcon from "@mui/icons-material/Close";
 import secureLocalStorage from "react-secure-storage";
@@ -46,6 +46,7 @@ export default function Register() {
   };
 
   const verifyPhone = () => {
+    setCurrentUser(true);
     if (phone.length === 0) {
       showAlert("موبایل خالی");
       return;
@@ -130,7 +131,10 @@ export default function Register() {
   return (
     <Fragment>
       <div className={classes.form}>
-        <p className={classes.title}>ارتباط با دکتر جاسبی ​</p>
+        <p className={classes.title}>عضویت</p>
+        <p className="message">
+          ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
+        </p>
         <div className={classes.input}>
           <div className={classes.bar}>
             <p className={classes.label}>
@@ -192,7 +196,7 @@ export default function Register() {
           <p className="alert">{alert}</p>
           <p className="alert">{token}</p>
           {checkToken.length === 4 && (
-            <button onClick={() => handleRegister()}>ورود / ​ثبت نام</button>
+            <button onClick={() => handleRegister()}>ورود</button>
           )}
         </div>
       </div>

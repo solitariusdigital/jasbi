@@ -58,3 +58,7 @@ export function toFarsiNumber(number) {
     .map((x) => farsiDigits[x])
     .join("");
 }
+
+export function onlyLettersAndNumbers(str) {
+  return Boolean(str.match(/^[A-Za-z0-9]*$/));
+}

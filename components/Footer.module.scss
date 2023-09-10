@@ -13,7 +13,7 @@
   min-height: 250px;
 
   button {
-    @include mixins.button(config.$action, config.$background, 150px);
+    @include mixins.button(config.$action, config.$background);
     margin-bottom: 20px;
   }
 

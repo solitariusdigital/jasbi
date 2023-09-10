@@ -2,6 +2,7 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Timeline.module.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { toFarsiNumber } from "@/services/utility";
 
 export default function Timeline() {
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -98,7 +99,7 @@ export default function Timeline() {
       active: false,
     },
     {
-      year: "1360",
+      year: "۱۳۶۰",
       desc: "سیاستمدار",
       active: false,
     },

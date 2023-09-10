@@ -90,3 +90,18 @@
     font-weight: 300;
   }
 }
+
+.register {
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  width: config.$content-width;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
+
+  button {
+    @include mixins.button(config.$action, config.$background);
+  }
+}

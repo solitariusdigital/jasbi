@@ -27,8 +27,8 @@ $screen-large: 2000px;
   align-items: center;
 }
 
-@mixin button($color, $subColor, $size) {
-  width: $size;
+@mixin button($color, $subColor) {
+  width: 150px;
   height: 40px;
   border-radius: 12px;
   font-weight: bold;
@@ -61,6 +61,26 @@ $screen-large: 2000px;
     outline: none;
     background: transparent;
     border: 1px solid config.$action;
+  }
+}
+
+@mixin textarea() {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  padding: 12px;
+  outline: none;
+  border-radius: 12px;
+  font-weight: 300;
+  background: config.$background;
+  color: config.$black;
+  font-size: config.$small-font;
+  border: 1px solid config.$grey;
+
+  &:focus {
+    outline: none;
+    background: transparent;
+    border: 1px solid config.$black;
   }
 }
 

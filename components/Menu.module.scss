@@ -127,7 +127,7 @@
       flex-direction: column;
 
       button {
-        @include mixins.button(config.$black, config.$black, config.$brand);
+        @include mixins.button(config.$black, config.$black);
         margin: 12px 0px;
 
         @include mixins.desktop {

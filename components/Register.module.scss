@@ -7,7 +7,6 @@
   margin: auto;
   width: 500px;
   font-weight: 300;
-  margin-top: 100px;
 
   @include mixins.mobile {
     width: calc(100% - 24px);
@@ -16,12 +15,12 @@
   .title {
     text-align: center;
     font-size: config.$big-font;
-    margin-bottom: 12px;
     font-weight: bold;
   }
 
   button {
-    @include mixins.button(config.$action, config.$white, 150px);
+    @include mixins.button(config.$action, config.$white);
+    margin: auto;
   }
 }
 
@@ -55,6 +54,16 @@
   input {
     @include mixins.input();
     width: 100%;
+  }
+
+  select {
+    @include mixins.input();
+    height: 50px;
+    width: 100%;
+  }
+
+  textarea {
+    @include mixins.textarea();
   }
 
   p {

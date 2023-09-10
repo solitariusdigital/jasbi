@@ -4,12 +4,16 @@ import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import background from "@/assets/background.jpg";
 import Timeline from "@/components/Timeline";
+import Register from "@/components/Register";
+import Form from "@/components/Form";
 
 export default function Home() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
+  const { currentUser, setCurrentUser } = useContext(StateContext);
+  const [displayRegister, setDisplayRegister] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <div className={classes.heroHeader}>
         <div className={classes.intro}>
           <h1>دکتر جاسبی</h1>
@@ -42,6 +46,20 @@ export default function Home() {
         <div>جمهوری</div>
         <div>سیاستمدار</div>
       </div>
-    </Fragment>
+      <div className={classes.register}>
+        {!displayRegister && (
+          <Fragment>
+            <button onClick={() => setDisplayRegister(true)}>
+              ارتباط با دکتر جاسبی ​
+            </button>
+            <p className="message">
+              ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
+            </p>
+          </Fragment>
+        )}
+        {displayRegister && !currentUser && <Register />}
+        {displayRegister && currentUser && <Form />}
+      </div>
+    </>
   );
 }
