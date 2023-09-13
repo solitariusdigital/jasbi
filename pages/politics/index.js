@@ -3,6 +3,8 @@ import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PoliticsForm from "@/components/PoliticsForm";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
 export default function Politics() {
   const [type, setType] = useState("بعد" || "قبل");
@@ -28,8 +30,15 @@ export default function Politics() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       category: "بعد",
       period: "تاسیس دانشگاه آزاد اسلامی",
+      image:
+        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
     },
   ]);
+
+  const action = async (id, type) => {
+    const message = `${type === "confirm" ? "تأیید مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const confirm = window.confirm(message);
+  };
 
   return (
     <div className={classes.container}>
@@ -64,15 +73,11 @@ export default function Politics() {
           {activities
             .filter((item) => item.category === type)
             .map((item, index) => (
-              <div
-                className={classes.item}
-                key={index}
-                onClick={() => {
-                  setSelectedItem(item);
-                  setDisplayDetails(true);
-                  window.scrollTo(0, 0);
-                }}
-              >
+              <div className={classes.item} key={index}>
+                <VerifiedIcon
+                  className={classes.verified}
+                  sx={{ color: "#57a361" }}
+                />
                 <div className={classes.row}>
                   {item.image && (
                     <Image
@@ -86,6 +91,11 @@ export default function Politics() {
                       height={150}
                       objectFit="cover"
                       priority
+                      onClick={() => {
+                        setSelectedItem(item);
+                        setDisplayDetails(true);
+                        window.scrollTo(0, 0);
+                      }}
                     />
                   )}
                   <div>
@@ -96,8 +106,29 @@ export default function Politics() {
                   </div>
                 </div>
                 <p>
-                  {item.description.slice(0, 110)} ... <span>بیشتر</span>
+                  {item.description.slice(0, 110)} ...{" "}
+                  <span
+                    onClick={() => {
+                      setSelectedItem(item);
+                      setDisplayDetails(true);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    بیشتر
+                  </span>
                 </p>
+                <div className={classes.action}>
+                  <TaskAltIcon
+                    className={classes.icon}
+                    sx={{ color: "#57a361" }}
+                    onClick={() => action(item["_id"], "confirm")}
+                  />
+                  <CloseIcon
+                    className={classes.icon}
+                    sx={{ color: "#cd3d2c" }}
+                    onClick={() => action(item["_id"], "cancel")}
+                  />
+                </div>
               </div>
             ))}
         </div>

@@ -8,8 +8,10 @@ export default function SendForm() {
   const [year, setYear] = useState("");
   const [comment, setComment] = useState("");
   const [category, setCategory] = useState("");
+  const [period, setPeriod] = useState("");
 
   const categories = ["سیاسی و اجرایی", "پژوهشی و علمی"];
+  const categoriesPeriod = ["قبل", "بعد"];
   const [alert, setAlert] = useState("");
 
   const showAlert = (message) => {
@@ -26,6 +28,12 @@ export default function SendForm() {
     if (!title || !year || !comment || !category) {
       showAlert("همه موارد الزامیست");
       return;
+    }
+    if (category === "سیاسی و اجرایی") {
+      if (!period) {
+        showAlert("همه موارد الزامیست");
+        return;
+      }
     }
   };
 
@@ -95,6 +103,31 @@ export default function SendForm() {
           })}
         </select>
       </div>
+      {category === "سیاسی و اجرایی" && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              دوره انقلاب
+              <span>*</span>
+            </p>
+          </div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setPeriod(e.target.value)}
+          >
+            <option value="default" disabled>
+              انتخاب
+            </option>
+            {categoriesPeriod.map((category, index) => {
+              return (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
       <div className={classes.input}>
         <p className={classes.label}>
           توضیحات

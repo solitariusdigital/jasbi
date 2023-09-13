@@ -3,6 +3,8 @@ import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PublicationsForm from "@/components/PublicationsForm";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
 export default function Publications() {
   const [type, setType] = useState("book" || "article");
@@ -67,6 +69,11 @@ export default function Publications() {
     },
   ]);
 
+  const action = async (id, type) => {
+    const message = `${type === "confirm" ? "تأیید مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const confirm = window.confirm(message);
+  };
+
   return (
     <div className={classes.container}>
       {!displayForm && (
@@ -100,15 +107,11 @@ export default function Publications() {
           {items
             .filter((item) => item.type === type)
             .map((item, index) => (
-              <div
-                className={classes.item}
-                key={index}
-                onClick={() => {
-                  setSelectedItem(item);
-                  setDisplayDetails(true);
-                  window.scrollTo(0, 0);
-                }}
-              >
+              <div className={classes.item} key={index}>
+                <VerifiedIcon
+                  className={classes.verified}
+                  sx={{ color: "#57a361" }}
+                />
                 <div className={classes.row}>
                   {item.image && (
                     <Image
@@ -122,6 +125,11 @@ export default function Publications() {
                       height={150}
                       objectFit="cover"
                       priority
+                      onClick={() => {
+                        setSelectedItem(item);
+                        setDisplayDetails(true);
+                        window.scrollTo(0, 0);
+                      }}
                     />
                   )}
                   <div>
@@ -135,8 +143,29 @@ export default function Publications() {
                   </div>
                 </div>
                 <p>
-                  {item.description.slice(0, 110)} ... <span>بیشتر</span>
+                  {item.description.slice(0, 110)} ...{" "}
+                  <span
+                    onClick={() => {
+                      setSelectedItem(item);
+                      setDisplayDetails(true);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    بیشتر
+                  </span>
                 </p>
+                <div className={classes.action}>
+                  <TaskAltIcon
+                    className={classes.icon}
+                    sx={{ color: "#57a361" }}
+                    onClick={() => action(item["_id"], "confirm")}
+                  />
+                  <CloseIcon
+                    className={classes.icon}
+                    sx={{ color: "#cd3d2c" }}
+                    onClick={() => action(item["_id"], "cancel")}
+                  />
+                </div>
               </div>
             ))}
         </div>
