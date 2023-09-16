@@ -11,6 +11,7 @@ export default function Publications() {
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
+  const [render, setRender] = useState(true);
 
   const [items, setItems] = useState([
     {
@@ -74,36 +75,50 @@ export default function Publications() {
     const confirm = window.confirm(message);
   };
 
+  const toggle = (type) => {
+    setType(type);
+    if (window.innerWidth > 1100) {
+      setRender(false);
+      setTimeout(() => {
+        setRender(true);
+      }, 0);
+    }
+  };
+
   return (
     <div className={classes.container}>
-      {!displayForm && (
-        <div className={classes.navigation}>
-          <p
-            className={type === "book" ? classes.nav : classes.navActive}
-            onClick={() => setType("article")}
-          >
-            مقالات
-          </p>
-          <p
-            className={type === "article" ? classes.nav : classes.navActive}
-            onClick={() => setType("book")}
-          >
-            کتاب
-          </p>
-        </div>
-      )}
       <div className={classes.button}>
         <button onClick={() => setDisplayForm(!displayForm)}>
           {!displayForm ? "بارگذاری" : "برگشت"}
         </button>
       </div>
+      {!displayForm && (
+        <div className={classes.navigationContainer}>
+          <div className={classes.navigation}>
+            <p
+              className={type === "book" ? classes.nav : classes.navActive}
+              onClick={() => toggle("article")}
+            >
+              مقالات
+            </p>
+            <p
+              className={type === "article" ? classes.nav : classes.navActive}
+              onClick={() => toggle("book")}
+            >
+              کتاب
+            </p>
+          </div>
+        </div>
+      )}
       {displayForm && (
         <div className={classes.form}>
           <PublicationsForm />
         </div>
       )}
-      {!displayForm && (
-        <div className={classes.list}>
+      {!displayForm && render && (
+        <div
+          className={`${classes.list} animate__animated animate__slideInRight`}
+        >
           {items
             .filter((item) => item.type === type)
             .map((item, index) => (

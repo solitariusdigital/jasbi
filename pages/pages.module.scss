@@ -135,22 +135,27 @@
   }
 }
 
-.navigation {
-  height: 40px;
-  width: 350px;
-  padding: 8px;
+.navigationContainer {
+  padding: 12px;
   margin: auto;
   margin-bottom: 20px;
-  background: config.$white;
-  box-shadow: config.$card-shadow;
-  border: 1px solid config.$action;
-  @include mixins.border-radius();
+  border-bottom: 1px solid config.$action;
   @include mixins.row-space-between-center();
   justify-content: space-around;
   user-select: none;
 
   @include mixins.mobile {
     width: 100%;
+  }
+
+  .navigation {
+    width: 350px;
+    @include mixins.row-space-between-center();
+
+    @include mixins.mobile {
+      width: 100%;
+      justify-content: space-around;
+    }
   }
 }
 

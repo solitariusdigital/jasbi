@@ -19,13 +19,13 @@ export const StateProvider = (props) => {
       active: false,
     },
     {
-      title: "سیاسی و اجرایی",
-      link: "/politics",
+      title: "انتشارات",
+      link: "/publications",
       active: false,
     },
     {
-      title: "انتشارات",
-      link: "/publications",
+      title: "سیاسی و اجرایی",
+      link: "/politics",
       active: false,
     },
   ]);

@@ -11,6 +11,7 @@ export default function Politics() {
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
+  const [render, setRender] = useState(true);
 
   const [activities, setActivities] = useState([
     {
@@ -40,36 +41,50 @@ export default function Politics() {
     const confirm = window.confirm(message);
   };
 
+  const toggle = (type) => {
+    setType(type);
+    if (window.innerWidth > 1100) {
+      setRender(false);
+      setTimeout(() => {
+        setRender(true);
+      }, 0);
+    }
+  };
+
   return (
     <div className={classes.container}>
-      {!displayForm && (
-        <div className={classes.navigation}>
-          <p
-            className={type === "بعد" ? classes.nav : classes.navActive}
-            onClick={() => setType("قبل")}
-          >
-            قبل انقلاب
-          </p>
-          <p
-            className={type === "قبل" ? classes.nav : classes.navActive}
-            onClick={() => setType("بعد")}
-          >
-            بعد انقلاب
-          </p>
-        </div>
-      )}
       <div className={classes.button}>
         <button onClick={() => setDisplayForm(!displayForm)}>
           {!displayForm ? "بارگذاری" : "برگشت"}
         </button>
       </div>
+      {!displayForm && (
+        <div className={classes.navigationContainer}>
+          <div className={classes.navigation}>
+            <p
+              className={type === "بعد" ? classes.nav : classes.navActive}
+              onClick={() => toggle("قبل")}
+            >
+              قبل انقلاب
+            </p>
+            <p
+              className={type === "قبل" ? classes.nav : classes.navActive}
+              onClick={() => toggle("بعد")}
+            >
+              بعد انقلاب
+            </p>
+          </div>
+        </div>
+      )}
       {displayForm && (
         <div className={classes.form}>
           <PoliticsForm />
         </div>
       )}
-      {!displayForm && (
-        <div className={classes.list}>
+      {!displayForm && render && (
+        <div
+          className={`${classes.list} animate__animated animate__slideInRight`}
+        >
           {activities
             .filter((item) => item.category === type)
             .map((item, index) => (

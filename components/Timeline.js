@@ -10,102 +10,102 @@ export default function Timeline() {
   const [timeline, setTimeline] = useState([
     {
       year: "1360",
-      desc: "دانشگاه",
+      title: "دانشگاه",
       active: false,
     },
     {
       year: "1360",
-      desc: "بازنشسته",
+      title: "بازنشسته",
       active: false,
     },
     {
       year: "1360",
-      desc: "اسلامی",
+      title: "اسلامی",
       active: false,
     },
     {
       year: "1360",
-      desc: "تأسیس",
+      title: "تأسیس",
       active: false,
     },
     {
       year: "1360",
-      desc: "فرهنگی",
+      title: "فرهنگی",
       active: false,
     },
     {
       year: "1360",
-      desc: "جمهوری",
+      title: "جمهوری",
       active: false,
     },
     {
       year: "1360",
-      desc: "سیاستمدار",
+      title: "سیاستمدار",
       active: false,
     },
     {
       year: "1360",
-      desc: "اسلامی",
+      title: "اسلامی",
       active: false,
     },
     {
       year: "1360",
-      desc: "تأسیس",
+      title: "تأسیس",
       active: false,
     },
     {
       year: "1360",
-      desc: "فرهنگی",
+      title: "فرهنگی",
       active: false,
     },
     {
       year: "1360",
-      desc: "جمهوری",
+      title: "جمهوری",
       active: false,
     },
     {
       year: "1360",
-      desc: "سیاستمدار",
+      title: "سیاستمدار",
       active: false,
     },
     {
       year: "1360",
-      desc: "دانشگاه",
+      title: "دانشگاه",
       active: false,
     },
     {
       year: "1360",
-      desc: "بازنشسته",
+      title: "بازنشسته",
       active: false,
     },
     {
       year: "1360",
-      desc: "اسلامی",
+      title: "اسلامی",
       active: false,
     },
     {
       year: "1360",
-      desc: "تأسیس",
+      title: "تأسیس",
       active: false,
     },
     {
       year: "1360",
-      desc: "فرهنگی",
+      title: "فرهنگی",
       active: false,
     },
     {
       year: "1360",
-      desc: "جمهوری",
+      title: "جمهوری",
       active: false,
     },
     {
       year: "۱۳۶۰",
-      desc: "سیاستمدار",
+      title: "سیاستمدار",
       active: false,
     },
     {
       year: "1402",
-      desc: "رویدادهای",
+      title: "رویدادهای",
       active: false,
     },
   ]);
@@ -157,7 +157,7 @@ export default function Timeline() {
       {displayDetails && (
         <div className={`${classes.details} animate__animated animate__zoomIn`}>
           <h3>{details.year}</h3>
-          <p>{details.desc}</p>
+          <p>{details.title}</p>
         </div>
       )}
     </Fragment>
