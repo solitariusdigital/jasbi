@@ -36,7 +36,7 @@ export default function Politics() {
   ]);
 
   const action = async (id, type) => {
-    const message = `${type === "confirm" ? "تأیید مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const message = `${type === "confirm" ? "انتشار مطمئنی؟" : "حذف مطمئنی؟"}`;
     const confirm = window.confirm(message);
   };
 

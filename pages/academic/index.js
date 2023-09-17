@@ -37,6 +37,11 @@ export default function Academic() {
     },
   ]);
 
+  const action = async (id, type) => {
+    const message = `${type === "confirm" ? "انتشار مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const confirm = window.confirm(message);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.button}>
