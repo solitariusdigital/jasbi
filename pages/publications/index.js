@@ -11,7 +11,6 @@ export default function Publications() {
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
-  const [render, setRender] = useState(true);
 
   const [items, setItems] = useState([
     {
@@ -75,16 +74,6 @@ export default function Publications() {
     const confirm = window.confirm(message);
   };
 
-  const toggle = (type) => {
-    setType(type);
-    if (window.innerWidth > 1100) {
-      setRender(false);
-      setTimeout(() => {
-        setRender(true);
-      }, 0);
-    }
-  };
-
   return (
     <div className={classes.container}>
       <div className={classes.button}>
@@ -96,14 +85,14 @@ export default function Publications() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "book" ? classes.nav : classes.navActive}
-              onClick={() => toggle("article")}
+              className={type === "article" ? classes.navActive : classes.nav}
+              onClick={() => setType("article")}
             >
               مقالات
             </p>
             <p
-              className={type === "article" ? classes.nav : classes.navActive}
-              onClick={() => toggle("book")}
+              className={type === "book" ? classes.navActive : classes.nav}
+              onClick={() => setType("book")}
             >
               کتاب
             </p>
@@ -115,9 +104,13 @@ export default function Publications() {
           <PublicationsForm />
         </div>
       )}
-      {!displayForm && render && (
+      {!displayForm && (
         <div
-          className={`${classes.list} animate__animated animate__slideInRight`}
+          className={`${classes.list} ${
+            window.innerWidth > 1100
+              ? "animate__animated animate__slideInRight"
+              : ""
+          }`}
         >
           {items
             .filter((item) => item.type === type)
@@ -158,7 +151,7 @@ export default function Publications() {
                   </div>
                 </div>
                 <p>
-                  {item.description.slice(0, 110)} ...{" "}
+                  {item.description.slice(0, 100)} ...{" "}
                   <span
                     onClick={() => {
                       setSelectedItem(item);

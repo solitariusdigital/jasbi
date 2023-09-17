@@ -87,12 +87,18 @@ export default function SendForm() {
         />
       </div>
       <div className={classes.input}>
+        <div className={classes.bar}>
+          <p className={classes.label}>
+            دسته بندی
+            <span>*</span>
+          </p>
+        </div>
         <select
           defaultValue={"default"}
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="default" disabled>
-            دسته بندی
+            انتخاب
           </option>
           {categories.map((category, index) => {
             return (

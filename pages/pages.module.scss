@@ -4,7 +4,7 @@
 .container {
   position: relative;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 70px;
   font-weight: 300;
   width: config.$content-width;
 
@@ -161,10 +161,13 @@
 
 .nav {
   font-weight: bold !important;
+  border-bottom: 1px solid config.$background;
 
   @include mixins.desktop {
     &:hover {
       cursor: pointer;
+      border-bottom: 1px solid config.$action;
+
       color: config.$action;
     }
   }
@@ -172,5 +175,7 @@
 
 .navActive {
   color: config.$action;
+  border-bottom: 1px solid config.$action;
+
   font-weight: bold !important;
 }

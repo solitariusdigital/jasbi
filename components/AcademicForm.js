@@ -3,16 +3,14 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 
-export default function PublicationsForm() {
+export default function AcademicForm() {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [shabak, setShabak] = useState("");
-  const [author, setAuthor] = useState("دکتر عبدالله جاسبی");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
 
-  const categories = ["مقالات", "کتاب"];
+  const categories = ["پروژه", "دستاور", "تدریس"];
   const [alert, setAlert] = useState("");
 
   const showAlert = (message) => {
@@ -23,7 +21,7 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = () => {
-    if (!title || !year || !description || !category || !shabak || !author) {
+    if (!title || !year || !description || !category) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -31,7 +29,7 @@ export default function PublicationsForm() {
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>انتشارات جدید</p>
+      <p className={classes.title}>پژوهشی و علمی جدید</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
@@ -57,29 +55,7 @@ export default function PublicationsForm() {
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
-            گردآورنده
-            <span>*</span>
-          </p>
-          <CloseIcon
-            className="icon"
-            onClick={() => setAuthor("")}
-            sx={{ fontSize: 16 }}
-          />
-        </div>
-        <input
-          type="text"
-          id="author"
-          name="author"
-          onChange={(e) => setAuthor(e.target.value)}
-          value={author}
-          autoComplete="off"
-          dir="rtl"
-        />
-      </div>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            چاپ
+            سال
             <span>*</span>
           </p>
           <CloseIcon
@@ -89,34 +65,12 @@ export default function PublicationsForm() {
           />
         </div>
         <input
-          placeholder="اول ۱۳۷۰"
+          placeholder="۱۳۷۰"
           type="tel"
           id="year"
           name="year"
           onChange={(e) => setYear(e.target.value)}
           value={year}
-          autoComplete="off"
-          dir="rtl"
-        />
-      </div>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            شابک
-            <span>*</span>
-          </p>
-          <CloseIcon
-            className="icon"
-            onClick={() => setShabak("")}
-            sx={{ fontSize: 16 }}
-          />
-        </div>
-        <input
-          type="tel"
-          id="shabak"
-          name="shabak"
-          onChange={(e) => setShabak(e.target.value)}
-          value={shabak}
           autoComplete="off"
           dir="rtl"
         />

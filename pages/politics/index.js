@@ -11,7 +11,6 @@ export default function Politics() {
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
-  const [render, setRender] = useState(true);
 
   const [activities, setActivities] = useState([
     {
@@ -41,16 +40,6 @@ export default function Politics() {
     const confirm = window.confirm(message);
   };
 
-  const toggle = (type) => {
-    setType(type);
-    if (window.innerWidth > 1100) {
-      setRender(false);
-      setTimeout(() => {
-        setRender(true);
-      }, 0);
-    }
-  };
-
   return (
     <div className={classes.container}>
       <div className={classes.button}>
@@ -62,14 +51,14 @@ export default function Politics() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "بعد" ? classes.nav : classes.navActive}
-              onClick={() => toggle("قبل")}
+              className={type === "قبل" ? classes.navActive : classes.nav}
+              onClick={() => setType("قبل")}
             >
               قبل انقلاب
             </p>
             <p
-              className={type === "قبل" ? classes.nav : classes.navActive}
-              onClick={() => toggle("بعد")}
+              className={type === "بعد" ? classes.navActive : classes.nav}
+              onClick={() => setType("بعد")}
             >
               بعد انقلاب
             </p>
@@ -81,9 +70,13 @@ export default function Politics() {
           <PoliticsForm />
         </div>
       )}
-      {!displayForm && render && (
+      {!displayForm && (
         <div
-          className={`${classes.list} animate__animated animate__slideInRight`}
+          className={`${classes.list} ${
+            window.innerWidth > 1100
+              ? "animate__animated animate__slideInRight"
+              : ""
+          }`}
         >
           {activities
             .filter((item) => item.category === type)
@@ -121,7 +114,7 @@ export default function Politics() {
                   </div>
                 </div>
                 <p>
-                  {item.description.slice(0, 110)} ...{" "}
+                  {item.description.slice(0, 100)} ...{" "}
                   <span
                     onClick={() => {
                       setSelectedItem(item);
