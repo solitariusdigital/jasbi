@@ -5,10 +5,10 @@ import Image from "next/legacy/image";
 
 export default function PublicationsForm() {
   const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [shabak, setShabak] = useState("");
   const [author, setAuthor] = useState("دکتر عبدالله جاسبی");
   const [description, setDescription] = useState("");
+  const [publication, setPublication] = useState("");
+  const [shabak, setShabak] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
 
@@ -23,7 +23,14 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = () => {
-    if (!title || !year || !description || !category || !shabak || !author) {
+    if (
+      !title ||
+      !publication ||
+      !description ||
+      !category ||
+      !shabak ||
+      !author
+    ) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -84,17 +91,17 @@ export default function PublicationsForm() {
           </p>
           <CloseIcon
             className="icon"
-            onClick={() => setYear("")}
+            onClick={() => setPublication("")}
             sx={{ fontSize: 16 }}
           />
         </div>
         <input
           placeholder="اول ۱۳۷۰"
           type="tel"
-          id="year"
-          name="year"
-          onChange={(e) => setYear(e.target.value)}
-          value={year}
+          id="publication"
+          name="publication"
+          onChange={(e) => setPublication(e.target.value)}
+          value={publication}
           autoComplete="off"
           dir="rtl"
         />

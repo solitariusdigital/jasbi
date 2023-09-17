@@ -3,12 +3,12 @@ import { Schema, model, models } from "mongoose";
 const PublicationsSchema = new Schema(
   {
     title: String,
-    image: String,
-    description: String,
     author: String,
-    type: String,
+    description: String,
     publication: String,
     shabak: String,
+    category: String,
+    image: String,
     confirm: Boolean,
     hide: Boolean,
   },
