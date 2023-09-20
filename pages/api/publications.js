@@ -1,7 +1,7 @@
 import Publication from "@/models/Publication";
 import dbConnect from "@/services/dbConnect";
 
-export default async function PublicationsHandler(req, res) {
+export default async function publicationsHandler(req, res) {
   res.setHeader("Cache-Control", "s-maxage=10");
   const { method, body } = req;
   await dbConnect();
