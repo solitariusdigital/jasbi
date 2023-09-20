@@ -11,6 +11,7 @@ export default function Register() {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { appUsers, setAppUsers } = useContext(StateContext);
 
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [token, setToken] = useState("");
   const [checkToken, setCheckToken] = useState("");
@@ -47,11 +48,14 @@ export default function Register() {
 
   const verifyPhone = () => {
     setCurrentUser(true);
+    if (!name) {
+      showAlert("نام الزامیست");
+      return;
+    }
     if (phone.length === 0) {
       showAlert("موبایل خالی");
       return;
     }
-
     if (phone.length === 11 && phone.slice(0, 2) === "09") {
       setDisplayCounter(true);
       let tokenId = fourGenerator();
@@ -107,9 +111,9 @@ export default function Register() {
   // create new user into db/state/localstorage
   const createUser = async () => {
     const user = {
-      name: "",
+      name: name,
       phone: phone.trim(),
-      permission: "patient",
+      permission: "user",
     };
     try {
       const userData = await createUserApi(user);
@@ -135,6 +139,28 @@ export default function Register() {
         <p className="message">
           ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
         </p>
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              نام
+              <span>*</span>
+            </p>
+            <CloseIcon
+              className="icon"
+              onClick={() => setName("")}
+              sx={{ fontSize: 16 }}
+            />
+          </div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            autoComplete="off"
+            dir="rtl"
+          />
+        </div>
         <div className={classes.input}>
           <div className={classes.bar}>
             <p className={classes.label}>

@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const PublicationsSchema = new Schema(
+const PublicationSchema = new Schema(
   {
     title: String,
     author: String,
@@ -15,6 +15,6 @@ const PublicationsSchema = new Schema(
   { timestamps: true }
 );
 
-const Publications =
-  models.Publications || model("Publications", PublicationsSchema);
-export default Publications;
+const Publication =
+  models.Publication || model("Publication", PublicationSchema);
+export default Publication;

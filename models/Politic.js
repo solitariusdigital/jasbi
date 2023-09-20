@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const PoliticsSchema = new Schema(
+const PoliticSchema = new Schema(
   {
     title: String,
     year: String,
@@ -15,5 +15,5 @@ const PoliticsSchema = new Schema(
   { timestamps: true }
 );
 
-const Politics = models.Politics || model("Politics", PoliticsSchema);
-export default Politics;
+const Politic = models.Politic || model("Politic", PoliticSchema);
+export default Politic;
