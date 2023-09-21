@@ -29,8 +29,15 @@ export default function Home() {
         />
       </div>
       <div className={classes.information}>
-        <div>زندگینامه</div>
-        <div>رزومه</div>
+        <div className={classes.card}>
+          <div className={classes.details}>دانشگاه</div>
+          <div className={classes.details}>انقلاب</div>
+          <div className={classes.details}>اسلامی</div>
+          <div className={classes.details}>فرهنگی</div>
+          <div className={classes.details}>تأسیس</div>
+          <div className={classes.details}>جمهوری</div>
+          <div className={classes.details}>سیاستمدار</div>
+        </div>
       </div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
@@ -38,13 +45,13 @@ export default function Home() {
         <Timeline />
       </div>
       <div className={classes.banners}>
-        <div>دانشگاه</div>
-        <div>انقلاب</div>
-        <div>اسلامی</div>
-        <div>فرهنگی</div>
-        <div>تأسیس</div>
-        <div>جمهوری</div>
-        <div>سیاستمدار</div>
+        <div className={classes.card}>دانشگاه</div>
+        <div className={classes.card}>انقلاب</div>
+        <div className={classes.card}>اسلامی</div>
+        <div className={classes.card}>فرهنگی</div>
+        <div className={classes.card}>تأسیس</div>
+        <div className={classes.card}>جمهوری</div>
+        <div className={classes.card}>سیاستمدار</div>
       </div>
       <div className={classes.register}>
         {!displayRegister && (

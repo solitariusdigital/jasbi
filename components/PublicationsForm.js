@@ -7,7 +7,7 @@ export default function PublicationsForm() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("دکتر عبدالله جاسبی");
   const [description, setDescription] = useState("");
-  const [publication, setPublication] = useState("");
+  const [year, setYear] = useState("");
   const [shabak, setShabak] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
@@ -23,14 +23,7 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = () => {
-    if (
-      !title ||
-      !publication ||
-      !description ||
-      !category ||
-      !shabak ||
-      !author
-    ) {
+    if (!title || !year || !description || !category || !shabak || !author) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -86,22 +79,22 @@ export default function PublicationsForm() {
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
-            چاپ
+            سال چاپ
             <span>*</span>
           </p>
           <CloseIcon
             className="icon"
-            onClick={() => setPublication("")}
+            onClick={() => setYear("")}
             sx={{ fontSize: 16 }}
           />
         </div>
         <input
-          placeholder="اول ۱۳۷۰"
+          placeholder="۱۳۷۰"
           type="tel"
-          id="publication"
-          name="publication"
-          onChange={(e) => setPublication(e.target.value)}
-          value={publication}
+          id="year"
+          name="year"
+          onChange={(e) => setYear(e.target.value)}
+          value={year}
           autoComplete="off"
           dir="rtl"
         />

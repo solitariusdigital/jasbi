@@ -32,8 +32,7 @@
   }
 }
 
-.banners,
-.information {
+.banners {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 12px;
@@ -51,33 +50,60 @@
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     width: calc(100% - 24px);
   }
+}
 
-  div {
-    height: 200px;
-    text-align: center;
-    background: config.$white;
-    border: 1px solid config.$lightgrey;
-    @include mixins.border-radius();
+.card {
+  height: 100%;
+  text-align: center;
+  background: config.$white;
+  border: 1px solid config.$lightgrey;
+  padding: 12px;
+  @include mixins.border-radius();
 
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-      }
+  @include mixins.desktop {
+    &:hover {
+      cursor: pointer;
     }
   }
 }
 
 .information {
   grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  margin: auto;
+
+  .card {
+    text-align: right;
+
+    @include mixins.desktop {
+      border: none;
+      height: calc(100vh - 90px);
+      @include mixins.transparentBackground(0.4, config.$white);
+    }
+
+    .details {
+      margin: 12px 0px;
+
+      @include mixins.desktop {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+          color: config.$action;
+        }
+      }
+    }
+  }
+
+  @include mixins.desktop {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    width: 500px;
+  }
 
   @include mixins.mobile {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     width: calc(100% - 24px);
-  }
-
-  @include mixins.tablet {
-    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-    width: calc(100% - 24px);
+    margin-top: 20px;
   }
 }
 
