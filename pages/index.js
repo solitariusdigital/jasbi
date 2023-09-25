@@ -52,6 +52,35 @@ export default function Home() {
           <div className={classes.details}>
             دکترای مدیریت تولید و فناوری، دانشگاه آستون، بیرمنگام، انگلستان
           </div>
+          <br />
+          <div className={classes.details}>
+            <p>سوابق اجرایی</p>
+            <h2>53</h2>
+          </div>
+          <div className={classes.details}>
+            <p>مقالات تحقیقی به زبان فارسی</p>
+            <h2>47</h2>
+          </div>
+          <div className={classes.details}>
+            <p>کتب منتشر شده</p>
+            <h2>26</h2>
+          </div>
+          <div className={classes.details}>
+            <p>تالیفات زیر نظر دکتر</p>
+            <h2>15</h2>
+          </div>
+          <div className={classes.details}>
+            <p>تحقیقات و پژوهش های علمی</p>
+            <h2>14</h2>
+          </div>
+          <div className={classes.details}>
+            <p>ترجمه ها</p>
+            <h2>24</h2>
+          </div>{" "}
+          <div className={classes.details}>
+            <p>سخنرانی ها</p>
+            <h2>49</h2>
+          </div>
         </div>
       </div>
       <div className={classes.timeline}>
