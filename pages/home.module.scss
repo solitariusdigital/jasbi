@@ -2,33 +2,62 @@
 @use "styles/_mixins.scss" as mixins;
 
 .heroHeader {
-  position: relative;
-  height: calc(100vh - 50px);
-
-  @include mixins.mobile {
-    height: 300px;
-  }
-
-  .heroImage {
-    object-position: 50% 15%;
-  }
-}
-
-.intro {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  text-align: right;
-  color: config.$white;
+  padding: 20px 0px;
   width: config.$content-width;
+  margin: auto;
 
-  @include mixins.mobile {
-    width: calc(100% - 24px);
+  @include mixins.desktop {
+    @include mixins.row-space-between-center();
   }
+
   @include mixins.tablet {
-    width: calc(100% - 24px);
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  @include mixins.mobile {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .imageContainer {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 12px auto;
+    border-radius: 50%;
+    box-shadow: config.$image-shadow;
+
+    @include mixins.mobile {
+      width: 400px;
+      height: 400px;
+    }
+
+    .image {
+      border-radius: 50%;
+      box-shadow: config.$image-shadow;
+    }
+  }
+
+  .information {
+    height: 600px;
+    width: 25%;
+    text-align: right;
+    @include mixins.border-radius();
+
+    @include mixins.mobile {
+      width: 100%;
+      height: 100%;
+    }
+
+    @include mixins.tablet {
+      width: 100%;
+      height: 100%;
+    }
+
+    .details {
+      margin: 12px 0px;
+      font-weight: 300;
+    }
   }
 }
 
@@ -50,66 +79,23 @@
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     width: calc(100% - 24px);
   }
-}
-
-.card {
-  height: 100%;
-  text-align: center;
-  background: config.$white;
-  border: 1px solid config.$lightgrey;
-  padding: 12px;
-  @include mixins.border-radius();
-
-  @include mixins.desktop {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-}
-
-.information {
-  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-  margin: auto;
 
   .card {
-    text-align: right;
-
-    @include mixins.desktop {
-      border: none;
-      height: calc(100vh - 90px);
-      @include mixins.transparentBackground(0.4, config.$white);
-    }
-
-    .details {
-      margin: 12px 0px;
-
-      @include mixins.desktop {
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-          color: config.$action;
-        }
-      }
-    }
-  }
-
-  @include mixins.desktop {
-    position: absolute;
-    top: 70px;
-    left: 20px;
-    width: 500px;
-  }
-
-  @include mixins.mobile {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    width: calc(100% - 24px);
-    margin-top: 20px;
+    height: 200px;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid config.$lightgrey;
+    background: config.$white;
+    @include mixins.border-radius();
   }
 }
 
 .timeline {
-  margin-top: 50px;
   text-align: center;
+  padding-top: 20px;
+  margin: auto;
+  width: config.$content-width;
+  border-top: 1px solid config.$action;
 
   p {
     margin: 12px 0px;

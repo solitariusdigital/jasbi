@@ -13,30 +13,45 @@ export default function Home() {
   const [displayRegister, setDisplayRegister] = useState(false);
 
   return (
-    <>
+    <Fragment>
       <div className={classes.heroHeader}>
-        <div className={classes.intro}>
-          <h1>دکتر جاسبی</h1>
+        <div className={classes.information}>
+          <div className={classes.details}>
+            عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد
+            تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در
+            سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای
+            دانشگاه آزاد اسلامی است. وی همچنین استاد بازنشسته دانشگاه علم و صنعت
+            ایران، عضو سابق شورای عالی انقلاب فرهنگی و کاندیدای دوره‌های ششم و
+            هشتم ریاست جمهوری بوده‌است. جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به
+            نام بنیاد آفرینش اُنس که در زمینه گسترش و تعاملات صاحب‌نظران و
+            اندیشمندان دارای نقد سازنده و هماهنگ‌سازی و افزایش نقش و تأثیر
+            سمن‌ها، تشکل‌ها، انجمن‌ها و نهادهای علمی پژوهشی کشور فعال است، راه
+            اندازی نمود و در حال حاضر رئیس هیئت امنا و مدیرعامل این بنیاد
+            می‌باشد. او دانشمند تمام عیار در ایران است
+          </div>
         </div>
-        <Image
-          className={classes.heroImage}
-          src={background}
-          placeholder="blur"
-          alt="image"
-          layout="fill"
-          objectFit="cover"
-          loading="eager"
-        />
-      </div>
-      <div className={classes.information}>
-        <div className={classes.card}>
-          <div className={classes.details}>دانشگاه</div>
-          <div className={classes.details}>انقلاب</div>
-          <div className={classes.details}>اسلامی</div>
-          <div className={classes.details}>فرهنگی</div>
-          <div className={classes.details}>تأسیس</div>
-          <div className={classes.details}>جمهوری</div>
-          <div className={classes.details}>سیاستمدار</div>
+        <div className={classes.imageContainer}>
+          <Image
+            className={classes.image}
+            src={background}
+            placeholder="blur"
+            alt="image"
+            layout="fill"
+            objectFit="cover"
+            loading="eager"
+          />
+        </div>
+        <div className={classes.information}>
+          <h1>دکتر جاسبی</h1>
+          <div className={classes.details}>
+            لیسانس مهندسی صنایع، دانشگاه علم و صنعت ایران
+          </div>
+          <div className={classes.details}>
+            فوق لیسانس مدیریت صنعتی، دانشگاه آستون، بیرمنگام، انگلستان
+          </div>
+          <div className={classes.details}>
+            دکترای مدیریت تولید و فناوری، دانشگاه آستون، بیرمنگام، انگلستان
+          </div>
         </div>
       </div>
       <div className={classes.timeline}>
@@ -67,6 +82,6 @@ export default function Home() {
         {displayRegister && !currentUser && <Register />}
         {displayRegister && currentUser && <SendForm />}
       </div>
-    </>
+    </Fragment>
   );
 }

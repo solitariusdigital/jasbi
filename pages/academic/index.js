@@ -9,6 +9,8 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 export default function Academic() {
   const [type, setType] = useState("projects" || "achievements" || "teaching");
   const [displayForm, setDisplayForm] = useState(false);
+  const [displayDetails, setDisplayDetails] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const [items, setItems] = useState([
     {
@@ -147,6 +149,39 @@ export default function Academic() {
                 </div>
               </div>
             ))}
+        </div>
+      )}
+      {displayDetails && (
+        <div
+          className={`${classes.preview} animate__animated animate__slideInDown`}
+        >
+          <CloseIcon
+            className="icon"
+            onClick={() => setDisplayDetails(false)}
+          />
+          <div className={classes.details}>
+            <div className={classes.row}>
+              <div>
+                <h3>{selectedItem.title}</h3>
+                <p>سال : {selectedItem.year} </p>
+              </div>
+              {selectedItem.image && (
+                <Image
+                  className={classes.image}
+                  src={selectedItem.image}
+                  placeholder="blur"
+                  blurDataURL={selectedItem.image}
+                  alt="image"
+                  loading="eager"
+                  width={100}
+                  height={150}
+                  objectFit="cover"
+                  priority
+                />
+              )}
+            </div>
+            <p>{selectedItem.description}</p>
+          </div>
         </div>
       )}
     </div>

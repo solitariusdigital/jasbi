@@ -2,6 +2,7 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import { toFarsiNumber, onlyLettersAndNumbers } from "@/services/utility";
+import Image from "next/legacy/image";
 
 export default function SendForm() {
   const [title, setTitle] = useState("");
@@ -9,6 +10,7 @@ export default function SendForm() {
   const [comment, setComment] = useState("");
   const [category, setCategory] = useState("");
   const [period, setPeriod] = useState("");
+  const [image, setImage] = useState("");
 
   const categories = ["سیاسی و اجرایی", "پژوهشی و علمی"];
   const categoriesPeriod = ["قبل", "بعد"];
@@ -149,6 +151,36 @@ export default function SendForm() {
           autoComplete="off"
           dir="rtl"
         ></textarea>
+      </div>
+      <div className={classes.input}>
+        <label className={classes.file}>
+          <input
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+            type="file"
+            accept="image/png, image/jpeg"
+          />
+          <p>عکس اختیاری</p>
+        </label>
+        {image !== "" && (
+          <div className={classes.imagePreview}>
+            <CloseIcon
+              className="icon"
+              onClick={() => setImage("")}
+              sx={{ fontSize: 16 }}
+            />
+            <Image
+              className={classes.image}
+              width={50}
+              height={200}
+              objectFit="cover"
+              src={URL.createObjectURL(image)}
+              alt="image"
+              priority
+            />
+          </div>
+        )}
       </div>
       <p className="alert">{alert}</p>
       <button onClick={() => handleSubmit()}>ارسال</button>

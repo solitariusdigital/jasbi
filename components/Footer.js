@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.container}>
-        <div className={classes.information}>info</div>
+        <div className={classes.information}></div>
       </div>
     </div>
   );
