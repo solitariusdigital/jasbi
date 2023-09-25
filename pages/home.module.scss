@@ -19,7 +19,8 @@
     flex-direction: column-reverse;
   }
 
-  .imageContainer {
+  .imageContainer,
+  .imageContainerMobile {
     position: relative;
     width: 600px;
     height: 600px;
@@ -28,8 +29,8 @@
     box-shadow: config.$image-shadow;
 
     @include mixins.mobile {
-      width: 400px;
-      height: 400px;
+      width: 330px;
+      height: 330px;
     }
 
     .image {
@@ -38,8 +39,20 @@
     }
   }
 
+  .imageContainerMobile {
+    @include mixins.desktop {
+      display: none;
+    }
+  }
+
+  .imageContainer {
+    @include mixins.mobile {
+      display: none;
+    }
+  }
+
   .information {
-    height: 600px;
+    height: 100%;
     width: 25%;
     text-align: right;
     @include mixins.border-radius();

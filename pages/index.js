@@ -82,6 +82,17 @@ export default function Home() {
             <h2>49</h2>
           </div>
         </div>
+        <div className={classes.imageContainerMobile}>
+          <Image
+            className={classes.image}
+            src={background}
+            placeholder="blur"
+            alt="image"
+            layout="fill"
+            objectFit="cover"
+            loading="eager"
+          />
+        </div>
       </div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
