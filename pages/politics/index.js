@@ -33,6 +33,26 @@ export default function Politics() {
       image:
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
     },
+    {
+      title: "قبل انقلاب",
+      year: "۱۳۷۰",
+      position: "تاسیس",
+      description:
+        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      category: "قبل",
+      period: "حزب جمهوری اسلامی",
+    },
+    {
+      title: "بعد انقلاب",
+      year: "۱۳۷۰",
+      position: "دانشگاه",
+      description:
+        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
+      category: "بعد",
+      period: "تاسیس دانشگاه آزاد اسلامی",
+      image:
+        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+    },
   ]);
 
   const action = async (id, type) => {

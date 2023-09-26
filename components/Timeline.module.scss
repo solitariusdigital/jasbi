@@ -7,7 +7,7 @@
   margin: auto;
 
   @include mixins.desktop {
-    width: 70%;
+    width: 80%;
   }
 
   @include mixins.mobile {
@@ -84,7 +84,7 @@
   @include mixins.border-radius();
 
   @include mixins.desktop {
-    width: 70%;
+    width: 80%;
   }
 
   @include mixins.mobile {
