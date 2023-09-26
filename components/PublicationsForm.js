@@ -8,7 +8,7 @@ export default function PublicationsForm() {
   const [author, setAuthor] = useState("دکتر عبدالله جاسبی");
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
-  const [shabak, setShabak] = useState("");
+  const [publisher, setPublisher] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
 
@@ -23,7 +23,7 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = () => {
-    if (!title || !year || !description || !category || !shabak || !author) {
+    if (!title || !year || !description || !category || !publisher || !author) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -102,21 +102,21 @@ export default function PublicationsForm() {
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
-            شابک
+            ناشر
             <span>*</span>
           </p>
           <CloseIcon
             className="icon"
-            onClick={() => setShabak("")}
+            onClick={() => setPublisher("")}
             sx={{ fontSize: 16 }}
           />
         </div>
         <input
           type="tel"
-          id="shabak"
-          name="shabak"
-          onChange={(e) => setShabak(e.target.value)}
-          value={shabak}
+          id="publisher"
+          name="publisher"
+          onChange={(e) => setPublisher(e.target.value)}
+          value={publisher}
           autoComplete="off"
           dir="rtl"
         />

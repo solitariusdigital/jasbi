@@ -107,30 +107,32 @@ export default function Politics() {
                   sx={{ color: "#57a361" }}
                 />
                 <div className={classes.row}>
-                  {item.image && (
-                    <Image
-                      className={classes.image}
-                      src={item.image}
-                      placeholder="blur"
-                      blurDataURL={item.image}
-                      alt="image"
-                      loading="eager"
-                      width={100}
-                      height={150}
-                      objectFit="cover"
-                      priority
-                      onClick={() => {
-                        setSelectedItem(item);
-                        setDisplayDetails(true);
-                        window.scrollTo(0, 0);
-                      }}
-                    />
-                  )}
+                  <div>
+                    {item.image && (
+                      <Image
+                        className={classes.image}
+                        src={item.image}
+                        placeholder="blur"
+                        blurDataURL={item.image}
+                        alt="image"
+                        loading="eager"
+                        width={100}
+                        height={150}
+                        objectFit="cover"
+                        priority
+                        onClick={() => {
+                          setSelectedItem(item);
+                          setDisplayDetails(true);
+                          window.scrollTo(0, 0);
+                        }}
+                      />
+                    )}
+                  </div>
                   <div>
                     <h3>{item.title}</h3>
                     <p>سمت : {item.position}</p>
-                    <p>سال : {item.year} </p>
                     <p>فعالیت : {item.period}</p>
+                    <p>سال : {item.year} </p>
                   </div>
                 </div>
                 <p>
@@ -174,8 +176,8 @@ export default function Politics() {
               <div>
                 <h3>{selectedItem.title}</h3>
                 <p>سمت : {selectedItem.position}</p>
-                <p>سال : {selectedItem.year} </p>
                 <p>فعالیت : {selectedItem.period}</p>
+                <p>سال : {selectedItem.year} </p>
               </div>
               {selectedItem.image && (
                 <Image

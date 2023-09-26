@@ -18,8 +18,8 @@ export default function Publications() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      publication: "اول ۱۳۴۲",
-      shabak: "123412341234",
+      publication: "۱۳۴۲",
+      publisher: "123412341234",
       author: "دکتر عبدالله جاسبی",
       type: "book",
     },
@@ -29,8 +29,8 @@ export default function Publications() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image:
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
-      publication: "اول ۱۳۴۲",
-      shabak: "123412341234",
+      publication: "۱۳۴۲",
+      publisher: "123412341234",
       author: "دکتر پویان",
       type: "article",
     },
@@ -40,8 +40,8 @@ export default function Publications() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image:
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
-      publication: "اول ۱۳۴۲",
-      shabak: "123412341234",
+      publication: "۱۳۴۲",
+      publisher: "123412341234",
       author: "دکتر عبدالله جاسبی",
       type: "article",
     },
@@ -51,8 +51,8 @@ export default function Publications() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image:
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
-      publication: "اول ۱۳۴۲",
-      shabak: "123412341234",
+      publication: "۱۳۴۲",
+      publisher: "123412341234",
       author: "دکتر پویان",
       type: "book",
     },
@@ -62,8 +62,8 @@ export default function Publications() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image:
         "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
-      publication: "اول ۱۳۴۲",
-      shabak: "123412341234",
+      publication: "۱۳۴۲",
+      publisher: "123412341234",
       author: "دکتر عبدالله جاسبی",
       type: "book",
     },
@@ -121,33 +121,35 @@ export default function Publications() {
                   sx={{ color: "#57a361" }}
                 />
                 <div className={classes.row}>
-                  {item.image && (
-                    <Image
-                      className={classes.image}
-                      src={item.image}
-                      placeholder="blur"
-                      blurDataURL={item.image}
-                      alt="image"
-                      loading="eager"
-                      width={100}
-                      height={150}
-                      objectFit="cover"
-                      priority
-                      onClick={() => {
-                        setSelectedItem(item);
-                        setDisplayDetails(true);
-                        window.scrollTo(0, 0);
-                      }}
-                    />
-                  )}
+                  <div>
+                    {item.image && (
+                      <Image
+                        className={classes.image}
+                        src={item.image}
+                        placeholder="blur"
+                        blurDataURL={item.image}
+                        alt="image"
+                        loading="eager"
+                        width={100}
+                        height={150}
+                        objectFit="cover"
+                        priority
+                        onClick={() => {
+                          setSelectedItem(item);
+                          setDisplayDetails(true);
+                          window.scrollTo(0, 0);
+                        }}
+                      />
+                    )}
+                  </div>
                   <div>
                     <h3>{item.title}</h3>
                     <p>گردآورنده : {item.author}</p>
                     {item.author !== "دکتر عبدالله جاسبی" && (
                       <p>زیر نظز : دکتر عبدالله جاسبی</p>
                     )}
-                    <p>چاپ : {item.publication} </p>
-                    <p>شابک : {item.shabak}</p>
+                    <p>ناشر : {item.publisher}</p>
+                    <p>سال چاپ : {item.publication} </p>
                   </div>
                 </div>
                 <p>
@@ -194,8 +196,8 @@ export default function Publications() {
                 {selectedItem.author !== "دکتر عبدالله جاسبی" && (
                   <p>زیر نظز : دکتر عبدالله جاسبی</p>
                 )}
-                <p>چاپ : {selectedItem.publication}</p>
-                <p>شابک : {selectedItem.shabak}</p>
+                <p>ناشر : {selectedItem.publisher}</p>
+                <p>سال چاپ : {selectedItem.publication}</p>
               </div>
               {selectedItem.image && (
                 <Image

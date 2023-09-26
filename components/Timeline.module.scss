@@ -35,42 +35,90 @@
 .timeline {
   overflow: auto;
   scroll-snap-type: x mandatory;
-  height: 70px;
-  padding: 0px 12px;
+  height: 150px;
+  padding: 0px 4px;
   margin: 0px 12px;
   border: 1px solid config.$lightgrey;
   font-weight: 300;
   box-shadow: config.$inset-box-shadow;
-  @include mixins.transparentBackground(0.03, config.$action);
   @include mixins.border-radius();
   @include mixins.row-space-between-center();
+  @include mixins.transparentBackground(0.03, config.$action);
 
   @include mixins.mobile {
     margin: 0px 4px;
   }
 
-  .section,
-  .active {
+  .section {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50px;
-    min-width: 50px;
+    min-width: 280px;
     margin: 0px 8px;
-    border-radius: 50%;
+    padding: 8px 0px;
+    background: config.$white;
+    border: 1px solid config.$lightgrey;
+    @include mixins.border-radius();
 
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-        background: config.$action;
-        color: config.$white;
+    .row {
+      width: 80%;
+      border-bottom: 1px solid config.$action;
+      padding: 4px 0px;
+      margin-bottom: 8px;
+      @include mixins.row-space-between-center();
+
+      .year {
+        font-weight: bold;
+      }
+
+      select {
+        @include mixins.input();
+        width: 100%;
+        border: none;
+        background: none;
+        text-align: right;
+
+        &:focus {
+          outline: none;
+          background: transparent;
+          border: none !important;
+        }
+
+        @include mixins.desktop {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .title {
+      margin: 0px;
+
+      @include mixins.desktop {
+        &:hover {
+          cursor: pointer;
+          color: config.$action;
+        }
+      }
+    }
+
+    span {
+      color: config.$action;
+      font-size: config.$tiny-font;
+
+      @include mixins.desktop {
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
 
   .active {
-    background: config.$action;
-    color: config.$white;
+    margin: 0px;
+    color: config.$action;
+    font-weight: bold;
   }
 }
 
