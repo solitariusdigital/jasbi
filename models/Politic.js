@@ -10,7 +10,7 @@ const PoliticSchema = new Schema(
     period: String,
     image: String,
     confirm: Boolean,
-    hide: Boolean,
+    active: Boolean,
   },
   { timestamps: true }
 );

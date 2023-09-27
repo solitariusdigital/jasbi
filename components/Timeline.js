@@ -99,7 +99,7 @@ export default function Timeline() {
       active: false,
     },
     {
-      year: "۱۳۶۰",
+      year: "1360",
       title: "سیاستمدار",
       active: false,
     },
@@ -152,7 +152,7 @@ export default function Timeline() {
             .map((item, index) => (
               <div key={index} className={classes.section}>
                 <div className={classes.row}>
-                  <p className={classes.year}>{item.year}</p>
+                  <p className={classes.year}>{toFarsiNumber(item.year)}</p>
                   <select
                     defaultValue={"default"}
                     onChange={(e) => setPeriod(e.target.value)}

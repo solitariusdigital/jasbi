@@ -7,11 +7,13 @@ import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
 import { toFarsiNumber } from "@/services/utility";
+import MediaForm from "@/components/MediaForm";
 
 export default function Home() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
+  const [mediaForm, setMediaform] = useState(false);
 
   return (
     <Fragment>
@@ -107,7 +109,7 @@ export default function Home() {
         <div className={classes.card}>جمهوری</div>
         <div className={classes.card}>سیاستمدار</div>
       </div>
-      <div className={classes.register}>
+      <div className={classes.uploadForm}>
         {!displayRegister && (
           <Fragment>
             <button onClick={() => setDisplayRegister(true)}>
@@ -120,6 +122,15 @@ export default function Home() {
         )}
         {displayRegister && !currentUser && <Register />}
         {displayRegister && currentUser && <SendForm />}
+      </div>
+      <div className={classes.uploadForm}>
+        <Fragment>
+          <button onClick={() => setMediaform(!mediaForm)}>
+            بارگذاری رسانه ای ​
+          </button>
+          <p className="message">بارگذاری عکس و ویدئو</p>
+          {mediaForm && <MediaForm />}
+        </Fragment>
       </div>
     </Fragment>
   );

@@ -200,18 +200,20 @@ export default function Publications() {
                 <p>سال چاپ : {selectedItem.publication}</p>
               </div>
               {selectedItem.image && (
-                <Image
-                  className={classes.image}
-                  src={selectedItem.image}
-                  placeholder="blur"
-                  blurDataURL={selectedItem.image}
-                  alt="image"
-                  loading="eager"
-                  width={100}
-                  height={150}
-                  objectFit="cover"
-                  priority
-                />
+                <div>
+                  <Image
+                    className={classes.image}
+                    src={selectedItem.image}
+                    placeholder="blur"
+                    blurDataURL={selectedItem.image}
+                    alt="image"
+                    loading="eager"
+                    width={100}
+                    height={150}
+                    objectFit="cover"
+                    priority
+                  />
+                </div>
               )}
             </div>
             <p>{selectedItem.description}</p>

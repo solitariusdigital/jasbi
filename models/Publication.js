@@ -10,7 +10,7 @@ const PublicationSchema = new Schema(
     category: String,
     image: String,
     confirm: Boolean,
-    hide: Boolean,
+    active: Boolean,
   },
   { timestamps: true }
 );

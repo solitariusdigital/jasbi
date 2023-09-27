@@ -17,7 +17,8 @@ export default function Academic() {
       title: "پروژه",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
+      image:
+        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
       type: "projects",
       year: "1380",
     },
@@ -201,18 +202,20 @@ export default function Academic() {
                 <p>سال : {selectedItem.year} </p>
               </div>
               {selectedItem.image && (
-                <Image
-                  className={classes.image}
-                  src={selectedItem.image}
-                  placeholder="blur"
-                  blurDataURL={selectedItem.image}
-                  alt="image"
-                  loading="eager"
-                  width={100}
-                  height={150}
-                  objectFit="cover"
-                  priority
-                />
+                <div>
+                  <Image
+                    className={classes.image}
+                    src={selectedItem.image}
+                    placeholder="blur"
+                    blurDataURL={selectedItem.image}
+                    alt="image"
+                    loading="eager"
+                    width={100}
+                    height={150}
+                    objectFit="cover"
+                    priority
+                  />
+                </div>
               )}
             </div>
             <p>{selectedItem.description}</p>

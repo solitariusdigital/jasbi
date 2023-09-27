@@ -159,7 +159,7 @@ export default function SendForm() {
               setImage(e.target.files[0]);
             }}
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/*"
           />
           <p>عکس اختیاری</p>
         </label>

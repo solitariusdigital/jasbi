@@ -2,6 +2,7 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
+import loaderImage from "@/assets/loader.png";
 
 export default function PoliticsForm() {
   const [title, setTitle] = useState("");
@@ -23,6 +24,8 @@ export default function PoliticsForm() {
     "دهه چهارم گسترش و رقابت دانشگاه آزاد اسلامی",
   ];
   const [alert, setAlert] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const showAlert = (message) => {
     setAlert(message);
@@ -177,7 +180,7 @@ export default function PoliticsForm() {
               setImage(e.target.files[0]);
             }}
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/*"
           />
           <p>عکس اختیاری</p>
         </label>
@@ -200,8 +203,17 @@ export default function PoliticsForm() {
           </div>
         )}
       </div>
-      <p className="alert">{alert}</p>
-      <button onClick={() => handleSubmit()}>ذخیره</button>
+      <div className={classes.formAction}>
+        <p className="alert">{alert}</p>
+        {loader && (
+          <div>
+            <Image width={50} height={50} src={loaderImage} alt="isLoading" />
+          </div>
+        )}
+        <button disabled={disableButton} onClick={() => handleSubmit()}>
+          ذخیره
+        </button>
+      </div>
     </div>
   );
 }
