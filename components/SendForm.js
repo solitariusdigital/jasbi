@@ -1,7 +1,6 @@
 import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
-import { toFarsiNumber, onlyLettersAndNumbers } from "@/services/utility";
 import Image from "next/legacy/image";
 
 export default function SendForm() {
@@ -24,9 +23,6 @@ export default function SendForm() {
   };
 
   const handleSubmit = () => {
-    if (onlyLettersAndNumbers(year)) {
-      setYear(toFarsiNumber(year));
-    }
     if (!title || !year || !comment || !category) {
       showAlert("همه موارد الزامیست");
       return;

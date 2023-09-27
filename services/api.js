@@ -38,9 +38,9 @@ export const getUsersApi = async () => {
   return await response.json();
 };
 
-// doctors api
-export const updateDoctorApi = async (data) => {
-  const response = await fetch("/api/doctors", {
+// academic api
+export const updateAcademicApi = async (data) => {
+  const response = await fetch("/api/academics", {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {
@@ -49,8 +49,8 @@ export const updateDoctorApi = async (data) => {
   });
   return await response.json();
 };
-export const createDoctorApi = async (data) => {
-  const response = await fetch("/api/doctors", {
+export const createAcademicApi = async (data) => {
+  const response = await fetch("/api/academics", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -59,8 +59,8 @@ export const createDoctorApi = async (data) => {
   });
   return await response.json();
 };
-export const getDoctorApi = async (id) => {
-  const response = await fetch(`/api/doctor?id=${id}`, {
+export const getAcademicApi = async (id) => {
+  const response = await fetch(`/api/academic?id=${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -68,8 +68,8 @@ export const getDoctorApi = async (id) => {
   });
   return await response.json();
 };
-export const getDoctorsApi = async () => {
-  const response = await fetch("/api/doctors", {
+export const getAcademicsApi = async () => {
+  const response = await fetch("/api/academics", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -78,9 +78,9 @@ export const getDoctorsApi = async () => {
   return await response.json();
 };
 
-// visits api
-export const updateVisitApi = async (data) => {
-  const response = await fetch("/api/visits", {
+// publication api
+export const updatePublicationApi = async (data) => {
+  const response = await fetch("/api/publications", {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {
@@ -89,8 +89,8 @@ export const updateVisitApi = async (data) => {
   });
   return await response.json();
 };
-export const createVisitApi = async (data) => {
-  const response = await fetch("/api/visits", {
+export const createPublicationApi = async (data) => {
+  const response = await fetch("/api/publications", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -99,8 +99,8 @@ export const createVisitApi = async (data) => {
   });
   return await response.json();
 };
-export const getVisitApi = async (id) => {
-  const response = await fetch(`/api/visit?id=${id}`, {
+export const getPublicationApi = async (id) => {
+  const response = await fetch(`/api/publication?id=${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -108,8 +108,8 @@ export const getVisitApi = async (id) => {
   });
   return await response.json();
 };
-export const getVisitsApi = async () => {
-  const response = await fetch("/api/visits", {
+export const getPublicationsApi = async () => {
+  const response = await fetch("/api/publications", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -118,9 +118,9 @@ export const getVisitsApi = async () => {
   return await response.json();
 };
 
-// archives api
-export const updateArchiveApi = async (data) => {
-  const response = await fetch("/api/archives", {
+// politic api
+export const updatePoliticApi = async (data) => {
+  const response = await fetch("/api/politics", {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {
@@ -129,8 +129,8 @@ export const updateArchiveApi = async (data) => {
   });
   return await response.json();
 };
-export const createArchiveApi = async (data) => {
-  const response = await fetch("/api/archives", {
+export const createPoliticApi = async (data) => {
+  const response = await fetch("/api/politics", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -139,8 +139,8 @@ export const createArchiveApi = async (data) => {
   });
   return await response.json();
 };
-export const getArchiveApi = async (id) => {
-  const response = await fetch(`/api/archive?id=${id}`, {
+export const getPoliticApi = async (id) => {
+  const response = await fetch(`/api/politic?id=${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -148,8 +148,8 @@ export const getArchiveApi = async (id) => {
   });
   return await response.json();
 };
-export const getArchivesApi = async () => {
-  const response = await fetch("/api/archives", {
+export const getPoliticsApi = async () => {
+  const response = await fetch("/api/politics", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -158,9 +158,9 @@ export const getArchivesApi = async () => {
   return await response.json();
 };
 
-// records api
-export const updateRecordApi = async (data) => {
-  const response = await fetch("/api/records", {
+// media api
+export const updateMediaApi = async (data) => {
+  const response = await fetch("/api/medias", {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {
@@ -169,8 +169,8 @@ export const updateRecordApi = async (data) => {
   });
   return await response.json();
 };
-export const createRecordApi = async (data) => {
-  const response = await fetch("/api/records", {
+export const createMediaApi = async (data) => {
+  const response = await fetch("/api/medias", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -179,8 +179,8 @@ export const createRecordApi = async (data) => {
   });
   return await response.json();
 };
-export const getRecordApi = async (id) => {
-  const response = await fetch(`/api/record?id=${id}`, {
+export const getMediaApi = async (id) => {
+  const response = await fetch(`/api/media?id=${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -188,8 +188,8 @@ export const getRecordApi = async (id) => {
   });
   return await response.json();
 };
-export const getRecordsApi = async () => {
-  const response = await fetch("/api/records", {
+export const getMediasApi = async () => {
+  const response = await fetch("/api/medias", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

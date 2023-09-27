@@ -7,7 +7,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
 export default function Academic() {
-  const [type, setType] = useState("projects" || "achievements" || "teaching");
+  const [type, setType] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [displayDetails, setDisplayDetails] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
@@ -17,9 +17,8 @@ export default function Academic() {
       title: "پروژه",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
-      type: "projects",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
+      type: "پروژه",
       year: "1380",
     },
     {
@@ -27,7 +26,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "projects",
+      type: "پروژه",
       year: "1380",
     },
     {
@@ -35,7 +34,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "projects",
+      type: "پروژه",
       year: "1380",
     },
     {
@@ -43,7 +42,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "achievements",
+      type: "دستاور",
       year: "1381",
     },
     {
@@ -51,7 +50,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "teaching",
+      type: "تدریس",
       year: "1382",
     },
     {
@@ -59,7 +58,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "projects",
+      type: "پروژه",
       year: "1380",
     },
 
@@ -68,7 +67,7 @@ export default function Academic() {
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       image: "",
-      type: "teaching",
+      type: "تدریس",
       year: "1382",
     },
   ]);
@@ -89,22 +88,20 @@ export default function Academic() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "teaching" ? classes.navActive : classes.nav}
-              onClick={() => setType("teaching")}
+              className={type === "تدریس" ? classes.navActive : classes.nav}
+              onClick={() => setType("تدریس")}
             >
               تدریس
             </p>
             <p
-              className={
-                type === "achievements" ? classes.navActive : classes.nav
-              }
-              onClick={() => setType("achievements")}
+              className={type === "دستاور" ? classes.navActive : classes.nav}
+              onClick={() => setType("دستاور")}
             >
               دستاورد
             </p>
             <p
-              className={type === "projects" ? classes.navActive : classes.nav}
-              onClick={() => setType("projects")}
+              className={type === "پروژه" ? classes.navActive : classes.nav}
+              onClick={() => setType("پروژه")}
             >
               پروژه
             </p>

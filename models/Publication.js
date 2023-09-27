@@ -5,7 +5,7 @@ const PublicationSchema = new Schema(
     title: String,
     author: String,
     description: String,
-    year: String,
+    year: Number,
     publisher: String,
     category: String,
     image: String,

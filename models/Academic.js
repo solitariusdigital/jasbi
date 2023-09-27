@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const AcademicSchema = new Schema(
   {
     title: String,
-    year: String,
+    year: Number,
     description: String,
     category: String,
     image: String,

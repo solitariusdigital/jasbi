@@ -30,8 +30,7 @@ export default function Politics() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       category: "بعد",
       period: "تاسیس دانشگاه آزاد اسلامی",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
     },
     {
       title: "قبل انقلاب",
@@ -50,8 +49,7 @@ export default function Politics() {
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
       category: "بعد",
       period: "تاسیس دانشگاه آزاد اسلامی",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
     },
   ]);
 

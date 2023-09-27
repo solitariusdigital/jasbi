@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const PoliticSchema = new Schema(
   {
     title: String,
-    year: String,
+    year: Number,
     position: String,
     description: String,
     category: String,

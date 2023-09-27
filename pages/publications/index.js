@@ -27,8 +27,7 @@ export default function Publications() {
       title: "تالیف",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
       publication: "۱۳۴۲",
       publisher: "123412341234",
       author: "دکتر پویان",
@@ -38,8 +37,7 @@ export default function Publications() {
       title: "تالیف",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
       publication: "۱۳۴۲",
       publisher: "123412341234",
       author: "دکتر عبدالله جاسبی",
@@ -49,8 +47,7 @@ export default function Publications() {
       title: "پیشرفته",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
       publication: "۱۳۴۲",
       publisher: "123412341234",
       author: "دکتر پویان",
@@ -60,8 +57,7 @@ export default function Publications() {
       title: "پیشرفته",
       description:
         "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image:
-        "https://delmare.storage.iran.liara.space/CARE584661/img724628.jpg",
+      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
       publication: "۱۳۴۲",
       publisher: "123412341234",
       author: "دکتر عبدالله جاسبی",

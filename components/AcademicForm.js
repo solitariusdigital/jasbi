@@ -3,6 +3,12 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
+import { createAcademicApi } from "@/services/api";
+import {
+  onlyLettersAndNumbers,
+  faToEnDigits,
+  enToFaDigits,
+} from "@/services/utility";
 
 export default function AcademicForm() {
   const [title, setTitle] = useState("");
@@ -23,11 +29,22 @@ export default function AcademicForm() {
     }, 3000);
   };
 
-  const handleSubmit = () => {
-    if (!title || !year || !description || !category) {
+  const handleSubmit = async () => {
+    if (!title || !year || !description || !category || !image) {
       showAlert("همه موارد الزامیست");
       return;
     }
+
+    let academic = {
+      title: title,
+      year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+      description: description,
+      category: category,
+      image: image,
+    };
+
+    await createAcademicApi(academic);
+    window.location.assign("/academic");
   };
 
   return (
