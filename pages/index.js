@@ -126,7 +126,7 @@ export default function Home() {
       <div className={classes.uploadForm}>
         <Fragment>
           <button onClick={() => setMediaform(!mediaForm)}>
-            بارگذاری رسانه ای ​
+            بارگذاری رسانه ​
           </button>
           <p className="message">بارگذاری عکس و ویدئو</p>
           {mediaForm && <MediaForm />}

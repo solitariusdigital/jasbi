@@ -32,7 +32,7 @@ export default function MediaForm() {
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>بارگذاری رسانه ای ​</p>
+      <p className={classes.title}>بارگذاری رسانه​</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
