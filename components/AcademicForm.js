@@ -4,11 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
 import { createAcademicApi } from "@/services/api";
-import {
-  onlyLettersAndNumbers,
-  faToEnDigits,
-  enToFaDigits,
-} from "@/services/utility";
+import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
 
 export default function AcademicForm() {
   const [title, setTitle] = useState("");
@@ -30,20 +26,22 @@ export default function AcademicForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !year || !description || !category || !image) {
+    if (!title || !year || !description || !category) {
       showAlert("همه موارد الزامیست");
       return;
     }
 
-    let academic = {
+    let academicObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
       image: image,
+      confirm: false,
+      hidden: false,
     };
 
-    await createAcademicApi(academic);
+    await createAcademicApi(academicObject);
     window.location.assign("/academic");
   };
 

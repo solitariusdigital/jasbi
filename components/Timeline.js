@@ -2,7 +2,7 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Timeline.module.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { toFarsiNumber } from "@/services/utility";
+import { enToFaDigits } from "@/services/utility";
 
 export default function Timeline() {
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -152,7 +152,7 @@ export default function Timeline() {
             .map((item, index) => (
               <div key={index} className={classes.section}>
                 <div className={classes.row}>
-                  <p className={classes.year}>{toFarsiNumber(item.year)}</p>
+                  <p className={classes.year}>{enToFaDigits(item.year)}</p>
                   <select
                     defaultValue={"default"}
                     onChange={(e) => setPeriod(e.target.value)}

@@ -6,7 +6,7 @@ import background from "@/assets/background.jpg";
 import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
-import { toFarsiNumber } from "@/services/utility";
+import { enToFaDigits } from "@/services/utility";
 import MediaForm from "@/components/MediaForm";
 
 export default function Home() {
@@ -56,31 +56,31 @@ export default function Home() {
           <br />
           <div className={classes.details}>
             <p>سوابق اجرایی</p>
-            <h2>{toFarsiNumber(53)}</h2>
+            <h2>{enToFaDigits(53)}</h2>
           </div>
           <div className={classes.details}>
             <p>مقالات تحقیقی به زبان فارسی</p>
-            <h2>{toFarsiNumber(47)}</h2>
+            <h2>{enToFaDigits(47)}</h2>
           </div>
           <div className={classes.details}>
             <p>کتب منتشر شده</p>
-            <h2>{toFarsiNumber(26)}</h2>
+            <h2>{enToFaDigits(26)}</h2>
           </div>
           <div className={classes.details}>
             <p>تالیفات زیر نظر دکتر</p>
-            <h2>{toFarsiNumber(15)}</h2>
+            <h2>{enToFaDigits(15)}</h2>
           </div>
           <div className={classes.details}>
             <p>تحقیقات و پژوهش های علمی</p>
-            <h2>{toFarsiNumber(14)}</h2>
+            <h2>{enToFaDigits(14)}</h2>
           </div>
           <div className={classes.details}>
             <p>ترجمه ها</p>
-            <h2>{toFarsiNumber(24)}</h2>
+            <h2>{enToFaDigits(24)}</h2>
           </div>
           <div className={classes.details}>
             <p>سخنرانی ها</p>
-            <h2>{toFarsiNumber(49)}</h2>
+            <h2>{enToFaDigits(49)}</h2>
           </div>
         </div>
         <div className={classes.imageContainerMobile}>

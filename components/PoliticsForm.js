@@ -3,6 +3,8 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
+import { createPoliticApi } from "@/services/api";
+import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
 
 export default function PoliticsForm() {
   const [title, setTitle] = useState("");
@@ -34,11 +36,26 @@ export default function PoliticsForm() {
     }, 3000);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!title || !year || !description || !category || !position || !period) {
       showAlert("همه موارد الزامیست");
       return;
     }
+
+    let politicObject = {
+      title: title,
+      year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+      position: position,
+      description: description,
+      category: category,
+      period: period,
+      image: image,
+      confirm: false,
+      hidden: false,
+    };
+
+    await createPoliticApi(politicObject);
+    window.location.assign("/politics");
   };
 
   return (

@@ -8,7 +8,7 @@ const AcademicSchema = new Schema(
     category: String,
     image: String,
     confirm: Boolean,
-    active: Boolean,
+    hidden: Boolean,
   },
   { timestamps: true }
 );

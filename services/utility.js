@@ -9,10 +9,6 @@ export function fourGenerator() {
   return Math.floor(1000 + Math.random() * 9000);
 }
 
-export function sixGenerator() {
-  return Math.floor(100000 + Math.random() * 900000);
-}
-
 export function getMobileOperatingSystem() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -38,16 +34,6 @@ export function abbreviateNumber(num) {
     notation: "compact",
     compactDisplay: "short",
   }).format(num);
-}
-
-export function calculatePercentage(percentage, value) {
-  return value * (percentage / 100);
-}
-
-export function getMonthName(number) {
-  const date = new Date();
-  date.setMonth(monthNumber + 2);
-  return date.toLocaleString("fa-IR", { month: "long" });
 }
 
 export function faToEnDigits(input) {

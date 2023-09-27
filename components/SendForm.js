@@ -6,8 +6,9 @@ import Image from "next/legacy/image";
 export default function SendForm() {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [comment, setComment] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [position, setPosition] = useState("");
   const [period, setPeriod] = useState("");
   const [image, setImage] = useState("");
 
@@ -23,12 +24,12 @@ export default function SendForm() {
   };
 
   const handleSubmit = () => {
-    if (!title || !year || !comment || !category) {
+    if (!title || !year || !description || !category) {
       showAlert("همه موارد الزامیست");
       return;
     }
     if (category === "سیاسی و اجرایی") {
-      if (!period) {
+      if (!period || !position) {
         showAlert("همه موارد الزامیست");
         return;
       }
@@ -108,29 +109,53 @@ export default function SendForm() {
         </select>
       </div>
       {category === "سیاسی و اجرایی" && (
-        <div className={classes.input}>
-          <div className={classes.bar}>
-            <p className={classes.label}>
-              دوره انقلاب
-              <span>*</span>
-            </p>
+        <Fragment>
+          <div className={classes.input}>
+            <div className={classes.bar}>
+              <p className={classes.label}>
+                سمت
+                <span>*</span>
+              </p>
+              <CloseIcon
+                className="icon"
+                onClick={() => setPosition("")}
+                sx={{ fontSize: 16 }}
+              />
+            </div>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              onChange={(e) => setPosition(e.target.value)}
+              value={position}
+              autoComplete="off"
+              dir="rtl"
+            />
           </div>
-          <select
-            defaultValue={"default"}
-            onChange={(e) => setPeriod(e.target.value)}
-          >
-            <option value="default" disabled>
-              انتخاب
-            </option>
-            {categoriesPeriod.map((category, index) => {
-              return (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+          <div className={classes.input}>
+            <div className={classes.bar}>
+              <p className={classes.label}>
+                دوره انقلاب
+                <span>*</span>
+              </p>
+            </div>
+            <select
+              defaultValue={"default"}
+              onChange={(e) => setPeriod(e.target.value)}
+            >
+              <option value="default" disabled>
+                انتخاب
+              </option>
+              {categoriesPeriod.map((category, index) => {
+                return (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </Fragment>
       )}
       <div className={classes.input}>
         <p className={classes.label}>
@@ -140,10 +165,10 @@ export default function SendForm() {
         <textarea
           placeholder="..."
           type="text"
-          id="comment"
-          name="comment"
-          onChange={(e) => setComment(e.target.value)}
-          value={comment}
+          id="description"
+          name="description"
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
           autoComplete="off"
           dir="rtl"
         ></textarea>

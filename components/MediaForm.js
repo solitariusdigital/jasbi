@@ -3,6 +3,8 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
+import { createMediaApi } from "@/services/api";
+import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
 
 export default function MediaForm() {
   const [mediaType, setMediaType] = useState("image" || "video");
@@ -23,11 +25,24 @@ export default function MediaForm() {
     }, 3000);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!title || !year || !description || !media) {
       showAlert("همه موارد الزامیست");
       return;
     }
+
+    let mediaObject = {
+      title: title,
+      year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+      description: description,
+      category: category,
+      media: media,
+      confirm: false,
+      hidden: false,
+    };
+
+    await createMediaApi(mediaObject);
+    window.location.assign("/");
   };
 
   return (

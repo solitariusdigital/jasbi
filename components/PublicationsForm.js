@@ -3,6 +3,8 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
+import { createPublicationApi } from "@/services/api";
+import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
 
 export default function PublicationsForm() {
   const [title, setTitle] = useState("");
@@ -25,11 +27,26 @@ export default function PublicationsForm() {
     }, 3000);
   };
 
-  const handleSubmit = () => {
-    if (!title || !year || !description || !category || !publisher || !author) {
+  const handleSubmit = async () => {
+    if (!title || !author || !description || !year || !publisher || !category) {
       showAlert("همه موارد الزامیست");
       return;
     }
+
+    let publicationObject = {
+      title: title,
+      author: author,
+      year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+      description: description,
+      category: category,
+      publisher: publisher,
+      image: image,
+      confirm: false,
+      hidden: false,
+    };
+
+    await createPublicationApi(publicationObject);
+    window.location.assign("/publications");
   };
 
   return (
