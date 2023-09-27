@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PoliticsForm from "@/components/PoliticsForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import VerifiedIcon from "@mui/icons-material/Verified";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
 export default function Politics() {
   const [type, setType] = useState("بعد" || "قبل");
@@ -102,7 +102,7 @@ export default function Politics() {
             .filter((item) => item.category === type)
             .map((item, index) => (
               <div className={classes.item} key={index}>
-                <VerifiedIcon
+                <VerifiedUserIcon
                   className={classes.verified}
                   sx={{ color: "#57a361" }}
                 />

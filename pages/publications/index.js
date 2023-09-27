@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PublicationsForm from "@/components/PublicationsForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import VerifiedIcon from "@mui/icons-material/Verified";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
 export default function Publications() {
   const [type, setType] = useState("book" || "article");
@@ -116,7 +116,7 @@ export default function Publications() {
             .filter((item) => item.type === type)
             .map((item, index) => (
               <div className={classes.item} key={index}>
-                <VerifiedIcon
+                <VerifiedUserIcon
                   className={classes.verified}
                   sx={{ color: "#57a361" }}
                 />
