@@ -89,7 +89,9 @@ export default function Register() {
       if (userData) {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        window.location.assign("/");
+        if (userData.permission === "admin") {
+          window.location.assign("/");
+        }
       } else {
         await createUser();
       }
@@ -121,7 +123,9 @@ export default function Register() {
       } else {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        window.location.assign("/");
+        if (userData.permission === "admin") {
+          window.location.assign("/");
+        }
       }
     } catch (error) {
       showAlert("خطا در برقراری ارتباط");

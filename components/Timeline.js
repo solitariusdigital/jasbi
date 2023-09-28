@@ -4,122 +4,16 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { enToFaDigits } from "@/services/utility";
 
-export default function Timeline() {
+export default function Timeline({ timelineData }) {
   const [displayDetails, setDisplayDetails] = useState(false);
   const [details, setDetails] = useState("");
-  const [timeline, setTimeline] = useState([
-    {
-      year: "1360",
-      title: "دانشگاه",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "بازنشسته",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "اسلامی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "تأسیس",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "فرهنگی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "جمهوری",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "سیاستمدار",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "اسلامی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "تأسیس",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "فرهنگی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "جمهوری",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "سیاستمدار",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "دانشگاه",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "بازنشسته",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "اسلامی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "تأسیس",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "فرهنگی",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "جمهوری",
-      active: false,
-    },
-    {
-      year: "1360",
-      title: "سیاستمدار",
-      active: false,
-    },
-    {
-      year: "1402",
-      title:
-        "سیاستمدار رویدادهای سیاستمدار ر رویدادهای رویدادهای سیاستمدار سیاستمدار سیاستمدار سیاستمدار سیاستمدار ر رویدادهای رویدادهای ویدادهای",
-      active: false,
-    },
-  ]);
+  const [timeline, setTimeline] = useState(timelineData);
 
-  const periods = [
-    "قبل انقلاب",
-    "حزب جمهوری اسلامی",
-    "تاسیس دانشگاه آزاد اسلامی",
-    "دهه اول تثبیت دانشگاه آزاد اسلامی",
-    "دهه دوم گسترش کمی دانشگاه آزاد اسلامی",
-    "دهه سوم گسترش کیفی دانشگاه آزاد اسلامی",
-    "دهه چهارم گسترش و رقابت دانشگاه آزاد اسلامی",
-  ];
+  const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    console.log(timeline);
+  }, [timeline]);
 
   const selectYear = (index) => {
     timeline.map((item, i) => {
@@ -148,22 +42,24 @@ export default function Timeline() {
           onClick={() => scrollLeft()}
         />
         <div className={classes.timeline} id="timeline">
-          {timeline
-            .map((item, index) => (
+          {timelineData
+            .map((time, index) => (
               <div key={index} className={classes.section}>
                 <div className={classes.row}>
-                  <p className={classes.year}>{enToFaDigits(item.year)}</p>
+                  <p className={classes.year}>{enToFaDigits(time.year)}</p>
                   <select
                     defaultValue={"default"}
-                    onChange={(e) => setPeriod(e.target.value)}
+                    onChange={(e) =>
+                      setDescription(time.data[e.target.value].description)
+                    }
                   >
                     <option value="default" disabled>
                       انتخاب
                     </option>
-                    {periods.map((period, index) => {
+                    {time.data.map((item, index) => {
                       return (
-                        <option key={index} value={period}>
-                          {period}
+                        <option key={index} value={index}>
+                          {item.title}
                         </option>
                       );
                     })}
@@ -171,9 +67,9 @@ export default function Timeline() {
                 </div>
                 <p
                   onClick={() => selectYear(index)}
-                  className={item.active ? classes.active : classes.title}
+                  className={time.active ? classes.active : classes.title}
                 >
-                  {item.title.slice(0, 22)} ... <span>بیشتر</span>
+                  {description.slice(0, 22)} ... <span>بیشتر</span>
                 </p>
               </div>
             ))

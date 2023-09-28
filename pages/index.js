@@ -8,8 +8,12 @@ import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
 import { enToFaDigits } from "@/services/utility";
 import MediaForm from "@/components/MediaForm";
+import dbConnect from "@/services/dbConnect";
+import academicModel from "@/models/Academic";
+import publicationModel from "@/models/Publication";
+import politicModel from "@/models/Politic";
 
-export default function Home() {
+export default function Home({ timelineData }) {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -99,7 +103,7 @@ export default function Home() {
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
         <p>رویدادهای مهم و ماندگار</p>
-        <Timeline />
+        <Timeline timelineData={timelineData} />
       </div>
       <div className={classes.banners}>
         <div className={classes.card}>دانشگاه</div>
@@ -135,4 +139,46 @@ export default function Home() {
       )}
     </Fragment>
   );
+}
+
+// initial connection to db
+export async function getServerSideProps(context) {
+  try {
+    await dbConnect();
+    const academics = await academicModel.find();
+    const politics = await politicModel.find();
+    const publications = await publicationModel.find();
+    const archive = [...academics, ...politics, ...publications];
+
+    let years = archive.map((item) => {
+      return item.year;
+    });
+    let sortedYears = [...new Set(years)].sort((a, b) => {
+      return a - b;
+    });
+
+    const timelineData = [];
+    sortedYears.forEach((year) => {
+      const dataObj1 = academics.filter((obj) => obj.year === year);
+      const dataObj2 = politics.filter((obj) => obj.year === year);
+      const dataObj3 = publications.filter((obj) => obj.year === year);
+      const combined = {
+        year: year,
+        data: [...dataObj1, ...dataObj2, ...dataObj3],
+        active: false,
+      };
+      timelineData.push(combined);
+    });
+
+    return {
+      props: {
+        timelineData: JSON.parse(JSON.stringify(timelineData)),
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
+  }
 }
