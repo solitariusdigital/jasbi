@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -7,76 +7,33 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
+import { getAcademicApi, updateAcademicApi } from "@/services/api";
 
-export default function Academic() {
-  const [type, setType] = useState("پروژه" || "دستاور" || "تدریس");
+export default function Academic({ academics }) {
+  const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [displayDetails, setDisplayDetails] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
-  const [items, setItems] = useState([
-    {
-      title: "پروژه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-      type: "پروژه",
-      year: "1380",
-    },
-    {
-      title: "پروژه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "پروژه",
-      year: "1380",
-    },
-    {
-      title: "پروژه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "پروژه",
-      year: "1380",
-    },
-    {
-      title: "دستاورد",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "دستاور",
-      year: "1381",
-    },
-    {
-      title: "تدریس",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "تدریس",
-      year: "1382",
-    },
-    {
-      title: "پروژه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "پروژه",
-      year: "1380",
-    },
-
-    {
-      title: "تدریس",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      type: "تدریس",
-      year: "1382",
-    },
-  ]);
-
   const action = async (id, type) => {
-    const message = `${type === "confirm" ? "انتشار مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const message = `${
+      type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
+    }`;
     const confirm = window.confirm(message);
+
+    if (confirm) {
+      let data = await getAcademicApi(id);
+      switch (type) {
+        case "confirm":
+          data.confirm = true;
+          break;
+        case "cancel":
+          data.hidden = true;
+          break;
+      }
+      await updateAcademicApi(data);
+      window.location.assign("/academic");
+    }
   };
 
   return (
@@ -90,20 +47,22 @@ export default function Academic() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "تدریس" ? classes.navActive : classes.nav}
-              onClick={() => setType("تدریس")}
+              className={category === "تدریس" ? classes.navActive : classes.nav}
+              onClick={() => setCategory("تدریس")}
             >
               تدریس
             </p>
             <p
-              className={type === "دستاور" ? classes.navActive : classes.nav}
-              onClick={() => setType("دستاور")}
+              className={
+                category === "دستاور" ? classes.navActive : classes.nav
+              }
+              onClick={() => setCategory("دستاور")}
             >
               دستاورد
             </p>
             <p
-              className={type === "پروژه" ? classes.navActive : classes.nav}
-              onClick={() => setType("پروژه")}
+              className={category === "پروژه" ? classes.navActive : classes.nav}
+              onClick={() => setCategory("پروژه")}
             >
               پروژه
             </p>
@@ -123,66 +82,74 @@ export default function Academic() {
               : ""
           }`}
         >
-          {items
-            .filter((item) => item.type === type)
+          {academics
+            .filter((item) => item.category === category)
             .map((item, index) => (
-              <div className={classes.item} key={index}>
-                <VerifiedUserIcon
-                  className={classes.verified}
-                  sx={{ color: "#57a361" }}
-                />
-                <div className={classes.row}>
-                  <div>
-                    {item.image && (
-                      <Image
-                        className={classes.image}
-                        src={item.image}
-                        placeholder="blur"
-                        blurDataURL={item.image}
-                        alt="image"
-                        loading="eager"
-                        width={100}
-                        height={150}
-                        objectFit="cover"
-                        priority
+              <Fragment key={index}>
+                {item.confirm && !item.hidden && (
+                  <div className={classes.item}>
+                    {item.confirm && (
+                      <VerifiedUserIcon
+                        className={classes.verified}
+                        sx={{ color: "#57a361" }}
+                      />
+                    )}
+                    <div className={classes.row}>
+                      <div>
+                        {item.image && (
+                          <Image
+                            className={classes.image}
+                            src={item.image}
+                            placeholder="blur"
+                            blurDataURL={item.image}
+                            alt="image"
+                            loading="eager"
+                            width={100}
+                            height={150}
+                            objectFit="cover"
+                            priority
+                            onClick={() => {
+                              setSelectedItem(item);
+                              setDisplayDetails(true);
+                              window.scrollTo(0, 0);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>سال : {item.year} </p>
+                      </div>
+                    </div>
+                    <p>
+                      {item.description.slice(0, 100)} ...{" "}
+                      <span
                         onClick={() => {
                           setSelectedItem(item);
                           setDisplayDetails(true);
                           window.scrollTo(0, 0);
                         }}
+                      >
+                        بیشتر
+                      </span>
+                    </p>
+                    <div className={classes.action}>
+                      {!item.confirm && (
+                        <TaskAltIcon
+                          className={classes.icon}
+                          sx={{ color: "#57a361" }}
+                          onClick={() => action(item["_id"], "confirm")}
+                        />
+                      )}
+                      <CloseIcon
+                        className={classes.icon}
+                        sx={{ color: "#cd3d2c" }}
+                        onClick={() => action(item["_id"], "cancel")}
                       />
-                    )}
+                    </div>
                   </div>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>سال : {item.year} </p>
-                  </div>
-                </div>
-                <p>
-                  {item.description.slice(0, 100)} ...{" "}
-                  <span
-                    onClick={() => {
-                      setSelectedItem(item);
-                      setDisplayDetails(true);
-                      window.scrollTo(0, 0);
-                    }}
-                  >
-                    بیشتر
-                  </span>
-                </p>
-                <div className={classes.action}>
-                  <TaskAltIcon
-                    className={classes.icon}
-                    sx={{ color: "#57a361" }}
-                    onClick={() => action(item["_id"], "confirm")}
-                  />
-                  <CloseIcon
-                    className={classes.icon}
-                    sx={{ color: "#cd3d2c" }}
-                    onClick={() => action(item["_id"], "cancel")}
-                  />
-                </div>
-              </div>
+                )}
+              </Fragment>
             ))}
         </div>
       )}
@@ -229,9 +196,7 @@ export default function Academic() {
 export async function getServerSideProps(context) {
   try {
     await dbConnect();
-
     const academics = await academicModel.find();
-
     return {
       props: {
         academics: JSON.parse(JSON.stringify(academics)),

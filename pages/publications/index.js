@@ -5,69 +5,35 @@ import CloseIcon from "@mui/icons-material/Close";
 import PublicationsForm from "@/components/PublicationsForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import dbConnect from "@/services/dbConnect";
+import publicationModel from "@/models/Publication";
+import { getPublicationApi, updatePublicationApi } from "@/services/api";
 
-export default function Publications() {
-  const [type, setType] = useState("book" || "article");
+export default function Publications({ publications }) {
+  const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
 
-  const [items, setItems] = useState([
-    {
-      title: "دانشگاه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "",
-      publication: "۱۳۴۲",
-      publisher: "123412341234",
-      author: "دکتر عبدالله جاسبی",
-      type: "book",
-    },
-    {
-      title: "تالیف",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-      publication: "۱۳۴۲",
-      publisher: "123412341234",
-      author: "دکتر پویان",
-      type: "article",
-    },
-    {
-      title: "تالیف",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-      publication: "۱۳۴۲",
-      publisher: "123412341234",
-      author: "دکتر عبدالله جاسبی",
-      type: "article",
-    },
-    {
-      title: "پیشرفته",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-      publication: "۱۳۴۲",
-      publisher: "123412341234",
-      author: "دکتر پویان",
-      type: "book",
-    },
-    {
-      title: "پیشرفته",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-      publication: "۱۳۴۲",
-      publisher: "123412341234",
-      author: "دکتر عبدالله جاسبی",
-      type: "book",
-    },
-  ]);
-
   const action = async (id, type) => {
-    const message = `${type === "confirm" ? "انتشار مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const message = `${
+      type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
+    }`;
     const confirm = window.confirm(message);
+
+    if (confirm) {
+      let data = await getPublicationApi(id);
+      switch (type) {
+        case "confirm":
+          data.confirm = true;
+          break;
+        case "cancel":
+          data.hidden = true;
+          break;
+      }
+      await updatePublicationApi(data);
+      window.location.assign("/publications");
+    }
   };
 
   return (
@@ -81,14 +47,16 @@ export default function Publications() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "article" ? classes.navActive : classes.nav}
-              onClick={() => setType("article")}
+              className={
+                category === "مقالات" ? classes.navActive : classes.nav
+              }
+              onClick={() => setCategory("مقالات")}
             >
               مقالات
             </p>
             <p
-              className={type === "book" ? classes.navActive : classes.nav}
-              onClick={() => setType("book")}
+              className={category === "کتاب" ? classes.navActive : classes.nav}
+              onClick={() => setCategory("کتاب")}
             >
               کتاب
             </p>
@@ -108,71 +76,77 @@ export default function Publications() {
               : ""
           }`}
         >
-          {items
-            .filter((item) => item.type === type)
+          {publications
+            .filter((item) => item.category === category)
             .map((item, index) => (
-              <div className={classes.item} key={index}>
-                <VerifiedUserIcon
-                  className={classes.verified}
-                  sx={{ color: "#57a361" }}
-                />
-                <div className={classes.row}>
-                  <div>
-                    {item.image && (
-                      <Image
-                        className={classes.image}
-                        src={item.image}
-                        placeholder="blur"
-                        blurDataURL={item.image}
-                        alt="image"
-                        loading="eager"
-                        width={100}
-                        height={150}
-                        objectFit="cover"
-                        priority
+              <Fragment key={index}>
+                {item.confirm && !item.hidden && (
+                  <div className={classes.item}>
+                    <VerifiedUserIcon
+                      className={classes.verified}
+                      sx={{ color: "#57a361" }}
+                    />
+                    <div className={classes.row}>
+                      <div>
+                        {item.image && (
+                          <Image
+                            className={classes.image}
+                            src={item.image}
+                            placeholder="blur"
+                            blurDataURL={item.image}
+                            alt="image"
+                            loading="eager"
+                            width={100}
+                            height={150}
+                            objectFit="cover"
+                            priority
+                            onClick={() => {
+                              setSelectedItem(item);
+                              setDisplayDetails(true);
+                              window.scrollTo(0, 0);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>گردآورنده : {item.author}</p>
+                        {item.author !== "دکتر عبدالله جاسبی" && (
+                          <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                        )}
+                        <p>ناشر : {item.publisher}</p>
+                        <p>سال چاپ : {item.year} </p>
+                      </div>
+                    </div>
+                    <p>
+                      {item.description.slice(0, 100)} ...{" "}
+                      <span
                         onClick={() => {
                           setSelectedItem(item);
                           setDisplayDetails(true);
                           window.scrollTo(0, 0);
                         }}
+                      >
+                        بیشتر
+                      </span>
+                    </p>
+                    <div className={classes.action}>
+                      {!item.confirm && (
+                        <TaskAltIcon
+                          className={classes.icon}
+                          sx={{ color: "#57a361" }}
+                          onClick={() => action(item["_id"], "confirm")}
+                        />
+                      )}
+                      <CloseIcon
+                        className={classes.icon}
+                        sx={{ color: "#cd3d2c" }}
+                        onClick={() => action(item["_id"], "cancel")}
                       />
-                    )}
+                    </div>
                   </div>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>گردآورنده : {item.author}</p>
-                    {item.author !== "دکتر عبدالله جاسبی" && (
-                      <p>زیر نظز : دکتر عبدالله جاسبی</p>
-                    )}
-                    <p>ناشر : {item.publisher}</p>
-                    <p>سال چاپ : {item.publication} </p>
-                  </div>
-                </div>
-                <p>
-                  {item.description.slice(0, 100)} ...{" "}
-                  <span
-                    onClick={() => {
-                      setSelectedItem(item);
-                      setDisplayDetails(true);
-                      window.scrollTo(0, 0);
-                    }}
-                  >
-                    بیشتر
-                  </span>
-                </p>
-                <div className={classes.action}>
-                  <TaskAltIcon
-                    className={classes.icon}
-                    sx={{ color: "#57a361" }}
-                    onClick={() => action(item["_id"], "confirm")}
-                  />
-                  <CloseIcon
-                    className={classes.icon}
-                    sx={{ color: "#cd3d2c" }}
-                    onClick={() => action(item["_id"], "cancel")}
-                  />
-                </div>
-              </div>
+                )}
+              </Fragment>
             ))}
         </div>
       )}
@@ -193,7 +167,7 @@ export default function Publications() {
                   <p>زیر نظز : دکتر عبدالله جاسبی</p>
                 )}
                 <p>ناشر : {selectedItem.publisher}</p>
-                <p>سال چاپ : {selectedItem.publication}</p>
+                <p>سال چاپ : {selectedItem.year}</p>
               </div>
               {selectedItem.image && (
                 <div>
@@ -218,4 +192,22 @@ export default function Publications() {
       )}
     </div>
   );
+}
+
+// initial connection to db
+export async function getServerSideProps(context) {
+  try {
+    await dbConnect();
+    const publications = await publicationModel.find();
+    return {
+      props: {
+        publications: JSON.parse(JSON.stringify(publications)),
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
+  }
 }

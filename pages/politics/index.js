@@ -5,57 +5,35 @@ import CloseIcon from "@mui/icons-material/Close";
 import PoliticsForm from "@/components/PoliticsForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import dbConnect from "@/services/dbConnect";
+import politicModel from "@/models/Politic";
+import { getPoliticApi, updatePoliticApi } from "@/services/api";
 
-export default function Politics() {
-  const [type, setType] = useState("بعد" || "قبل");
+export default function Politics({ politics }) {
+  const [category, setCategory] = useState("بعد" || "قبل");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
 
-  const [activities, setActivities] = useState([
-    {
-      title: "قبل انقلاب",
-      year: "۱۳۷۰",
-      position: "تاسیس",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      category: "قبل",
-      period: "حزب جمهوری اسلامی",
-    },
-    {
-      title: "بعد انقلاب",
-      year: "۱۳۷۰",
-      position: "دانشگاه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      category: "بعد",
-      period: "تاسیس دانشگاه آزاد اسلامی",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-    },
-    {
-      title: "قبل انقلاب",
-      year: "۱۳۷۰",
-      position: "تاسیس",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      category: "قبل",
-      period: "حزب جمهوری اسلامی",
-    },
-    {
-      title: "بعد انقلاب",
-      year: "۱۳۷۰",
-      position: "دانشگاه",
-      description:
-        "دانشگاه آزاد اسلامی: نقش ایشان در ایجاد و گسترش دانشگاه آزاد اسلامی به صورت کامل و طبقه بندی شده دراین بخش توضیح داده خواهد شد",
-      category: "بعد",
-      period: "تاسیس دانشگاه آزاد اسلامی",
-      image: "https://delmare.storage.iran.liara.space/CLD206926/img626618.jpg",
-    },
-  ]);
-
   const action = async (id, type) => {
-    const message = `${type === "confirm" ? "انتشار مطمئنی؟" : "حذف مطمئنی؟"}`;
+    const message = `${
+      type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
+    }`;
     const confirm = window.confirm(message);
+
+    if (confirm) {
+      let data = await getPoliticApi(id);
+      switch (type) {
+        case "confirm":
+          data.confirm = true;
+          break;
+        case "cancel":
+          data.hidden = true;
+          break;
+      }
+      await updatePoliticApi(data);
+      window.location.assign("/politics");
+    }
   };
 
   return (
@@ -69,14 +47,14 @@ export default function Politics() {
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <p
-              className={type === "قبل" ? classes.navActive : classes.nav}
-              onClick={() => setType("قبل")}
+              className={category === "قبل" ? classes.navActive : classes.nav}
+              onClick={() => setCategory("قبل")}
             >
               قبل انقلاب
             </p>
             <p
-              className={type === "بعد" ? classes.navActive : classes.nav}
-              onClick={() => setType("بعد")}
+              className={category === "بعد" ? classes.navActive : classes.nav}
+              onClick={() => setCategory("بعد")}
             >
               بعد انقلاب
             </p>
@@ -96,68 +74,74 @@ export default function Politics() {
               : ""
           }`}
         >
-          {activities
-            .filter((item) => item.category === type)
+          {politics
+            .filter((item) => item.category === category)
             .map((item, index) => (
-              <div className={classes.item} key={index}>
-                <VerifiedUserIcon
-                  className={classes.verified}
-                  sx={{ color: "#57a361" }}
-                />
-                <div className={classes.row}>
-                  <div>
-                    {item.image && (
-                      <Image
-                        className={classes.image}
-                        src={item.image}
-                        placeholder="blur"
-                        blurDataURL={item.image}
-                        alt="image"
-                        loading="eager"
-                        width={100}
-                        height={150}
-                        objectFit="cover"
-                        priority
+              <Fragment key={index}>
+                {item.confirm && !item.hidden && (
+                  <div className={classes.item}>
+                    <VerifiedUserIcon
+                      className={classes.verified}
+                      sx={{ color: "#57a361" }}
+                    />
+                    <div className={classes.row}>
+                      <div>
+                        {item.image && (
+                          <Image
+                            className={classes.image}
+                            src={item.image}
+                            placeholder="blur"
+                            blurDataURL={item.image}
+                            alt="image"
+                            loading="eager"
+                            width={100}
+                            height={150}
+                            objectFit="cover"
+                            priority
+                            onClick={() => {
+                              setSelectedItem(item);
+                              setDisplayDetails(true);
+                              window.scrollTo(0, 0);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>سمت : {item.position}</p>
+                        <p>فعالیت : {item.activity}</p>
+                        <p>سال : {item.year} </p>
+                      </div>
+                    </div>
+                    <p>
+                      {item.description.slice(0, 100)} ...{" "}
+                      <span
                         onClick={() => {
                           setSelectedItem(item);
                           setDisplayDetails(true);
                           window.scrollTo(0, 0);
                         }}
+                      >
+                        بیشتر
+                      </span>
+                    </p>
+                    <div className={classes.action}>
+                      {!item.confirm && (
+                        <TaskAltIcon
+                          className={classes.icon}
+                          sx={{ color: "#57a361" }}
+                          onClick={() => action(item["_id"], "confirm")}
+                        />
+                      )}
+                      <CloseIcon
+                        className={classes.icon}
+                        sx={{ color: "#cd3d2c" }}
+                        onClick={() => action(item["_id"], "cancel")}
                       />
-                    )}
+                    </div>
                   </div>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>سمت : {item.position}</p>
-                    <p>فعالیت : {item.period}</p>
-                    <p>سال : {item.year} </p>
-                  </div>
-                </div>
-                <p>
-                  {item.description.slice(0, 100)} ...{" "}
-                  <span
-                    onClick={() => {
-                      setSelectedItem(item);
-                      setDisplayDetails(true);
-                      window.scrollTo(0, 0);
-                    }}
-                  >
-                    بیشتر
-                  </span>
-                </p>
-                <div className={classes.action}>
-                  <TaskAltIcon
-                    className={classes.icon}
-                    sx={{ color: "#57a361" }}
-                    onClick={() => action(item["_id"], "confirm")}
-                  />
-                  <CloseIcon
-                    className={classes.icon}
-                    sx={{ color: "#cd3d2c" }}
-                    onClick={() => action(item["_id"], "cancel")}
-                  />
-                </div>
-              </div>
+                )}
+              </Fragment>
             ))}
         </div>
       )}
@@ -200,4 +184,22 @@ export default function Politics() {
       )}
     </div>
   );
+}
+
+// initial connection to db
+export async function getServerSideProps(context) {
+  try {
+    await dbConnect();
+    const politics = await politicModel.find();
+    return {
+      props: {
+        politics: JSON.parse(JSON.stringify(politics)),
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
+  }
 }
