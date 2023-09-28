@@ -31,6 +31,9 @@ export default function MediaForm() {
       return;
     }
 
+    setLoader(true);
+    setDisableButton(true);
+
     let mediaObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),

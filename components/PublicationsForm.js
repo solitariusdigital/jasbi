@@ -33,6 +33,9 @@ export default function PublicationsForm() {
       return;
     }
 
+    setLoader(true);
+    setDisableButton(true);
+
     let publicationObject = {
       title: title,
       author: author,

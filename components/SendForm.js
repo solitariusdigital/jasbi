@@ -2,6 +2,9 @@ import { useState, useContext, useRef, Fragment, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
+import loaderImage from "@/assets/loader.png";
+import { createAcademicApi, createPoliticApi } from "@/services/api";
+import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
 
 export default function SendForm() {
   const [title, setTitle] = useState("");
@@ -15,6 +18,8 @@ export default function SendForm() {
   const categories = ["سیاسی و اجرایی", "پژوهشی و علمی"];
   const categoriesPeriod = ["قبل", "بعد"];
   const [alert, setAlert] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const showAlert = (message) => {
     setAlert(message);
@@ -23,7 +28,7 @@ export default function SendForm() {
     }, 3000);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!title || !year || !description || !category) {
       showAlert("همه موارد الزامیست");
       return;
@@ -34,6 +39,41 @@ export default function SendForm() {
         return;
       }
     }
+
+    setLoader(true);
+    setDisableButton(true);
+
+    let dataObject = null;
+
+    switch (category) {
+      case "سیاسی و اجرایی":
+        dataObject = {
+          title: title,
+          year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+          position: position,
+          description: description,
+          category: category,
+          period: period,
+          image: image,
+          confirm: false,
+          hidden: false,
+        };
+        await createPoliticApi(dataObject);
+        break;
+      case "پژوهشی و علمی":
+        dataObject = {
+          title: title,
+          year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
+          description: description,
+          category: category,
+          image: image,
+          confirm: false,
+          hidden: false,
+        };
+        await createAcademicApi(dataObject);
+        break;
+    }
+    window.location.assign("/");
   };
 
   return (
@@ -203,8 +243,17 @@ export default function SendForm() {
           </div>
         )}
       </div>
-      <p className="alert">{alert}</p>
-      <button onClick={() => handleSubmit()}>ارسال</button>
+      <div className={classes.formAction}>
+        <p className="alert">{alert}</p>
+        {loader && (
+          <div>
+            <Image width={50} height={50} src={loaderImage} alt="isLoading" />
+          </div>
+        )}
+        <button disabled={disableButton} onClick={() => handleSubmit()}>
+          ارسال
+        </button>
+      </div>
     </div>
   );
 }

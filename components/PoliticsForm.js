@@ -42,6 +42,9 @@ export default function PoliticsForm() {
       return;
     }
 
+    setLoader(true);
+    setDisableButton(true);
+
     let politicObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),

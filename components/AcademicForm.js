@@ -31,6 +31,9 @@ export default function AcademicForm() {
       return;
     }
 
+    setLoader(true);
+    setDisableButton(true);
+
     let academicObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
