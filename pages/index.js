@@ -12,6 +12,7 @@ import MediaForm from "@/components/MediaForm";
 export default function Home() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
   const { currentUser, setCurrentUser } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
 
@@ -123,15 +124,15 @@ export default function Home() {
         {displayRegister && !currentUser && <Register />}
         {displayRegister && currentUser && <SendForm />}
       </div>
-      <div className={classes.uploadForm}>
-        <Fragment>
+      {permissionControl && (
+        <div className={classes.uploadForm}>
           <button onClick={() => setMediaform(!mediaForm)}>
             بارگذاری رسانه ​
           </button>
           <p className="message">بارگذاری عکس و ویدئو</p>
           {mediaForm && <MediaForm />}
-        </Fragment>
-      </div>
+        </div>
+      )}
     </Fragment>
   );
 }

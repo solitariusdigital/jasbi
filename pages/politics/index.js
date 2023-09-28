@@ -1,4 +1,5 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
+import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +11,8 @@ import politicModel from "@/models/Politic";
 import { getPoliticApi, updatePoliticApi } from "@/services/api";
 
 export default function Politics({ politics }) {
+  const { currentUser, setCurrentUser } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("بعد" || "قبل");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -38,11 +41,13 @@ export default function Politics({ politics }) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.button}>
-        <button onClick={() => setDisplayForm(!displayForm)}>
-          {!displayForm ? "بارگذاری" : "برگشت"}
-        </button>
-      </div>
+      {permissionControl && (
+        <div className={classes.button}>
+          <button onClick={() => setDisplayForm(!displayForm)}>
+            {!displayForm ? "بارگذاری" : "برگشت"}
+          </button>
+        </div>
+      )}
       {!displayForm && (
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
@@ -80,10 +85,12 @@ export default function Politics({ politics }) {
               <Fragment key={index}>
                 {item.confirm && !item.hidden && (
                   <div className={classes.item}>
-                    <VerifiedUserIcon
-                      className={classes.verified}
-                      sx={{ color: "#57a361" }}
-                    />
+                    {permissionControl && item.confirm && (
+                      <VerifiedUserIcon
+                        className={classes.verified}
+                        sx={{ color: "#57a361" }}
+                      />
+                    )}
                     <div className={classes.row}>
                       <div>
                         {item.image && (
@@ -125,20 +132,22 @@ export default function Politics({ politics }) {
                         بیشتر
                       </span>
                     </p>
-                    <div className={classes.action}>
-                      {!item.confirm && (
-                        <TaskAltIcon
+                    {permissionControl && (
+                      <div className={classes.action}>
+                        {!item.confirm && (
+                          <TaskAltIcon
+                            className={classes.icon}
+                            sx={{ color: "#57a361" }}
+                            onClick={() => action(item["_id"], "confirm")}
+                          />
+                        )}
+                        <CloseIcon
                           className={classes.icon}
-                          sx={{ color: "#57a361" }}
-                          onClick={() => action(item["_id"], "confirm")}
+                          sx={{ color: "#cd3d2c" }}
+                          onClick={() => action(item["_id"], "cancel")}
                         />
-                      )}
-                      <CloseIcon
-                        className={classes.icon}
-                        sx={{ color: "#cd3d2c" }}
-                        onClick={() => action(item["_id"], "cancel")}
-                      />
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </Fragment>
@@ -158,7 +167,7 @@ export default function Politics({ politics }) {
               <div>
                 <h3>{selectedItem.title}</h3>
                 <p>سمت : {selectedItem.position}</p>
-                <p>فعالیت : {selectedItem.period}</p>
+                <p>فعالیت : {selectedItem.activity}</p>
                 <p>سال : {selectedItem.year} </p>
               </div>
               {selectedItem.image && (
@@ -191,6 +200,7 @@ export async function getServerSideProps(context) {
   try {
     await dbConnect();
     const politics = await politicModel.find();
+    politics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return {
       props: {
         politics: JSON.parse(JSON.stringify(politics)),

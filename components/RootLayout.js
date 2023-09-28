@@ -5,14 +5,41 @@ import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
 import secureLocalStorage from "react-secure-storage";
 import Image from "next/legacy/image";
+import { getUserApi } from "@/services/api";
 
 export default function RootLayout({ children }) {
   const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
   const { currentUser, setCurrentUser } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [appLoader, setAppLoader] = useState(false);
 
   const router = useRouter();
   let pathname = router.pathname;
+
+  // checks user login and set user data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const currentUser = JSON.parse(
+          secureLocalStorage.getItem("currentUser")
+        );
+        if (currentUser) {
+          const userData = await getUserApi(currentUser["_id"]);
+          setCurrentUser(userData);
+          secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
+          if (currentUser.permission === "admin") {
+            setPermissionControl(true);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+    setTimeout(() => {
+      setAppLoader(true);
+    }, 500);
+  }, [setCurrentUser, setPermissionControl]);
 
   useEffect(() => {
     navigationTopBar.map((nav) => {
@@ -28,12 +55,6 @@ export default function RootLayout({ children }) {
     setNavigationTopBar([...navigationTopBar]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setAppLoader(true);
-    }, 500);
-  }, [setCurrentUser]);
 
   return (
     <Fragment>

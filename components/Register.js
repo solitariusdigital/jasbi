@@ -47,7 +47,6 @@ export default function Register() {
   };
 
   const verifyPhone = () => {
-    setCurrentUser(true);
     if (!name) {
       showAlert("نام الزامیست");
       return;
@@ -90,7 +89,7 @@ export default function Register() {
       if (userData) {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        Router.push("/portal");
+        window.location.assign("/");
       } else {
         await createUser();
       }
@@ -122,7 +121,7 @@ export default function Register() {
       } else {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        Router.push("/portal");
+        window.location.assign("/");
       }
     } catch (error) {
       showAlert("خطا در برقراری ارتباط");

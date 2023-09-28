@@ -1,4 +1,5 @@
-import { useState, Fragment } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
+import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +11,8 @@ import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
 
 export default function Academic({ academics }) {
+  const { currentUser, setCurrentUser } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -38,11 +41,13 @@ export default function Academic({ academics }) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.button}>
-        <button onClick={() => setDisplayForm(!displayForm)}>
-          {!displayForm ? "بارگذاری" : "برگشت"}
-        </button>
-      </div>
+      {permissionControl && (
+        <div className={classes.button}>
+          <button onClick={() => setDisplayForm(!displayForm)}>
+            {!displayForm ? "بارگذاری" : "برگشت"}
+          </button>
+        </div>
+      )}
       {!displayForm && (
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
@@ -88,7 +93,7 @@ export default function Academic({ academics }) {
               <Fragment key={index}>
                 {item.confirm && !item.hidden && (
                   <div className={classes.item}>
-                    {item.confirm && (
+                    {permissionControl && item.confirm && (
                       <VerifiedUserIcon
                         className={classes.verified}
                         sx={{ color: "#57a361" }}
@@ -122,7 +127,7 @@ export default function Academic({ academics }) {
                       </div>
                     </div>
                     <p>
-                      {item.description.slice(0, 100)} ...{" "}
+                      {item.description.slice(0, 150)} ...{" "}
                       <span
                         onClick={() => {
                           setSelectedItem(item);
@@ -133,20 +138,22 @@ export default function Academic({ academics }) {
                         بیشتر
                       </span>
                     </p>
-                    <div className={classes.action}>
-                      {!item.confirm && (
-                        <TaskAltIcon
+                    {permissionControl && (
+                      <div className={classes.action}>
+                        {!item.confirm && (
+                          <TaskAltIcon
+                            className={classes.icon}
+                            sx={{ color: "#57a361" }}
+                            onClick={() => action(item["_id"], "confirm")}
+                          />
+                        )}
+                        <CloseIcon
                           className={classes.icon}
-                          sx={{ color: "#57a361" }}
-                          onClick={() => action(item["_id"], "confirm")}
+                          sx={{ color: "#cd3d2c" }}
+                          onClick={() => action(item["_id"], "cancel")}
                         />
-                      )}
-                      <CloseIcon
-                        className={classes.icon}
-                        sx={{ color: "#cd3d2c" }}
-                        onClick={() => action(item["_id"], "cancel")}
-                      />
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </Fragment>
@@ -197,6 +204,7 @@ export async function getServerSideProps(context) {
   try {
     await dbConnect();
     const academics = await academicModel.find();
+    academics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return {
       props: {
         academics: JSON.parse(JSON.stringify(academics)),

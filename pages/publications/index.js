@@ -1,4 +1,5 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
+import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +11,8 @@ import publicationModel from "@/models/Publication";
 import { getPublicationApi, updatePublicationApi } from "@/services/api";
 
 export default function Publications({ publications }) {
+  const { currentUser, setCurrentUser } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -38,11 +41,13 @@ export default function Publications({ publications }) {
 
   return (
     <div className={classes.container}>
-      <div className={classes.button}>
-        <button onClick={() => setDisplayForm(!displayForm)}>
-          {!displayForm ? "بارگذاری" : "برگشت"}
-        </button>
-      </div>
+      {permissionControl && (
+        <div className={classes.button}>
+          <button onClick={() => setDisplayForm(!displayForm)}>
+            {!displayForm ? "بارگذاری" : "برگشت"}
+          </button>
+        </div>
+      )}
       {!displayForm && (
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
@@ -82,10 +87,12 @@ export default function Publications({ publications }) {
               <Fragment key={index}>
                 {item.confirm && !item.hidden && (
                   <div className={classes.item}>
-                    <VerifiedUserIcon
-                      className={classes.verified}
-                      sx={{ color: "#57a361" }}
-                    />
+                    {permissionControl && item.confirm && (
+                      <VerifiedUserIcon
+                        className={classes.verified}
+                        sx={{ color: "#57a361" }}
+                      />
+                    )}
                     <div className={classes.row}>
                       <div>
                         {item.image && (
@@ -130,20 +137,22 @@ export default function Publications({ publications }) {
                         بیشتر
                       </span>
                     </p>
-                    <div className={classes.action}>
-                      {!item.confirm && (
-                        <TaskAltIcon
+                    {permissionControl && (
+                      <div className={classes.action}>
+                        {!item.confirm && (
+                          <TaskAltIcon
+                            className={classes.icon}
+                            sx={{ color: "#57a361" }}
+                            onClick={() => action(item["_id"], "confirm")}
+                          />
+                        )}
+                        <CloseIcon
                           className={classes.icon}
-                          sx={{ color: "#57a361" }}
-                          onClick={() => action(item["_id"], "confirm")}
+                          sx={{ color: "#cd3d2c" }}
+                          onClick={() => action(item["_id"], "cancel")}
                         />
-                      )}
-                      <CloseIcon
-                        className={classes.icon}
-                        sx={{ color: "#cd3d2c" }}
-                        onClick={() => action(item["_id"], "cancel")}
-                      />
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </Fragment>
@@ -199,6 +208,7 @@ export async function getServerSideProps(context) {
   try {
     await dbConnect();
     const publications = await publicationModel.find();
+    publications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return {
       props: {
         publications: JSON.parse(JSON.stringify(publications)),
