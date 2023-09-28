@@ -44,7 +44,6 @@ export default function PublicationsForm() {
       publisher: publisher,
       image: image,
       confirm: false,
-      hidden: false,
     };
     await createPublicationApi(publicationObject);
     window.location.assign("/publications");

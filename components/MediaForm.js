@@ -40,7 +40,6 @@ export default function MediaForm() {
       category: category,
       media: media,
       confirm: false,
-      hidden: false,
     };
     await createMediaApi(mediaObject);
     window.location.assign("/");

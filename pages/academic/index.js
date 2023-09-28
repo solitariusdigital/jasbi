@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AcademicForm from "@/components/AcademicForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
@@ -31,7 +32,7 @@ export default function Academic({ academics }) {
           data.confirm = true;
           break;
         case "cancel":
-          data.hidden = true;
+          data.confirm = false;
           break;
       }
       await updateAcademicApi(data);
@@ -91,12 +92,61 @@ export default function Academic({ academics }) {
             .filter((item) => item.category === category)
             .map((item, index) => (
               <Fragment key={index}>
-                {item.confirm && !item.hidden && (
+                {!permissionControl && item.confirm && (
                   <div className={classes.item}>
-                    {permissionControl && item.confirm && (
+                    <div className={classes.row}>
+                      <div>
+                        {item.image && (
+                          <Image
+                            className={classes.image}
+                            src={item.image}
+                            placeholder="blur"
+                            blurDataURL={item.image}
+                            alt="image"
+                            loading="eager"
+                            width={100}
+                            height={150}
+                            objectFit="cover"
+                            priority
+                            onClick={() => {
+                              setSelectedItem(item);
+                              setDisplayDetails(true);
+                              window.scrollTo(0, 0);
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>سال : {item.year} </p>
+                      </div>
+                    </div>
+                    <p>
+                      {item.description.slice(0, 150)} ...{" "}
+                      <span
+                        onClick={() => {
+                          setSelectedItem(item);
+                          setDisplayDetails(true);
+                          window.scrollTo(0, 0);
+                        }}
+                      >
+                        بیشتر
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {permissionControl && (
+                  <div className={classes.item}>
+                    {item.confirm && (
                       <VerifiedUserIcon
                         className={classes.verified}
                         sx={{ color: "#57a361" }}
+                      />
+                    )}
+                    {!item.confirm && (
+                      <VisibilityOffIcon
+                        className={classes.verified}
+                        sx={{ color: "#cd3d2c" }}
                       />
                     )}
                     <div className={classes.row}>
@@ -138,22 +188,22 @@ export default function Academic({ academics }) {
                         بیشتر
                       </span>
                     </p>
-                    {permissionControl && (
-                      <div className={classes.action}>
-                        {!item.confirm && (
-                          <TaskAltIcon
-                            className={classes.icon}
-                            sx={{ color: "#57a361" }}
-                            onClick={() => action(item["_id"], "confirm")}
-                          />
-                        )}
+                    <div className={classes.action}>
+                      {!item.confirm && (
+                        <TaskAltIcon
+                          className={classes.icon}
+                          sx={{ color: "#57a361" }}
+                          onClick={() => action(item["_id"], "confirm")}
+                        />
+                      )}
+                      {item.confirm && (
                         <CloseIcon
                           className={classes.icon}
                           sx={{ color: "#cd3d2c" }}
                           onClick={() => action(item["_id"], "cancel")}
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 )}
               </Fragment>

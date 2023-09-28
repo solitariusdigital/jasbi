@@ -40,7 +40,6 @@ export default function AcademicForm() {
       category: category,
       image: image,
       confirm: false,
-      hidden: false,
     };
     await createAcademicApi(academicObject);
     window.location.assign("/academic");

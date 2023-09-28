@@ -8,7 +8,6 @@ const MediaSchema = new Schema(
     category: String,
     media: String,
     confirm: Boolean,
-    hidden: Boolean,
   },
   { timestamps: true }
 );

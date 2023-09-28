@@ -10,7 +10,6 @@ const PoliticSchema = new Schema(
     activity: String,
     image: String,
     confirm: Boolean,
-    hidden: Boolean,
   },
   { timestamps: true }
 );

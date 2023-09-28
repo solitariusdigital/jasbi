@@ -60,7 +60,6 @@ export default function PoliticsForm() {
       activity: activity,
       image: image,
       confirm: false,
-      hidden: false,
     };
     await createPoliticApi(politicObject);
     window.location.assign("/politics");
