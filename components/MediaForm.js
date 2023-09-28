@@ -13,7 +13,6 @@ export default function MediaForm() {
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState("");
   const [category, setCategory] = useState("");
-
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -43,7 +42,6 @@ export default function MediaForm() {
       confirm: false,
       hidden: false,
     };
-
     await createMediaApi(mediaObject);
     window.location.assign("/");
   };

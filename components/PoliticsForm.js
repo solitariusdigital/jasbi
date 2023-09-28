@@ -12,11 +12,10 @@ export default function PoliticsForm() {
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [period, setPeriod] = useState("");
+  const [activity, setActivity] = useState("");
   const [image, setImage] = useState("");
-
   const categories = ["قبل", "بعد"];
-  const periods = [
+  const activities = [
     "قبل انقلاب",
     "حزب جمهوری اسلامی",
     "تاسیس دانشگاه آزاد اسلامی",
@@ -37,7 +36,14 @@ export default function PoliticsForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !year || !description || !category || !position || !period) {
+    if (
+      !title ||
+      !year ||
+      !description ||
+      !category ||
+      !position ||
+      !activity
+    ) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -51,19 +57,18 @@ export default function PoliticsForm() {
       position: position,
       description: description,
       category: category,
-      period: period,
+      activity: activity,
       image: image,
       confirm: false,
       hidden: false,
     };
-
     await createPoliticApi(politicObject);
     window.location.assign("/politics");
   };
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>سیاسی و اجرایی جدید</p>
+      <p className={classes.title}>سیاسی و اجرایی</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
@@ -163,15 +168,15 @@ export default function PoliticsForm() {
         </div>
         <select
           defaultValue={"default"}
-          onChange={(e) => setPeriod(e.target.value)}
+          onChange={(e) => setActivity(e.target.value)}
         >
           <option value="default" disabled>
             انتخاب
           </option>
-          {periods.map((period, index) => {
+          {activities.map((activity, index) => {
             return (
-              <option key={index} value={period}>
-                {period}
+              <option key={index} value={activity}>
+                {activity}
               </option>
             );
           })}

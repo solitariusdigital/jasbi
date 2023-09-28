@@ -1,130 +1,15 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState } from "react";
 import classes from "./Form.module.scss";
-import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/legacy/image";
-import loaderImage from "@/assets/loader.png";
-import { createAcademicApi, createPoliticApi } from "@/services/api";
-import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
+import PoliticsForm from "./PoliticsForm";
+import AcademicForm from "./AcademicForm";
 
 export default function SendForm() {
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [position, setPosition] = useState("");
-  const [period, setPeriod] = useState("");
-  const [image, setImage] = useState("");
-
-  const categories = ["سیاسی و اجرایی", "پژوهشی و علمی"];
-  const categoriesPeriod = ["قبل", "بعد"];
-  const [alert, setAlert] = useState("");
-  const [disableButton, setDisableButton] = useState(false);
-  const [loader, setLoader] = useState(false);
-
-  const showAlert = (message) => {
-    setAlert(message);
-    setTimeout(() => {
-      setAlert("");
-    }, 3000);
-  };
-
-  const handleSubmit = async () => {
-    if (!title || !year || !description || !category) {
-      showAlert("همه موارد الزامیست");
-      return;
-    }
-    if (category === "سیاسی و اجرایی") {
-      if (!period || !position) {
-        showAlert("همه موارد الزامیست");
-        return;
-      }
-    }
-
-    setLoader(true);
-    setDisableButton(true);
-
-    let dataObject = null;
-
-    switch (category) {
-      case "سیاسی و اجرایی":
-        dataObject = {
-          title: title,
-          year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
-          position: position,
-          description: description,
-          category: category,
-          period: period,
-          image: image,
-          confirm: false,
-          hidden: false,
-        };
-        await createPoliticApi(dataObject);
-        break;
-      case "پژوهشی و علمی":
-        dataObject = {
-          title: title,
-          year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
-          description: description,
-          category: category,
-          image: image,
-          confirm: false,
-          hidden: false,
-        };
-        await createAcademicApi(dataObject);
-        break;
-    }
-    window.location.assign("/");
-  };
+  const [type, setType] = useState("");
+  const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی"];
 
   return (
     <div className={classes.form}>
       <p className={classes.title}>ارسال خاطرات و مستندات​</p>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            عنوان
-            <span>*</span>
-          </p>
-          <CloseIcon
-            className="icon"
-            onClick={() => setTitle("")}
-            sx={{ fontSize: 16 }}
-          />
-        </div>
-        <input
-          placeholder="دانشگاه آزاد"
-          type="text"
-          id="title"
-          name="title"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-          autoComplete="off"
-          dir="rtl"
-        />
-      </div>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            سال
-            <span>*</span>
-          </p>
-          <CloseIcon
-            className="icon"
-            onClick={() => setYear("")}
-            sx={{ fontSize: 16 }}
-          />
-        </div>
-        <input
-          placeholder="۱۳۷۰"
-          type="tel"
-          id="year"
-          name="year"
-          onChange={(e) => setYear(e.target.value)}
-          value={year}
-          autoComplete="off"
-          dir="rtl"
-        />
-      </div>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
@@ -134,126 +19,22 @@ export default function SendForm() {
         </div>
         <select
           defaultValue={"default"}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => setType(e.target.value)}
         >
           <option value="default" disabled>
             انتخاب
           </option>
-          {categories.map((category, index) => {
+          {formTypes.map((type, index) => {
             return (
-              <option key={index} value={category}>
-                {category}
+              <option key={index} value={type}>
+                {type}
               </option>
             );
           })}
         </select>
       </div>
-      {category === "سیاسی و اجرایی" && (
-        <Fragment>
-          <div className={classes.input}>
-            <div className={classes.bar}>
-              <p className={classes.label}>
-                سمت
-                <span>*</span>
-              </p>
-              <CloseIcon
-                className="icon"
-                onClick={() => setPosition("")}
-                sx={{ fontSize: 16 }}
-              />
-            </div>
-            <input
-              type="text"
-              id="position"
-              name="position"
-              onChange={(e) => setPosition(e.target.value)}
-              value={position}
-              autoComplete="off"
-              dir="rtl"
-            />
-          </div>
-          <div className={classes.input}>
-            <div className={classes.bar}>
-              <p className={classes.label}>
-                دوره انقلاب
-                <span>*</span>
-              </p>
-            </div>
-            <select
-              defaultValue={"default"}
-              onChange={(e) => setPeriod(e.target.value)}
-            >
-              <option value="default" disabled>
-                انتخاب
-              </option>
-              {categoriesPeriod.map((category, index) => {
-                return (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </Fragment>
-      )}
-      <div className={classes.input}>
-        <p className={classes.label}>
-          توضیحات
-          <span>*</span>
-        </p>
-        <textarea
-          placeholder="..."
-          type="text"
-          id="description"
-          name="description"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-          autoComplete="off"
-          dir="rtl"
-        ></textarea>
-      </div>
-      <div className={classes.input}>
-        <label className={classes.file}>
-          <input
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-            type="file"
-            accept="image/*"
-          />
-          <p>عکس اختیاری</p>
-        </label>
-        {image !== "" && (
-          <div className={classes.imagePreview}>
-            <CloseIcon
-              className="icon"
-              onClick={() => setImage("")}
-              sx={{ fontSize: 16 }}
-            />
-            <Image
-              className={classes.image}
-              width={50}
-              height={200}
-              objectFit="cover"
-              src={URL.createObjectURL(image)}
-              alt="image"
-              priority
-            />
-          </div>
-        )}
-      </div>
-      <div className={classes.formAction}>
-        <p className="alert">{alert}</p>
-        {loader && (
-          <div>
-            <Image width={50} height={50} src={loaderImage} alt="isLoading" />
-          </div>
-        )}
-        <button disabled={disableButton} onClick={() => handleSubmit()}>
-          ارسال
-        </button>
-      </div>
+      {type === "سیاسی و اجرایی" && <PoliticsForm />}
+      {type === "پژوهشی و علمی" && <AcademicForm />}
     </div>
   );
 }

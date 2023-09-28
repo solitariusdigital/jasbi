@@ -14,7 +14,6 @@ export default function PublicationsForm() {
   const [publisher, setPublisher] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
-
   const categories = ["مقالات", "کتاب"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -47,14 +46,13 @@ export default function PublicationsForm() {
       confirm: false,
       hidden: false,
     };
-
     await createPublicationApi(publicationObject);
     window.location.assign("/publications");
   };
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>انتشارات جدید</p>
+      <p className={classes.title}>انتشارات</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>

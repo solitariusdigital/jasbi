@@ -5,6 +5,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import AcademicForm from "@/components/AcademicForm";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import dbConnect from "@/services/dbConnect";
+import academicModel from "@/models/Academic";
 
 export default function Academic() {
   const [type, setType] = useState("پروژه" || "دستاور" || "تدریس");
@@ -221,4 +223,24 @@ export default function Academic() {
       )}
     </div>
   );
+}
+
+// initial connection to db
+export async function getServerSideProps(context) {
+  try {
+    await dbConnect();
+
+    const academics = await academicModel.find();
+
+    return {
+      props: {
+        academics: JSON.parse(JSON.stringify(academics)),
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
+  }
 }

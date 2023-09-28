@@ -12,7 +12,6 @@ export default function AcademicForm() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
-
   const categories = ["پروژه", "دستاور", "تدریس"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -43,14 +42,13 @@ export default function AcademicForm() {
       confirm: false,
       hidden: false,
     };
-
     await createAcademicApi(academicObject);
     window.location.assign("/academic");
   };
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>پژوهشی و علمی جدید</p>
+      <p className={classes.title}>پژوهشی و علمی</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
