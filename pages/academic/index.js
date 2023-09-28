@@ -12,7 +12,6 @@ import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
 
 export default function Academic({ academics }) {
-  const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);

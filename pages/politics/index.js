@@ -12,7 +12,6 @@ import politicModel from "@/models/Politic";
 import { getPoliticApi, updatePoliticApi } from "@/services/api";
 
 export default function Politics({ politics }) {
-  const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("بعد" || "قبل");
   const [selectedItem, setSelectedItem] = useState({});

@@ -4,7 +4,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
 import { createMediaApi } from "@/services/api";
-import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
+import {
+  onlyLettersAndNumbers,
+  faToEnDigits,
+  sixGenerator,
+  uploadImage,
+} from "@/services/utility";
 
 export default function MediaForm() {
   const [mediaType, setMediaType] = useState("image" || "video");
@@ -16,6 +21,8 @@ export default function MediaForm() {
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+
+  const sourceLink = "https://jasbi.storage.iran.liara.space";
 
   const showAlert = (message) => {
     setAlert(message);
@@ -33,12 +40,22 @@ export default function MediaForm() {
     setLoader(true);
     setDisableButton(true);
 
+    // upload media
+    let mediaLink = "";
+    if (media) {
+      let mediaFolder = "media";
+      let mediaId = `img${sixGenerator()}`;
+      let format = mediaType === "image" ? ".jpg" : ".mp4";
+      mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
+      await uploadImage(media, mediaId, mediaFolder, format);
+    }
+
     let mediaObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
-      media: media,
+      media: mediaLink,
       confirm: false,
     };
     await createMediaApi(mediaObject);

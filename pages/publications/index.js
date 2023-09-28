@@ -12,7 +12,6 @@ import publicationModel from "@/models/Publication";
 import { getPublicationApi, updatePublicationApi } from "@/services/api";
 
 export default function Publications({ publications }) {
-  const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});

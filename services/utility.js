@@ -9,6 +9,10 @@ export function fourGenerator() {
   return Math.floor(1000 + Math.random() * 9000);
 }
 
+export function sixGenerator() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
 export function getMobileOperatingSystem() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -82,4 +86,21 @@ export function enToFaDigits(input) {
 
 export function onlyLettersAndNumbers(str) {
   return Boolean(str.match(/^[A-Za-z0-9]*$/));
+}
+
+// upload image into s3 bucket
+export async function uploadImage(image, imageId, imageFolder, format) {
+  const file = image;
+  const res = await fetch(`/api/image?file=${imageFolder}/${imageId}${format}`);
+  const { url, fields } = await res.json();
+
+  const formData = new FormData();
+  Object.entries({ ...fields, file }).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
 }

@@ -4,7 +4,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
 import { createAcademicApi } from "@/services/api";
-import { onlyLettersAndNumbers, faToEnDigits } from "@/services/utility";
+import {
+  onlyLettersAndNumbers,
+  faToEnDigits,
+  sixGenerator,
+  uploadImage,
+} from "@/services/utility";
 
 export default function AcademicForm() {
   const [title, setTitle] = useState("");
@@ -16,6 +21,8 @@ export default function AcademicForm() {
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+
+  const sourceLink = "https://jasbi.storage.iran.liara.space";
 
   const showAlert = (message) => {
     setAlert(message);
@@ -33,12 +40,21 @@ export default function AcademicForm() {
     setLoader(true);
     setDisableButton(true);
 
+    // upload image
+    let imageLink = "";
+    if (image) {
+      let imageFolder = "academic";
+      let imageId = `img${sixGenerator()}`;
+      imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
+      await uploadImage(image, imageId, imageFolder, ".jpg");
+    }
+
     let academicObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
-      image: image,
+      image: imageLink,
       confirm: false,
     };
     await createAcademicApi(academicObject);
@@ -152,9 +168,9 @@ export default function AcademicForm() {
             />
             <Image
               className={classes.image}
-              width={50}
+              width={300}
               height={200}
-              objectFit="cover"
+              objectFit="contain"
               src={URL.createObjectURL(image)}
               alt="image"
               priority
