@@ -83,54 +83,9 @@ export default function Politics({ politics }) {
             .filter((item) => item.category === category)
             .map((item, index) => (
               <Fragment key={index}>
-                {!permissionControl && item.confirm && (
+                {(permissionControl || item.confirm) && (
                   <div className={classes.item}>
-                    <div className={classes.row}>
-                      <div>
-                        {item.image && (
-                          <Image
-                            className={classes.image}
-                            src={item.image}
-                            placeholder="blur"
-                            blurDataURL={item.image}
-                            alt="image"
-                            loading="eager"
-                            width={120}
-                            height={150}
-                            objectFit="cover"
-                            priority
-                            onClick={() => {
-                              setSelectedItem(item);
-                              setDisplayDetails(true);
-                              window.scrollTo(0, 0);
-                            }}
-                          />
-                        )}
-                      </div>
-                      <div>
-                        <h3>{item.title}</h3>
-                        <p>سمت : {item.position}</p>
-                        <p>فعالیت : {item.activity}</p>
-                        <p>سال : {item.year} </p>
-                      </div>
-                    </div>
-                    <p>
-                      {item.description.slice(0, 100)} ...{" "}
-                      <span
-                        onClick={() => {
-                          setSelectedItem(item);
-                          setDisplayDetails(true);
-                          window.scrollTo(0, 0);
-                        }}
-                      >
-                        بیشتر
-                      </span>
-                    </p>
-                  </div>
-                )}
-                {permissionControl && (
-                  <div className={classes.item}>
-                    {item.confirm && (
+                    {permissionControl && item.confirm && (
                       <VerifiedUserIcon
                         className={classes.verified}
                         sx={{ color: "#57a361" }}
@@ -183,22 +138,24 @@ export default function Politics({ politics }) {
                         بیشتر
                       </span>
                     </p>
-                    <div className={classes.action}>
-                      {!item.confirm && (
-                        <TaskAltIcon
-                          className={classes.icon}
-                          sx={{ color: "#57a361" }}
-                          onClick={() => action(item["_id"], "confirm")}
-                        />
-                      )}
-                      {item.confirm && (
-                        <CloseIcon
-                          className={classes.icon}
-                          sx={{ color: "#cd3d2c" }}
-                          onClick={() => action(item["_id"], "cancel")}
-                        />
-                      )}
-                    </div>
+                    {permissionControl && (
+                      <div className={classes.action}>
+                        {!item.confirm && (
+                          <TaskAltIcon
+                            className={classes.icon}
+                            sx={{ color: "#57a361" }}
+                            onClick={() => action(item["_id"], "confirm")}
+                          />
+                        )}
+                        {item.confirm && (
+                          <CloseIcon
+                            className={classes.icon}
+                            sx={{ color: "#cd3d2c" }}
+                            onClick={() => action(item["_id"], "cancel")}
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </Fragment>
@@ -230,8 +187,8 @@ export default function Politics({ politics }) {
                     blurDataURL={selectedItem.image}
                     alt="image"
                     loading="eager"
-                    width={120}
-                    height={150}
+                    width={270}
+                    height={300}
                     objectFit="cover"
                     priority
                   />
