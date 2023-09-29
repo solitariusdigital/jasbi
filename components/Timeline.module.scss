@@ -35,7 +35,7 @@
 .timeline {
   overflow: auto;
   scroll-snap-type: x mandatory;
-  height: 150px;
+  height: 170px;
   padding: 0px 4px;
   margin: 0px 12px;
   border: 1px solid config.$lightgrey;
@@ -65,14 +65,13 @@
       border-bottom: 1px solid config.$action;
       padding: 4px 0px;
       margin-bottom: 8px;
-      @include mixins.row-space-between-center();
 
       select {
         @include mixins.input();
         width: 100%;
+        padding-right: 0px;
         border: none;
         background: none;
-        text-align: right;
 
         &:focus {
           outline: none;
@@ -94,6 +93,7 @@
       @include mixins.desktop {
         &:hover {
           cursor: pointer;
+          font-weight: bold;
           color: config.$action;
         }
       }
