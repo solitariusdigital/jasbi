@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
@@ -13,8 +13,7 @@ import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
 
-export default function Home({ timelineData }) {
-  const { menuMobile, setMenuMobile } = useContext(StateContext);
+export default function Home({ timelineData, archiveObject }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
@@ -106,13 +105,133 @@ export default function Home({ timelineData }) {
         <Timeline timelineData={timelineData} />
       </div>
       <div className={classes.banners}>
-        <div className={classes.card}>دانشگاه</div>
-        <div className={classes.card}>انقلاب</div>
-        <div className={classes.card}>اسلامی</div>
-        <div className={classes.card}>فرهنگی</div>
-        <div className={classes.card}>تأسیس</div>
-        <div className={classes.card}>جمهوری</div>
-        <div className={classes.card}>سیاستمدار</div>
+        {archiveObject.academic?.map((item, index) => (
+          <Fragment key={index}>
+            {item.confirm && (
+              <div className={classes.card}>
+                {item.image && (
+                  <div className={classes.imageContainer}>
+                    <Image
+                      className={classes.image}
+                      src={item.image}
+                      placeholder="blur"
+                      blurDataURL={item.image}
+                      alt="image"
+                      loading="eager"
+                      objectFit="cover"
+                      layout="fill"
+                      priority
+                      onClick={() => {
+                        window.location.assign("/academic");
+                      }}
+                    />
+                  </div>
+                )}
+                <div className={classes.info}>
+                  <h3>{item.title}</h3>
+                  <p>سال : {item.year} </p>
+                  <p>
+                    {item.description.slice(0, 150)} ...{" "}
+                    <span
+                      onClick={() => {
+                        window.location.assign("/academic");
+                      }}
+                    >
+                      بیشتر
+                    </span>
+                  </p>
+                </div>
+              </div>
+            )}
+          </Fragment>
+        ))}
+        {archiveObject.politics?.map((item, index) => (
+          <Fragment key={index}>
+            {item.confirm && (
+              <div className={classes.card}>
+                {item.image && (
+                  <div className={classes.imageContainer}>
+                    <Image
+                      className={classes.image}
+                      src={item.image}
+                      placeholder="blur"
+                      blurDataURL={item.image}
+                      alt="image"
+                      loading="eager"
+                      objectFit="cover"
+                      layout="fill"
+                      priority
+                      onClick={() => {
+                        window.location.assign("/politics");
+                      }}
+                    />
+                  </div>
+                )}
+                <div className={classes.info}>
+                  <h3>{item.title}</h3>
+                  <p>سمت : {item.position}</p>
+                  <p>فعالیت : {item.activity}</p>
+                  <p>سال : {item.year} </p>
+                  <p>
+                    {item.description.slice(0, 150)} ...{" "}
+                    <span
+                      onClick={() => {
+                        window.location.assign("/politics");
+                      }}
+                    >
+                      بیشتر
+                    </span>
+                  </p>
+                </div>
+              </div>
+            )}
+          </Fragment>
+        ))}
+        {archiveObject.publications?.map((item, index) => (
+          <Fragment key={index}>
+            {item.confirm && (
+              <div className={classes.card}>
+                {item.image && (
+                  <div className={classes.imageContainer}>
+                    <Image
+                      className={classes.image}
+                      src={item.image}
+                      placeholder="blur"
+                      blurDataURL={item.image}
+                      alt="image"
+                      loading="eager"
+                      objectFit="cover"
+                      layout="fill"
+                      priority
+                      onClick={() => {
+                        window.location.assign("/publications");
+                      }}
+                    />
+                  </div>
+                )}
+                <div className={classes.info}>
+                  <h3>{item.title}</h3>
+                  <p>گردآورنده : {item.author}</p>
+                  {item.author !== "دکتر عبدالله جاسبی" && (
+                    <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                  )}
+                  <p>ناشر : {item.publisher}</p>
+                  <p>سال چاپ : {item.year} </p>
+                  <p>
+                    {item.description.slice(0, 150)} ...{" "}
+                    <span
+                      onClick={() => {
+                        window.location.assign("/publications");
+                      }}
+                    >
+                      بیشتر
+                    </span>
+                  </p>
+                </div>
+              </div>
+            )}
+          </Fragment>
+        ))}
       </div>
       <div className={classes.uploadForm}>
         {!displayRegister && (
@@ -148,9 +267,21 @@ export async function getServerSideProps(context) {
     const academics = await academicModel.find();
     const politics = await politicModel.find();
     const publications = await publicationModel.find();
-    const archive = [...academics, ...politics, ...publications];
 
-    let years = archive.map((item) => {
+    academics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    politics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    politics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    const archiveArray = [...academics, ...politics, ...publications];
+    const archiveObject = {
+      academic: [...academics.filter((item) => item.confirm).slice(0, 3)],
+      politics: [...politics.filter((item) => item.confirm).slice(0, 3)],
+      publications: [
+        ...publications.filter((item) => item.confirm).slice(0, 3),
+      ],
+    };
+
+    let years = archiveArray.map((item) => {
       return item.year;
     });
     let sortedYears = [...new Set(years)].sort((a, b) => {
@@ -173,6 +304,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         timelineData: JSON.parse(JSON.stringify(timelineData)),
+        archiveObject: JSON.parse(JSON.stringify(archiveObject)),
       },
     };
   } catch (error) {

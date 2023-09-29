@@ -97,7 +97,7 @@ export default function Publications({ publications }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -157,7 +157,7 @@ export default function Publications({ publications }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -241,7 +241,7 @@ export default function Publications({ publications }) {
                     blurDataURL={selectedItem.image}
                     alt="image"
                     loading="eager"
-                    width={100}
+                    width={120}
                     height={150}
                     objectFit="cover"
                     priority

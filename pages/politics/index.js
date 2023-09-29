@@ -95,7 +95,7 @@ export default function Politics({ politics }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -152,7 +152,7 @@ export default function Politics({ politics }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -230,7 +230,7 @@ export default function Politics({ politics }) {
                     blurDataURL={selectedItem.image}
                     alt="image"
                     loading="eager"
-                    width={100}
+                    width={120}
                     height={150}
                     objectFit="cover"
                     priority

@@ -103,7 +103,7 @@ export default function Academic({ academics }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -158,7 +158,7 @@ export default function Academic({ academics }) {
                             blurDataURL={item.image}
                             alt="image"
                             loading="eager"
-                            width={100}
+                            width={120}
                             height={150}
                             objectFit="cover"
                             priority
@@ -232,7 +232,7 @@ export default function Academic({ academics }) {
                     blurDataURL={selectedItem.image}
                     alt="image"
                     loading="eager"
-                    width={100}
+                    width={120}
                     height={150}
                     objectFit="cover"
                     priority
