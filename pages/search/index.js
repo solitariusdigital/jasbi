@@ -15,8 +15,8 @@ import {
 export default function Search({ archiveArray }) {
   const [search, setSearch] = useState("");
   const [documents, setDocuments] = useState([]);
-  const [displayDetails, setDisplayDetails] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [displayDetails, setDisplayDetails] = useState(false);
   const [searchEmpty, setSearchEmpty] = useState(false);
 
   const searchDocuments = () => {
@@ -42,7 +42,9 @@ export default function Search({ archiveArray }) {
   };
 
   return (
-    <div className={classes.container}>
+    <div
+      className={`${classes.container} animate__animated animate__slideInDown`}
+    >
       <div className={classes.inputSearch}>
         <button onClick={() => searchDocuments()}>جستجو</button>
         <input
