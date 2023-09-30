@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import secureLocalStorage from "react-secure-storage";
 import Image from "next/legacy/image";
 import { getUserApi } from "@/services/api";
+import logo from "@/assets/logo.svg";
 
 export default function RootLayout({ children }) {
   const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
@@ -70,14 +71,7 @@ export default function RootLayout({ children }) {
         </Fragment>
       ) : (
         <div className="appload">
-          {/* <Image
-            className="animate__animated animate__heartBeat"
-            width={150}
-            height={150}
-            src={logo}
-            alt="logo"
-            priority
-          /> */}
+          <Image width={150} height={150} src={logo} alt="logo" priority />
         </div>
       )}
     </Fragment>

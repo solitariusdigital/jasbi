@@ -44,8 +44,9 @@ export default function PublicationsForm() {
 
     // upload image
     let imageLink = "";
+    let imageFolder = "";
     if (image) {
-      let imageFolder = "publications";
+      imageFolder = "publications";
       let imageId = `img${sixGenerator()}`;
       imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
       await uploadImage(image, imageId, imageFolder, ".jpg");
@@ -58,6 +59,7 @@ export default function PublicationsForm() {
       description: description,
       category: category,
       publisher: publisher,
+      group: imageFolder,
       image: imageLink,
       confirm: false,
     };

@@ -1,12 +1,11 @@
 {
-  "theme_color": "#e7c69a",
-  "background_color": "#e7c69a",
+  "theme_color": "#efe9d9",
+  "background_color": "#efe9d9",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Dr.Jasbi",
   "short_name": "Dr.Jasbi",
-  "description": "Biography",
   "icons": [
     {
       "src": "/icon-192x192.png",

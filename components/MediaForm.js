@@ -42,8 +42,9 @@ export default function MediaForm() {
 
     // upload media
     let mediaLink = "";
+    let mediaFolder = "";
     if (media) {
-      let mediaFolder = "media";
+      mediaFolder = "media";
       let mediaId = `img${sixGenerator()}`;
       let format = mediaType === "image" ? ".jpg" : ".mp4";
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
@@ -55,6 +56,7 @@ export default function MediaForm() {
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
+      group: imageFolder,
       media: mediaLink,
       confirm: false,
     };

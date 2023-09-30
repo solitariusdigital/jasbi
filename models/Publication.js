@@ -8,6 +8,7 @@ const PublicationSchema = new Schema(
     year: Number,
     publisher: String,
     category: String,
+    group: String,
     image: String,
     confirm: Boolean,
   },

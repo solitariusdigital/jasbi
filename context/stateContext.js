@@ -29,6 +29,11 @@ export const StateProvider = (props) => {
       link: "/politics",
       active: false,
     },
+    {
+      title: "جستجو",
+      link: "/search",
+      active: false,
+    },
   ]);
 
   const stateContext = {

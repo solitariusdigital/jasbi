@@ -7,6 +7,7 @@ const PoliticSchema = new Schema(
     position: String,
     description: String,
     category: String,
+    group: String,
     activity: String,
     image: String,
     confirm: Boolean,

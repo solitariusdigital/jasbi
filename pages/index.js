@@ -13,14 +13,18 @@ import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
 
-export default function Home({ timelineData, archiveObject }) {
+export default function Home({ timelineData, archiveArray }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
 
+  useEffect(() => {
+    console.log(archiveArray);
+  }, [archiveArray]);
+
   return (
-    <Fragment>
+    <>
       <div className={classes.heroHeader}>
         <div className={classes.information}>
           عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد تشکیل
@@ -28,9 +32,9 @@ export default function Home({ timelineData, archiveObject }) {
           تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای دانشگاه آزاد
           اسلامی است. وی همچنین استاد بازنشسته دانشگاه علم و صنعت ایران، عضو
           سابق شورای عالی انقلاب فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست
-          جمهوری بوده‌است. جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به نام بنیاد
+          جمهوری بوده‌ است. جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به نام بنیاد
           آفرینش اُنس که در زمینه گسترش و تعاملات صاحب‌نظران و اندیشمندان دارای
-          نقد سازنده و هماهنگ‌سازی و افزایش نقش و تأثیر سمن‌ها، تشکل‌ها،
+          نقد سازنده و هماهنگ سازی و افزایش نقش و تأثیر سمن‌ها، تشکل‌ها،
           انجمن‌ها و نهادهای علمی پژوهشی کشور فعال است، راه اندازی نمود و در حال
           حاضر رئیس هیئت امنا و مدیرعامل این بنیاد می‌باشد. او دانشمند تمام عیار
           در ایران است
@@ -104,8 +108,8 @@ export default function Home({ timelineData, archiveObject }) {
         <p>رویدادهای مهم و ماندگار</p>
         <Timeline timelineData={timelineData} />
       </div>
-      <div className={classes.banners}>
-        {archiveObject.academic?.map((item, index) => (
+      <div className={classes.cardGrid}>
+        {archiveArray?.map((item, index) => (
           <Fragment key={index}>
             {item.confirm && (
               <div className={classes.card}>
@@ -122,106 +126,30 @@ export default function Home({ timelineData, archiveObject }) {
                       layout="fill"
                       priority
                       onClick={() => {
-                        window.location.assign("/academic");
+                        window.location.assign(item.group);
                       }}
                     />
                   </div>
                 )}
                 <div className={classes.info}>
                   <h3>{item.title}</h3>
-                  <p>سال : {item.year} </p>
-                  <p>
-                    {item.description.slice(0, 150)} ...{" "}
-                    <span
-                      onClick={() => {
-                        window.location.assign("/academic");
-                      }}
-                    >
-                      بیشتر
-                    </span>
-                  </p>
-                </div>
-              </div>
-            )}
-          </Fragment>
-        ))}
-        {archiveObject.politics?.map((item, index) => (
-          <Fragment key={index}>
-            {item.confirm && (
-              <div className={classes.card}>
-                {item.image && (
-                  <div className={classes.imageContainer}>
-                    <Image
-                      className={classes.image}
-                      src={item.image}
-                      placeholder="blur"
-                      blurDataURL={item.image}
-                      alt="image"
-                      loading="eager"
-                      objectFit="cover"
-                      layout="fill"
-                      priority
-                      onClick={() => {
-                        window.location.assign("/politics");
-                      }}
-                    />
-                  </div>
-                )}
-                <div className={classes.info}>
-                  <h3>{item.title}</h3>
-                  <p>سمت : {item.position}</p>
-                  <p>فعالیت : {item.activity}</p>
-                  <p>سال : {item.year} </p>
-                  <p>
-                    {item.description.slice(0, 150)} ...{" "}
-                    <span
-                      onClick={() => {
-                        window.location.assign("/politics");
-                      }}
-                    >
-                      بیشتر
-                    </span>
-                  </p>
-                </div>
-              </div>
-            )}
-          </Fragment>
-        ))}
-        {archiveObject.publications?.map((item, index) => (
-          <Fragment key={index}>
-            {item.confirm && (
-              <div className={classes.card}>
-                {item.image && (
-                  <div className={classes.imageContainer}>
-                    <Image
-                      className={classes.image}
-                      src={item.image}
-                      placeholder="blur"
-                      blurDataURL={item.image}
-                      alt="image"
-                      loading="eager"
-                      objectFit="cover"
-                      layout="fill"
-                      priority
-                      onClick={() => {
-                        window.location.assign("/publications");
-                      }}
-                    />
-                  </div>
-                )}
-                <div className={classes.info}>
-                  <h3>{item.title}</h3>
-                  <p>گردآورنده : {item.author}</p>
-                  {item.author !== "دکتر عبدالله جاسبی" && (
-                    <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                  {item.author && (
+                    <Fragment>
+                      <p>گردآورنده : {item.author}</p>
+                      {item.author !== "دکتر عبدالله جاسبی" && (
+                        <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                      )}
+                    </Fragment>
                   )}
-                  <p>ناشر : {item.publisher}</p>
-                  <p>سال چاپ : {item.year} </p>
+                  {item.publisher && <p>ناشر : {item.publisher}</p>}
+                  {item.position && <p>سمت : {item.position}</p>}
+                  {item.activity && <p>فعالیت : {item.activity}</p>}
+                  <p>سال : {item.year} </p>
                   <p>
                     {item.description.slice(0, 150)} ...{" "}
                     <span
                       onClick={() => {
-                        window.location.assign("/publications");
+                        window.location.assign(item.group);
                       }}
                     >
                       بیشتر
@@ -235,28 +163,26 @@ export default function Home({ timelineData, archiveObject }) {
       </div>
       <div className={classes.uploadForm}>
         {!displayRegister && (
-          <Fragment>
-            <button onClick={() => setDisplayRegister(true)}>
-              ارتباط با دکتر جاسبی ​
-            </button>
-            <p className="message">
-              ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
-            </p>
-          </Fragment>
+          <p className="message">
+            ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
+          </p>
         )}
+        <button onClick={() => setDisplayRegister(!displayRegister)}>
+          {!displayRegister ? "ارتباط با دکتر جاسبی" : "برگشت"}
+        </button>
         {displayRegister && !currentUser && <Register />}
         {displayRegister && currentUser && <SendForm />}
       </div>
       {permissionControl && (
         <div className={classes.uploadForm}>
-          <button onClick={() => setMediaform(!mediaForm)}>
-            بارگذاری رسانه ​
-          </button>
           <p className="message">بارگذاری عکس و ویدئو</p>
+          <button onClick={() => setMediaform(!mediaForm)}>
+            {!mediaForm ? "بارگذاری رسانه" : "برگشت"}​
+          </button>
           {mediaForm && <MediaForm />}
         </div>
       )}
-    </Fragment>
+    </>
   );
 }
 
@@ -268,19 +194,9 @@ export async function getServerSideProps(context) {
     const politics = await politicModel.find();
     const publications = await publicationModel.find();
 
-    academics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    politics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    politics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    const archiveArray = [...academics, ...politics, ...publications];
-    const archiveObject = {
-      academic: [...academics.filter((item) => item.confirm).slice(0, 3)],
-      politics: [...politics.filter((item) => item.confirm).slice(0, 3)],
-      publications: [
-        ...publications.filter((item) => item.confirm).slice(0, 3),
-      ],
-    };
-
+    const archiveArray = [...academics, ...politics, ...publications].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
     let years = archiveArray.map((item) => {
       return item.year;
     });
@@ -304,7 +220,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         timelineData: JSON.parse(JSON.stringify(timelineData)),
-        archiveObject: JSON.parse(JSON.stringify(archiveObject)),
+        archiveArray: JSON.parse(JSON.stringify(archiveArray)),
       },
     };
   } catch (error) {

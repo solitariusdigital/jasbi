@@ -60,8 +60,9 @@ export default function PoliticsForm() {
 
     // upload image
     let imageLink = "";
+    let imageFolder = "";
     if (image) {
-      let imageFolder = "politics";
+      imageFolder = "politics";
       let imageId = `img${sixGenerator()}`;
       imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
       await uploadImage(image, imageId, imageFolder, ".jpg");
@@ -74,6 +75,7 @@ export default function PoliticsForm() {
       description: description,
       category: category,
       activity: activity,
+      group: imageFolder,
       image: imageLink,
       confirm: false,
     };

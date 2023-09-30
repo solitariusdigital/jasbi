@@ -6,6 +6,7 @@ const AcademicSchema = new Schema(
     year: Number,
     description: String,
     category: String,
+    group: String,
     image: String,
     confirm: Boolean,
   },

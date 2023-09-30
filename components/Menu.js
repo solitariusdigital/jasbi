@@ -4,8 +4,9 @@ import classes from "./Menu.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.svg";
 import Router from "next/router";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function Menu() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
@@ -36,11 +37,23 @@ export default function Menu() {
                   onClick={() => activateNav(nav.link, index)}
                 >
                   <p>{nav.title}</p>
+                  {nav.title === "جستجو" && (
+                    <SearchIcon className={classes.icon} />
+                  )}
                 </div>
               </Fragment>
             ))
             .reverse()}
         </div>
+        <Image
+          className={classes.logo}
+          width={50}
+          height={50}
+          src={logo}
+          alt="logo"
+          onClick={() => window.location.assign("/")}
+          priority
+        />
       </div>
       <div className={classes.smallMenu}>
         <div className={classes.topBar}>
@@ -57,6 +70,15 @@ export default function Menu() {
               sx={{ fontSize: 30 }}
             />
           )}
+          <Image
+            className={classes.logo}
+            width={50}
+            height={50}
+            src={logo}
+            alt="logo"
+            onClick={() => window.location.assign("/")}
+            priority
+          />
         </div>
         {menuMobile && (
           <Fragment>
@@ -71,6 +93,9 @@ export default function Menu() {
                       onClick={() => activateNav(nav.link, index)}
                     >
                       <p>{nav.title}</p>
+                      {nav.title === "جستجو" && (
+                        <SearchIcon className={classes.icon} />
+                      )}
                     </div>
                   </Fragment>
                 ))}

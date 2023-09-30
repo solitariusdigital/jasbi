@@ -6,6 +6,7 @@ const MediaSchema = new Schema(
     year: Number,
     description: String,
     category: String,
+    group: String,
     media: String,
     confirm: Boolean,
   },

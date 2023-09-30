@@ -46,14 +46,20 @@
     @include mixins.row-space-between-center();
 
     @include mixins.tablet {
-      width: 60%;
+      width: 70%;
     }
   }
+}
+
+.icon {
+  margin-left: 8px;
 }
 
 .nav {
   border-bottom: 1px solid config.$brand;
   font-weight: bold !important;
+  @include mixins.row-space-between-center();
+  justify-content: flex-end;
 
   @include mixins.desktop {
     &:hover {
@@ -72,6 +78,8 @@
   border-bottom: 1px solid config.$action;
   color: config.$action;
   font-weight: bold !important;
+  @include mixins.row-space-between-center();
+  justify-content: flex-end;
 
   @include mixins.mobile {
     border-bottom: 1px solid config.$brand;
@@ -106,8 +114,6 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    text-align: right;
-    align-items: center;
     width: 100%;
     padding: 12px;
     background: config.$brand;

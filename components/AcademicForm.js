@@ -42,8 +42,10 @@ export default function AcademicForm() {
 
     // upload image
     let imageLink = "";
+    let imageFolder = "";
+
     if (image) {
-      let imageFolder = "academic";
+      imageFolder = "academic";
       let imageId = `img${sixGenerator()}`;
       imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
       await uploadImage(image, imageId, imageFolder, ".jpg");
@@ -54,6 +56,7 @@ export default function AcademicForm() {
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
+      group: imageFolder,
       image: imageLink,
       confirm: false,
     };

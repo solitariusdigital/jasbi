@@ -86,11 +86,12 @@
   }
 }
 
-.banners {
+.cardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 12px;
   direction: rtl;
+  align-items: flex-start;
   margin: auto;
   margin-top: 50px;
   width: config.$content-width;
@@ -184,5 +185,6 @@
 
   button {
     @include mixins.button(config.$action, config.$background);
+    margin-bottom: 20px;
   }
 }
