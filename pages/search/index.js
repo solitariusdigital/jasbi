@@ -25,13 +25,9 @@ export default function Search({ archiveArray }) {
     if (search) {
       searchDocuments = archiveArray.filter((item) =>
         Object.values(item).some((val) =>
-          String(val)
-            .toLowerCase()
-            .includes(
-              onlyLettersAndNumbers(search)
-                ? search.trim()
-                : faToEnDigits(search)
-            )
+          String(val).includes(
+            onlyLettersAndNumbers(search) ? search.trim() : faToEnDigits(search)
+          )
         )
       );
       setDocuments(searchDocuments);
@@ -53,6 +49,7 @@ export default function Search({ archiveArray }) {
           id="search"
           name="search"
           onChange={(e) => setSearch(e.target.value)}
+          maxLength={30}
           value={search}
           autoComplete="off"
           dir="rtl"
