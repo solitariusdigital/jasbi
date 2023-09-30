@@ -26,6 +26,22 @@
   }
 }
 
+.inputSearch {
+  @include mixins.row-space-between-center();
+  width: 100%;
+  margin: 50px 0px;
+
+  input {
+    @include mixins.input();
+    width: 100%;
+    margin: 0px 20px;
+  }
+
+  button {
+    @include mixins.button(config.$action, config.$background);
+  }
+}
+
 .form {
   margin-bottom: 20px;
 }
@@ -112,7 +128,7 @@
   top: 0px;
   width: 100%;
   padding: 12px;
-  height: 100%;
+  min-height: 100vh;
   text-align: right;
   background: config.$white;
   border: 1px solid config.$lightgrey;

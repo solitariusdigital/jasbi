@@ -109,9 +109,10 @@ export default function Home({ timelineData, archiveArray }) {
         <Timeline timelineData={timelineData} />
       </div>
       <div className={classes.cardGrid}>
-        {archiveArray?.map((item, index) => (
-          <Fragment key={index}>
-            {item.confirm && (
+        {archiveArray
+          .filter((item) => item.confirm)
+          .map((item, index) => (
+            <Fragment key={index}>
               <div className={classes.card}>
                 {item.image && (
                   <div className={classes.imageContainer}>
@@ -144,7 +145,7 @@ export default function Home({ timelineData, archiveArray }) {
                   {item.publisher && <p>ناشر : {item.publisher}</p>}
                   {item.position && <p>سمت : {item.position}</p>}
                   {item.activity && <p>فعالیت : {item.activity}</p>}
-                  <p>سال : {item.year} </p>
+                  <p>سال : {enToFaDigits(item.year)} </p>
                   <p>
                     {item.description.slice(0, 150)} ...{" "}
                     <span
@@ -157,9 +158,9 @@ export default function Home({ timelineData, archiveArray }) {
                   </p>
                 </div>
               </div>
-            )}
-          </Fragment>
-        ))}
+            </Fragment>
+          ))
+          .slice(0, 9)}
       </div>
       <div className={classes.uploadForm}>
         {!displayRegister && (

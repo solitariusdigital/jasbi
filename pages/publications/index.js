@@ -10,6 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import publicationModel from "@/models/Publication";
 import { getPublicationApi, updatePublicationApi } from "@/services/api";
+import { enToFaDigits } from "@/services/utility";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -128,7 +129,7 @@ export default function Publications({ publications }) {
                           <p>زیر نظز : دکتر عبدالله جاسبی</p>
                         )}
                         <p>ناشر : {item.publisher}</p>
-                        <p>سال چاپ : {item.year} </p>
+                        <p>سال : {enToFaDigits(item.year)} </p>
                       </div>
                     </div>
                     <p>
@@ -184,7 +185,7 @@ export default function Publications({ publications }) {
                   <p>زیر نظز : دکتر عبدالله جاسبی</p>
                 )}
                 <p>ناشر : {selectedItem.publisher}</p>
-                <p>سال چاپ : {selectedItem.year}</p>
+                <p>سال : {enToFaDigits(selectedItem.year)}</p>
               </div>
               {selectedItem.image && (
                 <div>

@@ -10,6 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
+import { enToFaDigits } from "@/services/utility";
 
 export default function Academic({ academics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -129,7 +130,7 @@ export default function Academic({ academics }) {
                       </div>
                       <div>
                         <h3>{item.title}</h3>
-                        <p>سال : {item.year} </p>
+                        <p>سال : {enToFaDigits(item.year)} </p>
                       </div>
                     </div>
                     <p>

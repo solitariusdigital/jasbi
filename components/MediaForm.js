@@ -17,7 +17,6 @@ export default function MediaForm() {
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState("");
-  const [category, setCategory] = useState("");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -55,7 +54,7 @@ export default function MediaForm() {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
-      category: category,
+      category: mediaType,
       group: imageFolder,
       media: mediaLink,
       confirm: false,

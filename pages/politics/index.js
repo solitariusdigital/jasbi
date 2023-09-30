@@ -10,6 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import politicModel from "@/models/Politic";
 import { getPoliticApi, updatePoliticApi } from "@/services/api";
+import { enToFaDigits } from "@/services/utility";
 
 export default function Politics({ politics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -123,7 +124,7 @@ export default function Politics({ politics }) {
                         <h3>{item.title}</h3>
                         <p>سمت : {item.position}</p>
                         <p>فعالیت : {item.activity}</p>
-                        <p>سال : {item.year} </p>
+                        <p>سال : {enToFaDigits(item.year)} </p>
                       </div>
                     </div>
                     <p>
@@ -176,7 +177,7 @@ export default function Politics({ politics }) {
                 <h3>{selectedItem.title}</h3>
                 <p>سمت : {selectedItem.position}</p>
                 <p>فعالیت : {selectedItem.activity}</p>
-                <p>سال : {selectedItem.year} </p>
+                <p>سال : {enToFaDigits(selectedItem.year)} </p>
               </div>
               {selectedItem.image && (
                 <div>
