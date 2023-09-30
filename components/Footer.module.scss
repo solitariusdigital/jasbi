@@ -11,17 +11,16 @@
   padding: 12px;
   height: 100%;
   min-height: 250px;
+  font-weight: 300;
 
-  button {
-    @include mixins.button(config.$action, config.$background);
-    margin-bottom: 20px;
+  .scroll {
+    background: config.$brand;
+    border-radius: 50px;
+    position: relative;
+    bottom: 20px;
   }
 
   .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: config.$content-width;
     margin: auto;
 
     @include mixins.mobile {
@@ -30,21 +29,42 @@
     }
   }
 
-  .information {
+  .logo {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    min-width: 100px;
+    margin: 20px 0px;
+    @include mixins.border-radius();
 
-    .row {
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-      margin: 8px 0px;
-
-      p {
-        font-weight: 300;
-        margin: 0px 12px;
-        text-align: right;
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
       }
+    }
+  }
+}
+
+.copyright {
+  margin-top: 20px;
+  font-size: 12px;
+  text-align: center;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .action {
+      margin: 0px 8px;
     }
   }
 }
