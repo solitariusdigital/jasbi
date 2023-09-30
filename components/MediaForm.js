@@ -55,7 +55,7 @@ export default function MediaForm() {
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: mediaType,
-      group: imageFolder,
+      group: mediaFolder,
       media: mediaLink,
       confirm: false,
     };

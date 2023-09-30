@@ -74,6 +74,7 @@
 .imagePreview {
   display: flex;
   flex-direction: column;
+  margin: auto;
   margin-top: 12px;
   @include mixins.border-radius();
 }
