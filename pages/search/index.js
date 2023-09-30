@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import classes from "../pages.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
@@ -17,22 +17,27 @@ export default function Search({ archiveArray }) {
   const [documents, setDocuments] = useState([]);
   const [displayDetails, setDisplayDetails] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [searchEmpty, setSearchEmpty] = useState(false);
 
   const searchDocuments = () => {
+    setSearchEmpty(false);
+    let searchDocuments = [];
     if (search) {
-      setDocuments(
-        archiveArray.filter((item) =>
-          Object.values(item).some((val) =>
-            String(val)
-              .toLowerCase()
-              .includes(
-                onlyLettersAndNumbers(search)
-                  ? search.trim()
-                  : faToEnDigits(search)
-              )
-          )
+      searchDocuments = archiveArray.filter((item) =>
+        Object.values(item).some((val) =>
+          String(val)
+            .toLowerCase()
+            .includes(
+              onlyLettersAndNumbers(search)
+                ? search.trim()
+                : faToEnDigits(search)
+            )
         )
       );
+      setDocuments(searchDocuments);
+      if (searchDocuments.length === 0) {
+        setSearchEmpty(true);
+      }
     }
   };
 
@@ -55,10 +60,11 @@ export default function Search({ archiveArray }) {
           onClick={() => {
             setDocuments([]);
             setSearch("");
+            setSearchEmpty(false);
           }}
         />
       </div>
-      {documents.length === 0 && (
+      {searchEmpty && (
         <p className="message">مطلبی برای نمایش موجود نیست جستجو کنید</p>
       )}
       <div className={classes.list}>
