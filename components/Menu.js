@@ -11,8 +11,11 @@ import SearchIcon from "@mui/icons-material/Search";
 export default function Menu() {
   const { menuMobile, setMenuMobile } = useContext(StateContext);
   const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
+  const { displayDetailsPopup, setDisplayDetailsPopup } =
+    useContext(StateContext);
 
   const activateNav = (link, index) => {
+    setDisplayDetailsPopup(false);
     setMenuMobile(false);
     navigationTopBar.map((nav, i) => {
       if (i === index) {

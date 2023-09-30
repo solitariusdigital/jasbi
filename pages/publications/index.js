@@ -11,12 +11,14 @@ import dbConnect from "@/services/dbConnect";
 import publicationModel from "@/models/Publication";
 import { getPublicationApi, updatePublicationApi } from "@/services/api";
 import { enToFaDigits } from "@/services/utility";
+import DetailsPopup from "@/components/DetailsPopup";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const { displayDetailsPopup, setDisplayDetailsPopup } =
+    useContext(StateContext);
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
-  const [displayDetails, setDisplayDetails] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
 
   const action = async (id, type) => {
@@ -116,7 +118,7 @@ export default function Publications({ publications }) {
                             priority
                             onClick={() => {
                               setSelectedItem(item);
-                              setDisplayDetails(true);
+                              setDisplayDetailsPopup(true);
                               window.scrollTo(0, 0);
                             }}
                           />
@@ -137,7 +139,7 @@ export default function Publications({ publications }) {
                       <span
                         onClick={() => {
                           setSelectedItem(item);
-                          setDisplayDetails(true);
+                          setDisplayDetailsPopup(true);
                           window.scrollTo(0, 0);
                         }}
                       >
@@ -168,46 +170,7 @@ export default function Publications({ publications }) {
             ))}
         </div>
       )}
-      {displayDetails && (
-        <div
-          className={`${classes.preview} animate__animated animate__slideInDown`}
-        >
-          <CloseIcon
-            className="icon"
-            onClick={() => setDisplayDetails(false)}
-          />
-          <div className={classes.details}>
-            <div className={classes.row}>
-              <div>
-                <h3>{selectedItem.title}</h3>
-                <p>گردآورنده : {selectedItem.author}</p>
-                {selectedItem.author !== "دکتر عبدالله جاسبی" && (
-                  <p>زیر نظز : دکتر عبدالله جاسبی</p>
-                )}
-                <p>ناشر : {selectedItem.publisher}</p>
-                <p>سال : {enToFaDigits(selectedItem.year)}</p>
-              </div>
-              {selectedItem.image && (
-                <div>
-                  <Image
-                    className={classes.image}
-                    src={selectedItem.image}
-                    placeholder="blur"
-                    blurDataURL={selectedItem.image}
-                    alt="image"
-                    loading="eager"
-                    width={270}
-                    height={300}
-                    objectFit="cover"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-            <p>{selectedItem.description}</p>
-          </div>
-        </div>
-      )}
+      {displayDetailsPopup && <DetailsPopup selectedItem={selectedItem} />}
     </div>
   );
 }

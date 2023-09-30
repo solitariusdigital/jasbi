@@ -1,0 +1,63 @@
+@use "styles/_config.scss" as config;
+@use "styles/_mixins.scss" as mixins;
+
+.popUp {
+  position: absolute;
+  top: 0px;
+  width: 50%;
+  padding: 12px;
+  text-align: right;
+  background: config.$background;
+  border: 1px solid config.$lightgrey;
+  box-shadow: config.$card-shadow;
+  @include mixins.border-radius();
+
+  @include mixins.mobile {
+    width: 100%;
+  }
+  @include mixins.tablet {
+    width: 100%;
+  }
+  @include mixins.desktop {
+    right: 0px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    .image {
+      @include mixins.border-radius();
+    }
+
+    p {
+      margin: 8px 0px;
+      font-size: config.$tiny-font;
+    }
+
+    div {
+      margin-left: 20px;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80%;
+    margin: auto;
+
+    .row {
+      justify-content: center;
+    }
+
+    @include mixins.mobile {
+      width: 100%;
+    }
+
+    @include mixins.tablet {
+      width: 100%;
+    }
+  }
+}

@@ -11,12 +11,14 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
 import { enToFaDigits } from "@/services/utility";
+import DetailsPopup from "@/components/DetailsPopup";
 
 export default function Academic({ academics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const { displayDetailsPopup, setDisplayDetailsPopup } =
+    useContext(StateContext);
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
-  const [displayDetails, setDisplayDetails] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
   const action = async (id, type) => {
@@ -122,7 +124,7 @@ export default function Academic({ academics }) {
                             priority
                             onClick={() => {
                               setSelectedItem(item);
-                              setDisplayDetails(true);
+                              setDisplayDetailsPopup(true);
                               window.scrollTo(0, 0);
                             }}
                           />
@@ -138,7 +140,7 @@ export default function Academic({ academics }) {
                       <span
                         onClick={() => {
                           setSelectedItem(item);
-                          setDisplayDetails(true);
+                          setDisplayDetailsPopup(true);
                           window.scrollTo(0, 0);
                         }}
                       >
@@ -169,41 +171,7 @@ export default function Academic({ academics }) {
             ))}
         </div>
       )}
-      {displayDetails && (
-        <div
-          className={`${classes.preview} animate__animated animate__slideInDown`}
-        >
-          <CloseIcon
-            className="icon"
-            onClick={() => setDisplayDetails(false)}
-          />
-          <div className={classes.details}>
-            <div className={classes.row}>
-              <div>
-                <h3>{selectedItem.title}</h3>
-                <p>سال : {selectedItem.year} </p>
-              </div>
-              {selectedItem.image && (
-                <div>
-                  <Image
-                    className={classes.image}
-                    src={selectedItem.image}
-                    placeholder="blur"
-                    blurDataURL={selectedItem.image}
-                    alt="image"
-                    loading="eager"
-                    width={270}
-                    height={300}
-                    objectFit="cover"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-            <p>{selectedItem.description}</p>
-          </div>
-        </div>
-      )}
+      {displayDetailsPopup && <DetailsPopup selectedItem={selectedItem} />}
     </div>
   );
 }

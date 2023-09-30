@@ -12,12 +12,16 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
+import DetailsPopup from "@/components/DetailsPopup";
 
 export default function Home({ timelineData, archiveArray }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const { displayDetailsPopup, setDisplayDetailsPopup } =
+    useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
 
   return (
     <>
@@ -123,7 +127,8 @@ export default function Home({ timelineData, archiveArray }) {
                       layout="fill"
                       priority
                       onClick={() => {
-                        window.location.assign(item.group);
+                        setSelectedItem(item);
+                        setDisplayDetailsPopup(true);
                       }}
                     />
                   </div>
@@ -146,7 +151,8 @@ export default function Home({ timelineData, archiveArray }) {
                     {item.description.slice(0, 150)} ...{" "}
                     <span
                       onClick={() => {
-                        window.location.assign(item.group);
+                        setSelectedItem(item);
+                        setDisplayDetailsPopup(true);
                       }}
                     >
                       بیشتر
@@ -157,6 +163,11 @@ export default function Home({ timelineData, archiveArray }) {
             </Fragment>
           ))
           .slice(0, 9)}
+        {displayDetailsPopup && (
+          <div className={classes.popUp}>
+            <DetailsPopup selectedItem={selectedItem} />
+          </div>
+        )}
       </div>
       <div className={classes.uploadForm}>
         {!displayRegister && (

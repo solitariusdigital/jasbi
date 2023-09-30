@@ -6,6 +6,7 @@ export const StateProvider = (props) => {
   const [appUsers, setAppUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [permissionControl, setPermissionControl] = useState(false);
+  const [displayDetailsPopup, setDisplayDetailsPopup] = useState(false);
 
   const [menuMobile, setMenuMobile] = useState(false);
   const [navigationTopBar, setNavigationTopBar] = useState([
@@ -47,6 +48,8 @@ export const StateProvider = (props) => {
     setAppUsers,
     permissionControl,
     setPermissionControl,
+    displayDetailsPopup,
+    setDisplayDetailsPopup,
   };
 
   return (
