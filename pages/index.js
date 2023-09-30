@@ -19,10 +19,6 @@ export default function Home({ timelineData, archiveArray }) {
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
 
-  useEffect(() => {
-    console.log(archiveArray);
-  }, [archiveArray]);
-
   return (
     <>
       <div className={classes.heroHeader}>
