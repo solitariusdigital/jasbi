@@ -107,7 +107,6 @@
 .row {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
 
   .image {
     @include mixins.border-radius();
@@ -118,8 +117,9 @@
     font-size: config.$tiny-font;
   }
 
-  div {
+  .imageContainer {
     margin-left: 20px;
+    min-width: 130px;
   }
 }
 

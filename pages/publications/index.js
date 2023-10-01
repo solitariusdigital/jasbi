@@ -58,13 +58,19 @@ export default function Publications({ publications }) {
               className={
                 category === "مقالات" ? classes.navActive : classes.nav
               }
-              onClick={() => setCategory("مقالات")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("مقالات");
+              }}
             >
               مقالات
             </p>
             <p
               className={category === "کتاب" ? classes.navActive : classes.nav}
-              onClick={() => setCategory("کتاب")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("کتاب");
+              }}
             >
               کتاب
             </p>
@@ -103,8 +109,8 @@ export default function Publications({ publications }) {
                       />
                     )}
                     <div className={classes.row}>
-                      <div>
-                        {item.image && (
+                      {item.image && (
+                        <div className={classes.imageContainer}>
                           <Image
                             className={classes.image}
                             src={item.image}
@@ -122,8 +128,8 @@ export default function Publications({ publications }) {
                               window.scrollTo(0, 0);
                             }}
                           />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <div>
                         <h3>{item.title}</h3>
                         <p>گردآورنده : {item.author}</p>

@@ -10,7 +10,13 @@ export default function DetailsPopup({ selectedItem }) {
     useContext(StateContext);
 
   return (
-    <div className={`${classes.popUp} animate__animated animate__slideInDown`}>
+    <div
+      className={`${classes.popUp} ${
+        window.innerWidth > 1100
+          ? "animate__animated animate__slideInRight"
+          : ""
+      }`}
+    >
       <CloseIcon
         className="icon"
         onClick={() => setDisplayDetailsPopup(false)}

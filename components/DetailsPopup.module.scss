@@ -3,7 +3,7 @@
 
 .popUp {
   position: absolute;
-  top: 0px;
+  top: 75px;
   width: 50%;
   padding: 12px;
   text-align: right;
@@ -16,7 +16,7 @@
     width: 100%;
   }
   @include mixins.tablet {
-    width: 100%;
+    width: 50%;
   }
   @include mixins.desktop {
     right: 0px;

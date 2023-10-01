@@ -18,6 +18,7 @@ export default function Search({ archiveArray }) {
   const [selectedItem, setSelectedItem] = useState({});
   const [displayDetails, setDisplayDetails] = useState(false);
   const [searchEmpty, setSearchEmpty] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
 
   const searchDocuments = () => {
     setSearchEmpty(false);
@@ -72,8 +73,8 @@ export default function Search({ archiveArray }) {
             {item.confirm && (
               <div className={classes.item}>
                 <div className={classes.row}>
-                  <div>
-                    {item.image && (
+                  {item.image && (
+                    <div className={classes.imageContainer}>
                       <Image
                         className={classes.image}
                         src={item.image}
@@ -85,14 +86,10 @@ export default function Search({ archiveArray }) {
                         height={370}
                         objectFit="cover"
                         priority
-                        onClick={() => {
-                          setSelectedItem(item);
-                          setDisplayDetails(true);
-                          window.scrollTo(0, 0);
-                        }}
+                        onClick={() => setExpandedItem(item["_id"])}
                       />
-                    )}
-                  </div>
+                    </div>
+                  )}
                   <div className={classes.info}>
                     <h3>{item.title}</h3>
                     {item.author && (
@@ -107,18 +104,16 @@ export default function Search({ archiveArray }) {
                     {item.position && <p>سمت : {item.position}</p>}
                     {item.activity && <p>فعالیت : {item.activity}</p>}
                     <p>سال : {enToFaDigits(item.year)} </p>
-                    <p>
-                      {item.description.slice(0, 150)} ...{" "}
-                      <span
-                        onClick={() => {
-                          setSelectedItem(item);
-                          setDisplayDetails(true);
-                          window.scrollTo(0, 0);
-                        }}
-                      >
-                        بیشتر
-                      </span>
-                    </p>
+                    {expandedItem === item["_id"] ? (
+                      <p>{item.description}</p>
+                    ) : (
+                      <p>
+                        {item.description.slice(0, 150)} ...{" "}
+                        <span onClick={() => setExpandedItem(item["_id"])}>
+                          بیشتر
+                        </span>
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -126,56 +121,6 @@ export default function Search({ archiveArray }) {
           </Fragment>
         ))}
       </div>
-      {displayDetails && (
-        <div
-          className={`${classes.preview} animate__animated animate__slideInDown`}
-        >
-          <CloseIcon
-            className="icon"
-            onClick={() => setDisplayDetails(false)}
-          />
-          <div className={classes.details}>
-            <div className={classes.row}>
-              <div className={classes.info}>
-                <h3>{selectedItem.title}</h3>
-                {selectedItem.author && (
-                  <Fragment>
-                    <p>گردآورنده : {selectedItem.author}</p>
-                    {selectedItem.author !== "دکتر عبدالله جاسبی" && (
-                      <p>زیر نظز : دکتر عبدالله جاسبی</p>
-                    )}
-                  </Fragment>
-                )}
-                {selectedItem.publisher && (
-                  <p>ناشر : {selectedItem.publisher}</p>
-                )}
-                {selectedItem.position && <p>سمت : {selectedItem.position}</p>}
-                {selectedItem.activity && (
-                  <p>فعالیت : {selectedItem.activity}</p>
-                )}
-                <p>سال : {enToFaDigits(selectedItem.year)} </p>
-              </div>
-              {selectedItem.image && (
-                <div>
-                  <Image
-                    className={classes.image}
-                    src={selectedItem.image}
-                    placeholder="blur"
-                    blurDataURL={selectedItem.image}
-                    alt="image"
-                    loading="eager"
-                    width={270}
-                    height={300}
-                    objectFit="cover"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-            <p>{selectedItem.description}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

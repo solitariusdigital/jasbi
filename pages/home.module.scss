@@ -53,7 +53,8 @@
     }
   }
 
-  .information {
+  .information,
+  .informationBio {
     height: 100%;
     width: 25%;
     font-weight: 300;
@@ -84,14 +85,11 @@
       }
     }
   }
-}
 
-.popUp {
-  position: absolute;
-  top: 25%;
-  right: 25%;
-  width: 100%;
-  font-weight: 300;
+  .informationBio {
+    text-align: justify;
+    direction: rtl;
+  }
 }
 
 .cardGrid {
@@ -103,7 +101,6 @@
   margin: auto;
   margin-top: 50px;
   width: config.$content-width;
-  position: relative;
 
   @include mixins.mobile {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
@@ -124,6 +121,7 @@
     .info {
       padding: 12px;
 
+      h3,
       p {
         margin: 8px 0px;
       }
@@ -195,5 +193,23 @@
   button {
     @include mixins.button(config.$action, config.$background);
     margin-bottom: 20px;
+  }
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  font-weight: 300;
+  color: config.$grey;
+
+  p {
+    border-bottom: 1px solid config.$grey;
+  }
+
+  @include mixins.desktop {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

@@ -134,20 +134,17 @@
     width: 50%;
   }
 
+  h3,
+  p {
+    margin: 8px 0px;
+  }
+
   @include mixins.mobile {
     width: 100%;
   }
 
   @include mixins.tablet {
     width: 100%;
-  }
-
-  h2 {
-    margin-bottom: 12px;
-  }
-
-  h3 {
-    margin-top: 12px;
   }
 
   .image {

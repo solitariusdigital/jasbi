@@ -12,21 +12,25 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
-import DetailsPopup from "@/components/DetailsPopup";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Home({ timelineData, archiveArray }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
-  const { displayDetailsPopup, setDisplayDetailsPopup } =
-    useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
+  const [expandedItem, setExpandedItem] = useState(null);
+
+  const logOut = () => {
+    secureLocalStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    window.location.assign("/");
+  };
 
   return (
     <>
       <div className={classes.heroHeader}>
-        <div className={classes.information}>
+        <div className={classes.informationBio}>
           عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد تشکیل
           دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در سال ۱۳۶۱
           تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای دانشگاه آزاد
@@ -126,10 +130,7 @@ export default function Home({ timelineData, archiveArray }) {
                       objectFit="cover"
                       layout="fill"
                       priority
-                      onClick={() => {
-                        setSelectedItem(item);
-                        setDisplayDetailsPopup(true);
-                      }}
+                      onClick={() => setExpandedItem(item["_id"])}
                     />
                   </div>
                 )}
@@ -147,27 +148,21 @@ export default function Home({ timelineData, archiveArray }) {
                   {item.position && <p>سمت : {item.position}</p>}
                   {item.activity && <p>فعالیت : {item.activity}</p>}
                   <p>سال : {enToFaDigits(item.year)} </p>
-                  <p>
-                    {item.description.slice(0, 150)} ...{" "}
-                    <span
-                      onClick={() => {
-                        setSelectedItem(item);
-                        setDisplayDetailsPopup(true);
-                      }}
-                    >
-                      بیشتر
-                    </span>
-                  </p>
+                  {expandedItem === item["_id"] ? (
+                    <p>{item.description}</p>
+                  ) : (
+                    <p>
+                      {item.description.slice(0, 100)} ...{" "}
+                      <span onClick={() => setExpandedItem(item["_id"])}>
+                        بیشتر
+                      </span>
+                    </p>
+                  )}
                 </div>
               </div>
             </Fragment>
           ))
           .slice(0, 9)}
-        {displayDetailsPopup && (
-          <div className={classes.popUp}>
-            <DetailsPopup selectedItem={selectedItem} />
-          </div>
-        )}
       </div>
       <div className={classes.uploadForm}>
         {!displayRegister && (
@@ -188,6 +183,11 @@ export default function Home({ timelineData, archiveArray }) {
             {!mediaForm ? "بارگذاری رسانه" : "برگشت"}​
           </button>
           {mediaForm && <MediaForm />}
+        </div>
+      )}
+      {currentUser && (
+        <div className={classes.logout} onClick={() => logOut()}>
+          <p>خروج</p>
         </div>
       )}
     </>

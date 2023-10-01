@@ -56,7 +56,10 @@ export default function Academic({ academics }) {
           <div className={classes.navigation}>
             <p
               className={category === "تدریس" ? classes.navActive : classes.nav}
-              onClick={() => setCategory("تدریس")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("تدریس");
+              }}
             >
               تدریس
             </p>
@@ -64,13 +67,19 @@ export default function Academic({ academics }) {
               className={
                 category === "دستاور" ? classes.navActive : classes.nav
               }
-              onClick={() => setCategory("دستاور")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("دستاور");
+              }}
             >
               دستاورد
             </p>
             <p
               className={category === "پروژه" ? classes.navActive : classes.nav}
-              onClick={() => setCategory("پروژه")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("پروژه");
+              }}
             >
               پروژه
             </p>
@@ -109,8 +118,8 @@ export default function Academic({ academics }) {
                       />
                     )}
                     <div className={classes.row}>
-                      <div>
-                        {item.image && (
+                      {item.image && (
+                        <div className={classes.imageContainer}>
                           <Image
                             className={classes.image}
                             src={item.image}
@@ -128,8 +137,8 @@ export default function Academic({ academics }) {
                               window.scrollTo(0, 0);
                             }}
                           />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <div>
                         <h3>{item.title}</h3>
                         <p>سال : {enToFaDigits(item.year)} </p>

@@ -56,13 +56,19 @@ export default function Politics({ politics }) {
           <div className={classes.navigation}>
             <p
               className={category === "قبل" ? classes.navActive : classes.nav}
-              onClick={() => setCategory("قبل")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("قبل");
+              }}
             >
               قبل انقلاب
             </p>
             <p
               className={category === "بعد" ? classes.navActive : classes.nav}
-              onClick={() => setCategory("بعد")}
+              onClick={() => {
+                setDisplayDetailsPopup(false);
+                setCategory("بعد");
+              }}
             >
               بعد انقلاب
             </p>
@@ -101,8 +107,8 @@ export default function Politics({ politics }) {
                       />
                     )}
                     <div className={classes.row}>
-                      <div>
-                        {item.image && (
+                      {item.image && (
+                        <div className={classes.imageContainer}>
                           <Image
                             className={classes.image}
                             src={item.image}
@@ -120,8 +126,8 @@ export default function Politics({ politics }) {
                               window.scrollTo(0, 0);
                             }}
                           />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <div>
                         <h3>{item.title}</h3>
                         <p>سمت : {item.position}</p>
