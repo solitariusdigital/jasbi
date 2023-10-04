@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Dr.Jasbi",
-  "short_name": "Dr.Jasbi",
+  "name": "جاسبی",
+  "short_name": "جاسبی",
   "icons": [
     {
       "src": "/icon-192x192.png",
