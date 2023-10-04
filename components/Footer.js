@@ -1,5 +1,4 @@
 import classes from "./Footer.module.scss";
-import Router from "next/router";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
@@ -9,7 +8,16 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.container}>
-        <div className={classes.logo} onClick={() => Router.push("/")}>
+        <div
+          className={classes.logo}
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            })
+          }
+        >
           <Image width={100} height={100} src={logo} alt="logo" priority />
         </div>
       </div>
