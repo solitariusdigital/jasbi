@@ -130,8 +130,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>سوابق اجرایی</p>
@@ -143,8 +143,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>مقالات تحقیقی به زبان فارسی</p>
@@ -156,8 +156,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>کتب منتشر شده</p>
@@ -169,8 +169,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>تالیفات زیر نظر دکتر</p>
@@ -182,8 +182,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>تحقیقات و پژوهش های علمی</p>
@@ -195,8 +195,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>ترجمه ها</p>
@@ -208,8 +208,8 @@ export default function Home({ timelineData, archiveArray }) {
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={40}
-              height={40}
+              width={70}
+              height={70}
               loading="eager"
             />
             <p>سخنرانی ها</p>

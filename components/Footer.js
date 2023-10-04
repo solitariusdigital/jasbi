@@ -20,16 +20,14 @@ export default function Footer() {
           }
         >
           <Image width={100} height={100} src={logo} alt="logo" priority />
-          <div className={classes.image}>
-            <Image
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-          </div>
+          <Image
+            src={bullet}
+            placeholder="blur"
+            alt="image"
+            width={100}
+            height={100}
+            loading="eager"
+          />
         </div>
       </div>
       <div className={classes.copyright}>
