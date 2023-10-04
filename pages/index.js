@@ -3,6 +3,7 @@ import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import background from "@/assets/background.jpg";
+import banner from "@/assets/banner.png";
 import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
@@ -20,6 +21,24 @@ export default function Home({ timelineData, archiveArray }) {
   const [displayRegister, setDisplayRegister] = useState(false);
   const [mediaForm, setMediaform] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
+  const [screenSize, setScreenSize] = useState(
+    "desktop" || "tablet" || "mobile"
+  );
+
+  const handleResize = () => {
+    if (window.innerWidth < 700) {
+      setScreenSize("mobile");
+    } else if (window.innerWidth > 700 && window.innerWidth < 1200) {
+      setScreenSize("tablet");
+    } else {
+      setScreenSize("desktop");
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   const logOut = () => {
     secureLocalStorage.removeItem("currentUser");
@@ -27,8 +46,46 @@ export default function Home({ timelineData, archiveArray }) {
     window.location.assign("/");
   };
 
+  const generateBanner = () => {
+    let length = 0;
+    let objectFit = "contain";
+    switch (screenSize) {
+      case "desktop":
+        length = 4;
+        objectFit = "contain";
+        break;
+      case "tablet":
+        length = 2;
+        objectFit = "cover";
+        break;
+      case "mobile":
+        length = 1;
+        objectFit = "cover";
+        break;
+    }
+    return (
+      <Fragment>
+        {Array.from(Array(length)).map((item, index) => {
+          return (
+            <div key={index} className={classes.image}>
+              <Image
+                src={banner}
+                placeholder="blur"
+                alt="image"
+                layout="fill"
+                objectFit={objectFit}
+                loading="eager"
+              />
+            </div>
+          );
+        })}
+      </Fragment>
+    );
+  };
+
   return (
-    <>
+    <Fragment>
+      <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.heroHeader}>
         <div className={classes.informationBio}>
           عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد تشکیل
@@ -190,7 +247,7 @@ export default function Home({ timelineData, archiveArray }) {
           <p>خروج</p>
         </div>
       )}
-    </>
+    </Fragment>
   );
 }
 

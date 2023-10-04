@@ -94,7 +94,7 @@ export default function Academic({ academics }) {
       {!displayForm && (
         <div
           className={`${classes.list} ${
-            window.innerWidth > 1100
+            window.innerWidth > 1200
               ? "animate__animated animate__slideInRight"
               : ""
           }`}

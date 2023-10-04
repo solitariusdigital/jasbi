@@ -9,7 +9,6 @@
     padding: 20px 0px;
     @include mixins.row-space-between-center();
   }
-
   @include mixins.tablet {
     width: calc(100% - 24px);
     display: flex;
@@ -89,6 +88,27 @@
   .informationBio {
     text-align: justify;
     direction: rtl;
+  }
+}
+
+.bannerContainer {
+  display: flex;
+  position: relative;
+  top: -12px;
+  height: 100px;
+
+  @include mixins.mobile {
+    height: 110px;
+    top: -8px;
+  }
+  @include mixins.tablet {
+    height: 110px;
+    top: -8px;
+  }
+
+  .image {
+    position: relative;
+    width: 100%;
   }
 }
 

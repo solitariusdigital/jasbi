@@ -83,7 +83,7 @@ export default function Politics({ politics }) {
       {!displayForm && (
         <div
           className={`${classes.list} ${
-            window.innerWidth > 1100
+            window.innerWidth > 1200
               ? "animate__animated animate__slideInRight"
               : ""
           }`}

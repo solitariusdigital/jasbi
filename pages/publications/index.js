@@ -85,7 +85,7 @@ export default function Publications({ publications }) {
       {!displayForm && (
         <div
           className={`${classes.list} ${
-            window.innerWidth > 1100
+            window.innerWidth > 1200
               ? "animate__animated animate__slideInRight"
               : ""
           }`}

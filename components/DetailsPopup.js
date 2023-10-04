@@ -12,7 +12,7 @@ export default function DetailsPopup({ selectedItem }) {
   return (
     <div
       className={`${classes.popUp} ${
-        window.innerWidth > 1100
+        window.innerWidth > 1200
           ? "animate__animated animate__slideInRight"
           : ""
       }`}
