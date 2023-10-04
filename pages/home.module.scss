@@ -78,9 +78,10 @@
       margin: 12px 0px;
       display: flex;
       flex-direction: row-reverse;
+      align-items: center;
 
-      h2 {
-        margin-right: 12px;
+      p {
+        margin: 0px 12px;
       }
     }
   }

@@ -33,6 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100px;
     min-width: 100px;
     margin: 20px 0px;
@@ -42,6 +43,10 @@
       &:hover {
         cursor: pointer;
       }
+    }
+
+    .image {
+      margin-left: 12px;
     }
   }
 }

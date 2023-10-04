@@ -4,6 +4,7 @@ import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import background from "@/assets/background.jpg";
 import banner from "@/assets/banner.png";
+import bullet from "@/assets/bullet.png";
 import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
@@ -124,30 +125,93 @@ export default function Home({ timelineData, archiveArray }) {
           </div>
           <br />
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>سوابق اجرایی</p>
             <h2>{enToFaDigits(53)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>مقالات تحقیقی به زبان فارسی</p>
             <h2>{enToFaDigits(47)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>کتب منتشر شده</p>
             <h2>{enToFaDigits(26)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>تالیفات زیر نظر دکتر</p>
             <h2>{enToFaDigits(15)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>تحقیقات و پژوهش های علمی</p>
             <h2>{enToFaDigits(14)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>ترجمه ها</p>
             <h2>{enToFaDigits(24)}</h2>
           </div>
           <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={40}
+              height={40}
+              loading="eager"
+            />
             <p>سخنرانی ها</p>
             <h2>{enToFaDigits(49)}</h2>
           </div>

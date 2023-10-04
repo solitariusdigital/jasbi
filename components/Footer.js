@@ -3,6 +3,7 @@ import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturi
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
 import logo from "@/assets/logo.svg";
+import bullet from "@/assets/bullet.png";
 
 export default function Footer() {
   return (
@@ -19,6 +20,16 @@ export default function Footer() {
           }
         >
           <Image width={100} height={100} src={logo} alt="logo" priority />
+          <div className={classes.image}>
+            <Image
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+          </div>
         </div>
       </div>
       <div className={classes.copyright}>
