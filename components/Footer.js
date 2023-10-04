@@ -4,6 +4,7 @@ import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
 import logo from "@/assets/logo.svg";
 import bullet from "@/assets/bullet.png";
+import MinimalTechLab from "@/assets/MinimalTechLab.svg";
 
 export default function Footer() {
   return (
@@ -42,7 +43,15 @@ export default function Footer() {
             )
           }
         >
-          <p className={classes.action}>طراحی، توسعه و پشتیبانی</p>
+          <Image
+            className={classes.image}
+            src={MinimalTechLab}
+            alt="image"
+            width={120}
+            height={30}
+            loading="eager"
+          />
+          <p className={classes.action}>طراحی توسعه پشتیبانی</p>
           <PrecisionManufacturingIcon sx={{ fontSize: 18 }} />
         </div>
       </div>
