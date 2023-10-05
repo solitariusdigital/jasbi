@@ -4,7 +4,7 @@ import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
 import logo from "@/assets/logo.svg";
 import bullet from "@/assets/bullet.png";
-import MinimalTechLab from "@/assets/MinimalTechLab.svg";
+import MuseTechLab from "@/assets/MuseTechLab.svg";
 
 export default function Footer() {
   return (
@@ -45,7 +45,7 @@ export default function Footer() {
         >
           <Image
             className={classes.image}
-            src={MinimalTechLab}
+            src={MuseTechLab}
             alt="image"
             width={120}
             height={30}
