@@ -9,7 +9,6 @@ import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
 import { enToFaDigits } from "@/services/utility";
-import MediaForm from "@/components/MediaForm";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
@@ -18,9 +17,7 @@ import secureLocalStorage from "react-secure-storage";
 
 export default function Home({ timelineData, archiveArray }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
-  const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
-  const [mediaForm, setMediaform] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
   const [screenSize, setScreenSize] = useState(
     "desktop" || "tablet" || "mobile"
@@ -301,15 +298,6 @@ export default function Home({ timelineData, archiveArray }) {
         {displayRegister && !currentUser && <Register />}
         {displayRegister && currentUser && <SendForm />}
       </div>
-      {permissionControl && (
-        <div className={classes.uploadForm}>
-          <p className="message">بارگذاری عکس و ویدئو</p>
-          <button onClick={() => setMediaform(!mediaForm)}>
-            {!mediaForm ? "بارگذاری رسانه" : "برگشت"}​
-          </button>
-          {mediaForm && <MediaForm />}
-        </div>
-      )}
       {currentUser && (
         <div className={classes.logout} onClick={() => logOut()}>
           <p>خروج</p>

@@ -33,7 +33,7 @@ export default function Footer() {
       </div>
       <div className={classes.copyright}>
         <p>کليه حقوق اين وب اپلیکیشن به دکتر جاسبی تعلق دارد</p>
-        <p>jasbi.com @Copyright {enToFaDigits(1402)}</p>
+        <p>jasbi.net @Copyright {enToFaDigits(1402)}</p>
         <div
           className={classes.row}
           onClick={() =>

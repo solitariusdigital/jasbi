@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
           openGraph={{
             type: "website",
             locale: "fa_IR",
-            url: "https://jasbi.com/",
+            url: "https://jasbi.net/",
             siteName: "دکتر جاسبی",
           }}
         />

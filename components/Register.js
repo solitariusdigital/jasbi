@@ -4,7 +4,6 @@ import classes from "./Form.module.scss";
 import { fourGenerator } from "@/services/utility";
 import CloseIcon from "@mui/icons-material/Close";
 import secureLocalStorage from "react-secure-storage";
-import Router from "next/router";
 import { createUserApi, getUsersApi } from "@/services/api";
 
 export default function Register() {

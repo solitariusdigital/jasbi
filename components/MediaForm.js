@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
@@ -65,7 +65,7 @@ export default function MediaForm() {
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>بارگذاری رسانه​</p>
+      <p className={classes.title}>تصاویر​</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
