@@ -12,6 +12,12 @@ export default function Timeline({ timelineData }) {
   const [details, setDetails] = useState({});
   const [description, setDescription] = useState("");
 
+  const category = {
+    academic: "پژوهشی و علمی",
+    publications: "انتشارات",
+    politics: "سیاسی و اجرایی",
+  };
+
   const scrollRight = () => {
     document.getElementById("timeline").scrollLeft += 100;
   };
@@ -27,6 +33,7 @@ export default function Timeline({ timelineData }) {
         setDetails({
           year: item.year,
           title: item.data[parseInt(dataIndex)].title,
+          group: item.data[parseInt(dataIndex)].group,
           author: item.data[parseInt(dataIndex)].author,
           publisher: item.data[parseInt(dataIndex)].publisher,
           position: item.data[parseInt(dataIndex)].position,
@@ -140,6 +147,7 @@ export default function Timeline({ timelineData }) {
             )}
             <div className={classes.information}>
               <h3>{details.title}</h3>
+              {details.group && <p>دسته : {category[details.group]}</p>}
               {details.author && (
                 <Fragment>
                   <p>گردآورنده : {details.author}</p>
