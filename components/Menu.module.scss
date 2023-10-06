@@ -42,7 +42,7 @@
   }
 
   .largeNavigation {
-    width: 50%;
+    width: 60%;
     @include mixins.row-space-between-center();
 
     @include mixins.tablet {

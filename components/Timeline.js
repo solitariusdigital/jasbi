@@ -4,6 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Timeline({ timelineData }) {
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -118,33 +119,41 @@ export default function Timeline({ timelineData }) {
       {displayDetails && (
         <div className={`${classes.details} animate__animated animate__zoomIn`}>
           <h2>{enToFaDigits(details.year)} </h2>
-          {details.image && (
-            <Image
-              className={classes.image}
-              src={details.image}
-              placeholder="blur"
-              blurDataURL={details.image}
-              alt="image"
-              loading="eager"
-              width={300}
-              height={180}
-              objectFit="cover"
-              priority
-            />
-          )}
-          <h3>{details.title}</h3>
-          {details.author && (
-            <Fragment>
-              <p>گردآورنده : {details.author}</p>
-              {details.author !== "دکتر عبدالله جاسبی" && (
-                <p>زیر نظز : دکتر عبدالله جاسبی</p>
+          <CloseIcon
+            className={classes.icon}
+            onClick={() => setDisplayDetails(false)}
+          />
+          <div className={classes.row}>
+            {details.image && (
+              <Image
+                className={classes.image}
+                src={details.image}
+                placeholder="blur"
+                blurDataURL={details.image}
+                alt="image"
+                loading="eager"
+                width={300}
+                height={180}
+                objectFit="cover"
+                priority
+              />
+            )}
+            <div className={classes.information}>
+              <h3>{details.title}</h3>
+              {details.author && (
+                <Fragment>
+                  <p>گردآورنده : {details.author}</p>
+                  {details.author !== "دکتر عبدالله جاسبی" && (
+                    <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                  )}
+                </Fragment>
               )}
-            </Fragment>
-          )}
-          {details.publisher && <p>ناشر : {details.publisher}</p>}
-          {details.position && <p>سمت : {details.position}</p>}
-          {details.activity && <p>فعالیت : {details.activity}</p>}
-          <p className={classes.description}>{details.description}</p>
+              {details.publisher && <p>ناشر : {details.publisher}</p>}
+              {details.position && <p>سمت : {details.position}</p>}
+              {details.activity && <p>فعالیت : {details.activity}</p>}
+            </div>
+            <p className={classes.description}>{details.description}</p>
+          </div>
         </div>
       )}
     </Fragment>

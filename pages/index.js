@@ -101,17 +101,19 @@ export default function Home({ timelineData, archiveArray }) {
           حاضر رئیس هیئت امنا و مدیرعامل این بنیاد می‌باشد. او دانشمند تمام عیار
           در ایران است
         </div>
-        <div className={classes.imageContainer}>
-          <Image
-            className={classes.image}
-            src={background}
-            placeholder="blur"
-            alt="image"
-            layout="fill"
-            objectFit="cover"
-            loading="eager"
-          />
-        </div>
+        {screenSize === "desktop" && (
+          <div className={classes.imageContainer}>
+            <Image
+              className={classes.image}
+              src={background}
+              placeholder="blur"
+              alt="image"
+              layout="fill"
+              objectFit="cover"
+              loading="eager"
+            />
+          </div>
+        )}
         <div className={classes.information}>
           <h1>دکتر جاسبی</h1>
           <div className={classes.details}>
@@ -216,17 +218,19 @@ export default function Home({ timelineData, archiveArray }) {
             <h2>{enToFaDigits(49)}</h2>
           </div>
         </div>
-        <div className={classes.imageContainerMobile}>
-          <Image
-            className={classes.image}
-            src={background}
-            placeholder="blur"
-            alt="image"
-            layout="fill"
-            objectFit="cover"
-            loading="eager"
-          />
-        </div>
+        {screenSize !== "desktop" && (
+          <div className={classes.imageContainer}>
+            <Image
+              className={classes.image}
+              src={background}
+              placeholder="blur"
+              alt="image"
+              layout="fill"
+              objectFit="cover"
+              loading="eager"
+            />
+          </div>
+        )}
       </div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
