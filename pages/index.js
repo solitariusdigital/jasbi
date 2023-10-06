@@ -12,10 +12,18 @@ import { enToFaDigits } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
+import mediaModel from "@/models/Media";
 import politicModel from "@/models/Politic";
 import secureLocalStorage from "react-secure-storage";
 
-export default function Home({ timelineData, archiveArray }) {
+export default function Home({
+  timelineData,
+  archiveArray,
+  academics,
+  politics,
+  publications,
+  media,
+}) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
@@ -133,8 +141,10 @@ export default function Home({ timelineData, archiveArray }) {
               height={70}
               loading="eager"
             />
-            <p>سوابق اجرایی</p>
-            <h2>{enToFaDigits(53)}</h2>
+            <p>سیاسی و اجرایی</p>
+            <h2>
+              {enToFaDigits(politics?.filter((item) => item.confirm).length)}
+            </h2>
           </div>
           <div className={classes.details}>
             <Image
@@ -146,8 +156,10 @@ export default function Home({ timelineData, archiveArray }) {
               height={70}
               loading="eager"
             />
-            <p>مقالات تحقیقی به زبان فارسی</p>
-            <h2>{enToFaDigits(47)}</h2>
+            <p>پژوهشی و علمی</p>
+            <h2>
+              {enToFaDigits(academics?.filter((item) => item.confirm).length)}
+            </h2>
           </div>
           <div className={classes.details}>
             <Image
@@ -159,8 +171,12 @@ export default function Home({ timelineData, archiveArray }) {
               height={70}
               loading="eager"
             />
-            <p>کتب منتشر شده</p>
-            <h2>{enToFaDigits(26)}</h2>
+            <p>انتشارات</p>
+            <h2>
+              {enToFaDigits(
+                publications?.filter((item) => item.confirm).length
+              )}
+            </h2>
           </div>
           <div className={classes.details}>
             <Image
@@ -172,47 +188,10 @@ export default function Home({ timelineData, archiveArray }) {
               height={70}
               loading="eager"
             />
-            <p>تالیفات زیر نظر دکتر</p>
-            <h2>{enToFaDigits(15)}</h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={70}
-              height={70}
-              loading="eager"
-            />
-            <p>تحقیقات و پژوهش های علمی</p>
-            <h2>{enToFaDigits(14)}</h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={70}
-              height={70}
-              loading="eager"
-            />
-            <p>ترجمه ها</p>
-            <h2>{enToFaDigits(24)}</h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={70}
-              height={70}
-              loading="eager"
-            />
-            <p>سخنرانی ها</p>
-            <h2>{enToFaDigits(49)}</h2>
+            <p>تصاویر</p>
+            <h2>
+              {enToFaDigits(media?.filter((item) => item.confirm).length)}
+            </h2>
           </div>
         </div>
         {screenSize !== "desktop" && (
@@ -314,6 +293,7 @@ export async function getServerSideProps(context) {
     const academics = await academicModel.find();
     const politics = await politicModel.find();
     const publications = await publicationModel.find();
+    const media = await mediaModel.find();
 
     const archiveArray = [...academics, ...politics, ...publications].sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -340,6 +320,10 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
+        academics: JSON.parse(JSON.stringify(academics)),
+        politics: JSON.parse(JSON.stringify(politics)),
+        publications: JSON.parse(JSON.stringify(publications)),
+        media: JSON.parse(JSON.stringify(media)),
         timelineData: JSON.parse(JSON.stringify(timelineData)),
         archiveArray: JSON.parse(JSON.stringify(archiveArray)),
       },

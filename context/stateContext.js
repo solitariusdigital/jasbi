@@ -16,6 +16,11 @@ export const StateProvider = (props) => {
       active: false,
     },
     {
+      title: "سیاسی و اجرایی",
+      link: "/politics",
+      active: false,
+    },
+    {
       title: "پژوهشی و علمی",
       link: "/academic",
       active: false,
@@ -23,11 +28,6 @@ export const StateProvider = (props) => {
     {
       title: "انتشارات",
       link: "/publications",
-      active: false,
-    },
-    {
-      title: "سیاسی و اجرایی",
-      link: "/politics",
       active: false,
     },
     {
