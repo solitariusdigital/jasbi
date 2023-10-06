@@ -31,6 +31,12 @@ export default function Home({
     "desktop" || "tablet" || "mobile"
   );
 
+  const category = {
+    academic: "پژوهشی و علمی",
+    publications: "انتشارات",
+    politics: "سیاسی و اجرایی",
+  };
+
   const handleResize = () => {
     if (window.innerWidth < 700) {
       setScreenSize("mobile");
@@ -121,14 +127,51 @@ export default function Home({
         )}
         <div className={classes.information}>
           <h1>دکتر جاسبی</h1>
+          <br />
           <div className={classes.details}>
-            لیسانس مهندسی صنایع، دانشگاه علم و صنعت ایران
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <p>لیسانس مهندسی صنایع</p>
+              <p>دانشگاه علم و صنعت ایران</p>
+            </div>
           </div>
           <div className={classes.details}>
-            فوق لیسانس مدیریت صنعتی، دانشگاه آستون، بیرمنگام، انگلستان
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <p>فوق لیسانس مدیریت صنعتی</p>
+              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+            </div>
           </div>
           <div className={classes.details}>
-            دکترای مدیریت تولید و فناوری، دانشگاه آستون، بیرمنگام، انگلستان
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <p>دکترای مدیریت تولید و فناوری</p>
+              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+            </div>
           </div>
           <br />
           <div className={classes.details}>
@@ -137,8 +180,8 @@ export default function Home({
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={70}
-              height={70}
+              width={60}
+              height={60}
               loading="eager"
             />
             <p>سیاسی و اجرایی</p>
@@ -152,8 +195,8 @@ export default function Home({
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={70}
-              height={70}
+              width={60}
+              height={60}
               loading="eager"
             />
             <p>پژوهشی و علمی</p>
@@ -167,8 +210,8 @@ export default function Home({
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={70}
-              height={70}
+              width={60}
+              height={60}
               loading="eager"
             />
             <p>انتشارات</p>
@@ -184,8 +227,8 @@ export default function Home({
               src={bullet}
               placeholder="blur"
               alt="image"
-              width={70}
-              height={70}
+              width={60}
+              height={60}
               loading="eager"
             />
             <p>تصاویر</p>
@@ -213,6 +256,9 @@ export default function Home({
         <p>رویدادهای مهم و ماندگار</p>
         <Timeline timelineData={timelineData} />
       </div>
+      <div className={classes.update}>
+        <h2>آخرین به روزرسانی</h2>
+      </div>
       <div className={classes.cardGrid}>
         {archiveArray
           .filter((item) => item.confirm)
@@ -237,6 +283,7 @@ export default function Home({
                 )}
                 <div className={classes.info}>
                   <h3>{item.title}</h3>
+                  {item.group && <p>{category[item.group]}</p>}
                   {item.author && (
                     <Fragment>
                       <p>گردآورنده : {item.author}</p>

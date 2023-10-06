@@ -147,7 +147,7 @@ export default function Timeline({ timelineData }) {
             )}
             <div className={classes.information}>
               <h3>{details.title}</h3>
-              {details.group && <p>دسته : {category[details.group]}</p>}
+              {details.group && <p>{category[details.group]}</p>}
               {details.author && (
                 <Fragment>
                   <p>گردآورنده : {details.author}</p>
