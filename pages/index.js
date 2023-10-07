@@ -139,7 +139,7 @@ export default function Home({
               loading="eager"
             />
             <div>
-              <p>لیسانس مهندسی صنایع</p>
+              <p>کارشناس مهندس صنایع</p>
               <p>دانشگاه علم و صنعت ایران</p>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function Home({
               loading="eager"
             />
             <div>
-              <p>فوق لیسانس مدیریت صنعتی</p>
+              <p>ارشد مدیریت صنعتی</p>
               <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
             </div>
           </div>

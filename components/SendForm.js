@@ -2,10 +2,11 @@ import { useState } from "react";
 import classes from "./Form.module.scss";
 import PoliticsForm from "./PoliticsForm";
 import AcademicForm from "./AcademicForm";
+import MediaForm from "./MediaForm";
 
 export default function SendForm() {
   const [type, setType] = useState("");
-  const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی"];
+  const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی", "تصاویر"];
 
   return (
     <div className={classes.form}>
@@ -35,6 +36,7 @@ export default function SendForm() {
       </div>
       {type === "سیاسی و اجرایی" && <PoliticsForm />}
       {type === "پژوهشی و علمی" && <AcademicForm />}
+      {type === "تصاویر" && <MediaForm />}
     </div>
   );
 }
