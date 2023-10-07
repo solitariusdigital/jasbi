@@ -3,7 +3,6 @@ import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import dbConnect from "@/services/dbConnect";
 import speechModel from "@/models/Speech";
-import Image from "next/legacy/image";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";

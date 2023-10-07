@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import classes from "./Timeline.module.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
