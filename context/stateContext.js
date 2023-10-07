@@ -31,8 +31,13 @@ export const StateProvider = (props) => {
       active: false,
     },
     {
-      title: "آلبوم تصاویر",
+      title: "تصاویر",
       link: "/media",
+      active: false,
+    },
+    {
+      title: "سخنرانی",
+      link: "/speech",
       active: false,
     },
     {

@@ -3,10 +3,11 @@ import classes from "./Form.module.scss";
 import PoliticsForm from "./PoliticsForm";
 import AcademicForm from "./AcademicForm";
 import MediaForm from "./MediaForm";
+import SpeechForm from "./SpeechForm";
 
 export default function SendForm() {
   const [type, setType] = useState("");
-  const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی", "تصاویر"];
+  const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی", "تصاویر", "سخنرانی"];
 
   return (
     <div className={classes.form}>
@@ -37,6 +38,7 @@ export default function SendForm() {
       {type === "سیاسی و اجرایی" && <PoliticsForm />}
       {type === "پژوهشی و علمی" && <AcademicForm />}
       {type === "تصاویر" && <MediaForm />}
+      {type === "سخنرانی" && <SpeechForm />}
     </div>
   );
 }

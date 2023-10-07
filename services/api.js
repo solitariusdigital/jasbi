@@ -197,3 +197,43 @@ export const getMediasApi = async () => {
   });
   return await response.json();
 };
+
+// speech api
+export const updateSpeechApi = async (data) => {
+  const response = await fetch("/api/speeches", {
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const createSpeechApi = async (data) => {
+  const response = await fetch("/api/speeches", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const getSpeechApi = async (id) => {
+  const response = await fetch(`/api/speech?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const getSpeechesApi = async () => {
+  const response = await fetch("/api/speeches", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};

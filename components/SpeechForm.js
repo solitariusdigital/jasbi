@@ -3,7 +3,7 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createMediaApi } from "@/services/api";
+import { createSpeechApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
@@ -12,7 +12,6 @@ import {
 } from "@/services/utility";
 
 export default function MediaForm() {
-  const [mediaType, setMediaType] = useState("image" || "video");
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
@@ -43,9 +42,9 @@ export default function MediaForm() {
     let mediaLink = "";
     let mediaFolder = "";
     if (media) {
-      mediaFolder = "media";
-      let mediaId = `med${sixGenerator()}`;
-      let format = mediaType === "image" ? ".jpg" : ".mp4";
+      mediaFolder = "speech";
+      let mediaId = `sp${sixGenerator()}`;
+      let format = ".mp3";
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
       await uploadImage(media, mediaId, mediaFolder, format);
     }
@@ -54,18 +53,17 @@ export default function MediaForm() {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
-      category: mediaType,
       group: mediaFolder,
       media: mediaLink,
       confirm: false,
     };
-    await createMediaApi(mediaObject);
-    window.location.assign("/media");
+    await createSpeechApi(mediaObject);
+    window.location.assign("/speech");
   };
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>تصاویر​</p>
+      <p className={classes.title}>سخنرانی</p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
@@ -127,82 +125,30 @@ export default function MediaForm() {
           dir="rtl"
         ></textarea>
       </div>
-      <div className={classes.navigation}>
-        <p
-          className={mediaType === "video" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("video")}
-        >
-          ویدئو
-        </p>
-        <p
-          className={mediaType === "image" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("image")}
-        >
-          عکس
-        </p>
+      <div className={classes.input}>
+        <label className={classes.file}>
+          <input
+            onChange={(e) => {
+              setMedia(e.target.files[0]);
+            }}
+            type="file"
+            accept="audio/*"
+          />
+          <p>انتخاب فایل صوتی</p>
+        </label>
+        {media !== "" && (
+          <div className={classes.imagePreview}>
+            <CloseIcon
+              className="icon"
+              onClick={() => setMedia("")}
+              sx={{ fontSize: 16 }}
+            />
+            <audio className={classes.imagePreview} preload="metadata" controls>
+              <source src={URL.createObjectURL(media)} />
+            </audio>
+          </div>
+        )}
       </div>
-      {mediaType === "image" && (
-        <div className={classes.input}>
-          <label className={classes.file}>
-            <input
-              onChange={(e) => {
-                setMedia(e.target.files[0]);
-              }}
-              type="file"
-              accept="image/*"
-            />
-            <p>انتخاب عکس</p>
-          </label>
-          {media !== "" && (
-            <div className={classes.imagePreview}>
-              <CloseIcon
-                className="icon"
-                onClick={() => setMedia("")}
-                sx={{ fontSize: 16 }}
-              />
-              <Image
-                className={classes.image}
-                width={300}
-                height={200}
-                objectFit="contain"
-                src={URL.createObjectURL(media)}
-                alt="image"
-                priority
-              />
-            </div>
-          )}
-        </div>
-      )}
-      {mediaType === "video" && (
-        <div className={classes.input}>
-          <label className={classes.file}>
-            <input
-              onChange={(e) => {
-                setMedia(e.target.files[0]);
-              }}
-              type="file"
-              accept="video/*"
-            />
-            <p>انتخاب ویدئو</p>
-          </label>
-          {media !== "" && (
-            <div className={classes.imagePreview}>
-              <CloseIcon
-                className="icon"
-                onClick={() => setMedia("")}
-                sx={{ fontSize: 16 }}
-              />
-              <video
-                className={classes.imagePreview}
-                width={300}
-                preload="metadata"
-                src={URL.createObjectURL(media)}
-                controls
-              />
-            </div>
-          )}
-        </div>
-      )}
       <div className={classes.formAction}>
         <p className="alert">{alert}</p>
         {loader && (
