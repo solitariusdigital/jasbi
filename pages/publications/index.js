@@ -12,6 +12,7 @@ import publicationModel from "@/models/Publication";
 import { getPublicationApi, updatePublicationApi } from "@/services/api";
 import { enToFaDigits } from "@/services/utility";
 import DetailsPopup from "@/components/DetailsPopup";
+import { NextSeo } from "next-seo";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -43,141 +44,155 @@ export default function Publications({ publications }) {
   };
 
   return (
-    <div className={classes.container}>
-      {permissionControl && (
-        <div className={classes.button}>
-          <button onClick={() => setDisplayForm(!displayForm)}>
-            {!displayForm ? "بارگذاری" : "برگشت"}
-          </button>
-        </div>
-      )}
-      {!displayForm && (
-        <div className={classes.navigationContainer}>
-          <div className={classes.navigation}>
-            <p
-              className={
-                category === "مقالات" ? classes.navActive : classes.nav
-              }
-              onClick={() => {
-                setDisplayDetailsPopup(false);
-                setCategory("مقالات");
-              }}
-            >
-              مقالات
-            </p>
-            <p
-              className={category === "کتاب" ? classes.navActive : classes.nav}
-              onClick={() => {
-                setDisplayDetailsPopup(false);
-                setCategory("کتاب");
-              }}
-            >
-              کتاب
-            </p>
+    <Fragment>
+      <NextSeo
+        title="انتشارات"
+        description="کتاب و مقالات"
+        openGraph={{
+          type: "website",
+          locale: "fa_IR",
+          url: "https://jasbi.net/",
+          siteName: "دکتر جاسبی",
+        }}
+      />
+      <div className={classes.container}>
+        {permissionControl && (
+          <div className={classes.button}>
+            <button onClick={() => setDisplayForm(!displayForm)}>
+              {!displayForm ? "بارگذاری" : "برگشت"}
+            </button>
           </div>
-        </div>
-      )}
-      {displayForm && (
-        <div className={classes.form}>
-          <PublicationsForm />
-        </div>
-      )}
-      {!displayForm && (
-        <div
-          className={`${classes.list} ${
-            window.innerWidth > 1200
-              ? "animate__animated animate__slideInRight"
-              : ""
-          }`}
-        >
-          {publications
-            .filter((item) => item.category === category)
-            .map((item, index) => (
-              <Fragment key={index}>
-                {(permissionControl || item.confirm) && (
-                  <div className={classes.item}>
-                    {permissionControl && item.confirm && (
-                      <VerifiedUserIcon
-                        className={classes.verified}
-                        sx={{ color: "#57a361" }}
-                      />
-                    )}
-                    {!item.confirm && (
-                      <VisibilityOffIcon
-                        className={classes.verified}
-                        sx={{ color: "#cd3d2c" }}
-                      />
-                    )}
-                    <div className={classes.row}>
-                      {item.image && (
-                        <div className={classes.imageContainer}>
-                          <Image
-                            className={classes.image}
-                            src={item.image}
-                            placeholder="blur"
-                            blurDataURL={item.image}
-                            alt="image"
-                            loading="eager"
-                            width={120}
-                            height={150}
-                            objectFit="cover"
-                            priority
-                            onClick={() => {
-                              setSelectedItem(item);
-                              setDisplayDetailsPopup(true);
-                              window.scrollTo(0, 0);
-                            }}
-                          />
+        )}
+        {!displayForm && (
+          <div className={classes.navigationContainer}>
+            <div className={classes.navigation}>
+              <p
+                className={
+                  category === "مقالات" ? classes.navActive : classes.nav
+                }
+                onClick={() => {
+                  setDisplayDetailsPopup(false);
+                  setCategory("مقالات");
+                }}
+              >
+                مقالات
+              </p>
+              <p
+                className={
+                  category === "کتاب" ? classes.navActive : classes.nav
+                }
+                onClick={() => {
+                  setDisplayDetailsPopup(false);
+                  setCategory("کتاب");
+                }}
+              >
+                کتاب
+              </p>
+            </div>
+          </div>
+        )}
+        {displayForm && (
+          <div className={classes.form}>
+            <PublicationsForm />
+          </div>
+        )}
+        {!displayForm && (
+          <div
+            className={`${classes.list} ${
+              window.innerWidth > 1200
+                ? "animate__animated animate__slideInRight"
+                : ""
+            }`}
+          >
+            {publications
+              .filter((item) => item.category === category)
+              .map((item, index) => (
+                <Fragment key={index}>
+                  {(permissionControl || item.confirm) && (
+                    <div className={classes.item}>
+                      {permissionControl && item.confirm && (
+                        <VerifiedUserIcon
+                          className={classes.verified}
+                          sx={{ color: "#57a361" }}
+                        />
+                      )}
+                      {!item.confirm && (
+                        <VisibilityOffIcon
+                          className={classes.verified}
+                          sx={{ color: "#cd3d2c" }}
+                        />
+                      )}
+                      <div className={classes.row}>
+                        {item.image && (
+                          <div className={classes.imageContainer}>
+                            <Image
+                              className={classes.image}
+                              src={item.image}
+                              placeholder="blur"
+                              blurDataURL={item.image}
+                              alt="image"
+                              loading="eager"
+                              width={120}
+                              height={150}
+                              objectFit="cover"
+                              priority
+                              onClick={() => {
+                                setSelectedItem(item);
+                                setDisplayDetailsPopup(true);
+                                window.scrollTo(0, 0);
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <h3>{item.title}</h3>
+                          <p>گردآورنده : {item.author}</p>
+                          {item.author !== "دکتر عبدالله جاسبی" && (
+                            <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                          )}
+                          <p>ناشر : {item.publisher}</p>
+                          <p>سال : {enToFaDigits(item.year)} </p>
+                        </div>
+                      </div>
+                      <p>
+                        {item.description.slice(0, 100)} ...{" "}
+                        <span
+                          onClick={() => {
+                            setSelectedItem(item);
+                            setDisplayDetailsPopup(true);
+                            window.scrollTo(0, 0);
+                          }}
+                        >
+                          بیشتر
+                        </span>
+                      </p>
+                      {permissionControl && (
+                        <div className={classes.action}>
+                          {!item.confirm && (
+                            <TaskAltIcon
+                              className={classes.icon}
+                              sx={{ color: "#57a361" }}
+                              onClick={() => action(item["_id"], "confirm")}
+                            />
+                          )}
+                          {item.confirm && (
+                            <CloseIcon
+                              className={classes.icon}
+                              sx={{ color: "#cd3d2c" }}
+                              onClick={() => action(item["_id"], "cancel")}
+                            />
+                          )}
                         </div>
                       )}
-                      <div>
-                        <h3>{item.title}</h3>
-                        <p>گردآورنده : {item.author}</p>
-                        {item.author !== "دکتر عبدالله جاسبی" && (
-                          <p>زیر نظز : دکتر عبدالله جاسبی</p>
-                        )}
-                        <p>ناشر : {item.publisher}</p>
-                        <p>سال : {enToFaDigits(item.year)} </p>
-                      </div>
                     </div>
-                    <p>
-                      {item.description.slice(0, 100)} ...{" "}
-                      <span
-                        onClick={() => {
-                          setSelectedItem(item);
-                          setDisplayDetailsPopup(true);
-                          window.scrollTo(0, 0);
-                        }}
-                      >
-                        بیشتر
-                      </span>
-                    </p>
-                    {permissionControl && (
-                      <div className={classes.action}>
-                        {!item.confirm && (
-                          <TaskAltIcon
-                            className={classes.icon}
-                            sx={{ color: "#57a361" }}
-                            onClick={() => action(item["_id"], "confirm")}
-                          />
-                        )}
-                        {item.confirm && (
-                          <CloseIcon
-                            className={classes.icon}
-                            sx={{ color: "#cd3d2c" }}
-                            onClick={() => action(item["_id"], "cancel")}
-                          />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </Fragment>
-            ))}
-        </div>
-      )}
-      {displayDetailsPopup && <DetailsPopup selectedItem={selectedItem} />}
-    </div>
+                  )}
+                </Fragment>
+              ))}
+          </div>
+        )}
+        {displayDetailsPopup && <DetailsPopup selectedItem={selectedItem} />}
+      </div>
+    </Fragment>
   );
 }
 

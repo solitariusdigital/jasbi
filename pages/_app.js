@@ -1,7 +1,7 @@
-import Layout from "../components/RootLayout";
-import { StateProvider } from "../context/stateContext";
+import Layout from "@/components/RootLayout";
+import { StateProvider } from "@/context/stateContext";
 import { DefaultSeo } from "next-seo";
-import "../styles/globals.scss";
+import "@/styles/globals.scss";
 
 export default function App({ Component, pageProps }) {
   return (

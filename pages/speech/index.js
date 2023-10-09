@@ -10,6 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { enToFaDigits } from "@/services/utility";
 import { getSpeechApi, updateSpeechApi } from "@/services/api";
 import SpeechForm from "@/components/SpeechForm";
+import { NextSeo } from "next-seo";
 
 export default function Media({ speech }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -38,87 +39,99 @@ export default function Media({ speech }) {
   };
 
   return (
-    <div className={classes.container}>
-      {permissionControl && (
-        <div className={classes.button}>
-          <button onClick={() => setDisplayForm(!displayForm)}>
-            {!displayForm ? "بارگذاری" : "برگشت"}
-          </button>
-        </div>
-      )}
-      {displayForm && (
-        <div className={classes.form}>
-          <SpeechForm />
-        </div>
-      )}
-      {!displayForm && (
-        <div
-          className={`${classes.list} ${
-            window.innerWidth > 1200
-              ? "animate__animated animate__slideInRight"
-              : ""
-          }`}
-        >
-          {speech.map((item, index) => (
-            <Fragment key={index}>
-              {(permissionControl || item.confirm) && (
-                <div className={classes.item}>
-                  {permissionControl && item.confirm && (
-                    <VerifiedUserIcon
-                      className={classes.verified}
-                      sx={{ color: "#57a361" }}
-                    />
-                  )}
-                  {!item.confirm && (
-                    <VisibilityOffIcon
-                      className={classes.verified}
-                      sx={{ color: "#cd3d2c" }}
-                    />
-                  )}
-                  <div>
-                    <h3>{item.title}</h3>
-                    <div className={classes.speechContainer}>
-                      <audio preload="metadata" controls>
-                        <source src={item.media} />
-                      </audio>
+    <Fragment>
+      <NextSeo
+        title="سخنرانی"
+        description="سخنرانی"
+        openGraph={{
+          type: "website",
+          locale: "fa_IR",
+          url: "https://jasbi.net/",
+          siteName: "دکتر جاسبی",
+        }}
+      />
+      <div className={classes.container}>
+        {permissionControl && (
+          <div className={classes.button}>
+            <button onClick={() => setDisplayForm(!displayForm)}>
+              {!displayForm ? "بارگذاری" : "برگشت"}
+            </button>
+          </div>
+        )}
+        {displayForm && (
+          <div className={classes.form}>
+            <SpeechForm />
+          </div>
+        )}
+        {!displayForm && (
+          <div
+            className={`${classes.list} ${
+              window.innerWidth > 1200
+                ? "animate__animated animate__slideInRight"
+                : ""
+            }`}
+          >
+            {speech.map((item, index) => (
+              <Fragment key={index}>
+                {(permissionControl || item.confirm) && (
+                  <div className={classes.item}>
+                    {permissionControl && item.confirm && (
+                      <VerifiedUserIcon
+                        className={classes.verified}
+                        sx={{ color: "#57a361" }}
+                      />
+                    )}
+                    {!item.confirm && (
+                      <VisibilityOffIcon
+                        className={classes.verified}
+                        sx={{ color: "#cd3d2c" }}
+                      />
+                    )}
+                    <div>
+                      <h3>{item.title}</h3>
+                      <div className={classes.speechContainer}>
+                        <audio preload="metadata" controls>
+                          <source src={item.media} />
+                        </audio>
+                      </div>
+                      <p>سال : {enToFaDigits(item.year)} </p>
                     </div>
-                    <p>سال : {enToFaDigits(item.year)} </p>
+                    {expandedItem === item["_id"] ? (
+                      <p>{item.description}</p>
+                    ) : (
+                      <p>
+                        {item.description.slice(0, 100)} ...{" "}
+                        <span onClick={() => setExpandedItem(item["_id"])}>
+                          بیشتر
+                        </span>
+                      </p>
+                    )}
+                    {permissionControl && (
+                      <div className={classes.action}>
+                        {!item.confirm && (
+                          <TaskAltIcon
+                            className={classes.icon}
+                            sx={{ color: "#57a361" }}
+                            onClick={() => action(item["_id"], "confirm")}
+                          />
+                        )}
+                        {item.confirm && (
+                          <CloseIcon
+                            className={classes.icon}
+                            sx={{ color: "#cd3d2c" }}
+                            onClick={() => action(item["_id"], "cancel")}
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
-                  {expandedItem === item["_id"] ? (
-                    <p>{item.description}</p>
-                  ) : (
-                    <p>
-                      {item.description.slice(0, 100)} ...{" "}
-                      <span onClick={() => setExpandedItem(item["_id"])}>
-                        بیشتر
-                      </span>
-                    </p>
-                  )}
-                  {permissionControl && (
-                    <div className={classes.action}>
-                      {!item.confirm && (
-                        <TaskAltIcon
-                          className={classes.icon}
-                          sx={{ color: "#57a361" }}
-                          onClick={() => action(item["_id"], "confirm")}
-                        />
-                      )}
-                      {item.confirm && (
-                        <CloseIcon
-                          className={classes.icon}
-                          sx={{ color: "#cd3d2c" }}
-                          onClick={() => action(item["_id"], "cancel")}
-                        />
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-            </Fragment>
-          ))}
-        </div>
-      )}
-    </div>
+                )}
+              </Fragment>
+            ))}
+          </div>
+        )}
+      </div>
+    </Fragment>
   );
 }
 

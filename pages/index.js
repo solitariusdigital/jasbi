@@ -15,6 +15,7 @@ import publicationModel from "@/models/Publication";
 import mediaModel from "@/models/Media";
 import politicModel from "@/models/Politic";
 import secureLocalStorage from "react-secure-storage";
+import { NextSeo } from "next-seo";
 
 export default function Home({
   timelineData,
@@ -97,6 +98,16 @@ export default function Home({
 
   return (
     <Fragment>
+      <NextSeo
+        title="دکتر جاسبی"
+        description="زندگینامه، دستاوردها و فعالیتهای دکتر جاسبی"
+        openGraph={{
+          type: "website",
+          locale: "fa_IR",
+          url: "https://jasbi.net/",
+          siteName: "دکتر جاسبی",
+        }}
+      />
       <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.heroHeader}>
         <div className={classes.informationBio}>

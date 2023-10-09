@@ -6,6 +6,7 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
+import { NextSeo } from "next-seo";
 import {
   enToFaDigits,
   onlyLettersAndNumbers,
@@ -39,89 +40,101 @@ export default function Search({ archiveArray }) {
   };
 
   return (
-    <div
-      className={`${classes.container} animate__animated animate__slideInDown`}
-    >
-      <div className={classes.inputSearch}>
-        <button onClick={() => searchDocuments()}>جستجو</button>
-        <input
-          placeholder="جستجو ... متن، عنوان، سمت، فعالیت، سال"
-          type="text"
-          id="search"
-          name="search"
-          onChange={(e) => setSearch(e.target.value)}
-          maxLength={30}
-          value={search}
-          autoComplete="off"
-          dir="rtl"
-        />
-        <CloseIcon
-          className="icon"
-          onClick={() => {
-            setDocuments([]);
-            setSearch("");
-            setSearchEmpty(false);
-          }}
-        />
-      </div>
-      {searchEmpty && (
-        <p className="message">مطلبی برای نمایش موجود نیست جستجو کنید</p>
-      )}
-      <div className={classes.list}>
-        {documents.map((item, index) => (
-          <Fragment key={index}>
-            {item.confirm && (
-              <div className={classes.item}>
-                <div className={classes.row}>
-                  {item.image && (
-                    <div className={classes.imageContainer}>
-                      <Image
-                        className={classes.image}
-                        src={item.image}
-                        placeholder="blur"
-                        blurDataURL={item.image}
-                        alt="image"
-                        loading="eager"
-                        width={300}
-                        height={370}
-                        objectFit="cover"
-                        priority
-                        onClick={() => setExpandedItem(item["_id"])}
-                      />
+    <Fragment>
+      <NextSeo
+        title="جستجو"
+        description="جستجو متن، عنوان، سمت، فعالیت، سال"
+        openGraph={{
+          type: "website",
+          locale: "fa_IR",
+          url: "https://jasbi.net/",
+          siteName: "دکتر جاسبی",
+        }}
+      />
+      <div
+        className={`${classes.container} animate__animated animate__slideInDown`}
+      >
+        <div className={classes.inputSearch}>
+          <button onClick={() => searchDocuments()}>جستجو</button>
+          <input
+            placeholder="جستجو ... متن، عنوان، سمت، فعالیت، سال"
+            type="text"
+            id="search"
+            name="search"
+            onChange={(e) => setSearch(e.target.value)}
+            maxLength={30}
+            value={search}
+            autoComplete="off"
+            dir="rtl"
+          />
+          <CloseIcon
+            className="icon"
+            onClick={() => {
+              setDocuments([]);
+              setSearch("");
+              setSearchEmpty(false);
+            }}
+          />
+        </div>
+        {searchEmpty && (
+          <p className="message">مطلبی برای نمایش موجود نیست جستجو کنید</p>
+        )}
+        <div className={classes.list}>
+          {documents.map((item, index) => (
+            <Fragment key={index}>
+              {item.confirm && (
+                <div className={classes.item}>
+                  <div className={classes.row}>
+                    {item.image && (
+                      <div className={classes.imageContainer}>
+                        <Image
+                          className={classes.image}
+                          src={item.image}
+                          placeholder="blur"
+                          blurDataURL={item.image}
+                          alt="image"
+                          loading="eager"
+                          width={300}
+                          height={370}
+                          objectFit="cover"
+                          priority
+                          onClick={() => setExpandedItem(item["_id"])}
+                        />
+                      </div>
+                    )}
+                    <div className={classes.info}>
+                      <h3>{item.title}</h3>
+                      {item.author && (
+                        <Fragment>
+                          <p>گردآورنده : {item.author}</p>
+                          {item.author !== "دکتر عبدالله جاسبی" && (
+                            <p>زیر نظز : دکتر عبدالله جاسبی</p>
+                          )}
+                        </Fragment>
+                      )}
+                      {item.publisher && <p>ناشر : {item.publisher}</p>}
+                      {item.position && <p>سمت : {item.position}</p>}
+                      {item.activity && <p>فعالیت : {item.activity}</p>}
+                      <p>سال : {enToFaDigits(item.year)} </p>
+                      {expandedItem === item["_id"] ? (
+                        <p>{item.description}</p>
+                      ) : (
+                        <p>
+                          {item.description.slice(0, 150)} ...{" "}
+                          <span onClick={() => setExpandedItem(item["_id"])}>
+                            بیشتر
+                          </span>
+                        </p>
+                      )}
                     </div>
-                  )}
-                  <div className={classes.info}>
-                    <h3>{item.title}</h3>
-                    {item.author && (
-                      <Fragment>
-                        <p>گردآورنده : {item.author}</p>
-                        {item.author !== "دکتر عبدالله جاسبی" && (
-                          <p>زیر نظز : دکتر عبدالله جاسبی</p>
-                        )}
-                      </Fragment>
-                    )}
-                    {item.publisher && <p>ناشر : {item.publisher}</p>}
-                    {item.position && <p>سمت : {item.position}</p>}
-                    {item.activity && <p>فعالیت : {item.activity}</p>}
-                    <p>سال : {enToFaDigits(item.year)} </p>
-                    {expandedItem === item["_id"] ? (
-                      <p>{item.description}</p>
-                    ) : (
-                      <p>
-                        {item.description.slice(0, 150)} ...{" "}
-                        <span onClick={() => setExpandedItem(item["_id"])}>
-                          بیشتر
-                        </span>
-                      </p>
-                    )}
                   </div>
                 </div>
-              </div>
-            )}
-          </Fragment>
-        ))}
+              )}
+            </Fragment>
+          ))}
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
 
