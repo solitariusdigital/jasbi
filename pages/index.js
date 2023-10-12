@@ -28,30 +28,13 @@ export default function Home({
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
-  const [screenSize, setScreenSize] = useState(
-    "desktop" || "tablet" || "mobile"
-  );
+  const { screenSize, setScreenSize } = useContext(StateContext);
 
   const category = {
     academic: "پژوهشی و علمی",
     publications: "انتشارات",
     politics: "سیاسی و اجرایی",
   };
-
-  const handleResize = () => {
-    if (window.innerWidth < 700) {
-      setScreenSize("mobile");
-    } else if (window.innerWidth > 700 && window.innerWidth < 1200) {
-      setScreenSize("tablet");
-    } else {
-      setScreenSize("desktop");
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-  }, []);
 
   const logOut = () => {
     secureLocalStorage.removeItem("currentUser");

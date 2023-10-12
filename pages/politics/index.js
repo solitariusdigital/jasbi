@@ -18,6 +18,7 @@ export default function Politics({ politics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const { displayDetailsPopup, setDisplayDetailsPopup } =
     useContext(StateContext);
+  const { screenSize, setScreenSize } = useContext(StateContext);
   const [category, setCategory] = useState("بعد" || "قبل");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
@@ -95,7 +96,7 @@ export default function Politics({ politics }) {
         {!displayForm && (
           <div
             className={`${classes.list} ${
-              window.innerWidth > 1200
+              screenSize === "desktop"
                 ? "animate__animated animate__slideInRight"
                 : ""
             }`}

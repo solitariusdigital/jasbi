@@ -15,6 +15,7 @@ import { NextSeo } from "next-seo";
 
 export default function Media({ media }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const { screenSize, setScreenSize } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
 
@@ -67,7 +68,7 @@ export default function Media({ media }) {
         {!displayForm && (
           <div
             className={`${classes.list} ${
-              window.innerWidth > 1200
+              screenSize === "desktop"
                 ? "animate__animated animate__slideInRight"
                 : ""
             }`}

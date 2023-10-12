@@ -18,6 +18,7 @@ export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const { displayDetailsPopup, setDisplayDetailsPopup } =
     useContext(StateContext);
+  const { screenSize, setScreenSize } = useContext(StateContext);
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
@@ -99,7 +100,7 @@ export default function Publications({ publications }) {
         {!displayForm && (
           <div
             className={`${classes.list} ${
-              window.innerWidth > 1200
+              screenSize === "desktop"
                 ? "animate__animated animate__slideInRight"
                 : ""
             }`}

@@ -18,6 +18,7 @@ export default function Academic({ academics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const { displayDetailsPopup, setDisplayDetailsPopup } =
     useContext(StateContext);
+  const { screenSize, setScreenSize } = useContext(StateContext);
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
@@ -110,7 +111,7 @@ export default function Academic({ academics }) {
         {!displayForm && (
           <div
             className={`${classes.list} ${
-              window.innerWidth > 1200
+              screenSize === "desktop"
                 ? "animate__animated animate__slideInRight"
                 : ""
             }`}

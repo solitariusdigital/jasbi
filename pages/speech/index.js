@@ -13,6 +13,7 @@ import SpeechForm from "@/components/SpeechForm";
 import { NextSeo } from "next-seo";
 
 export default function Media({ speech }) {
+  const { screenSize, setScreenSize } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
@@ -66,7 +67,7 @@ export default function Media({ speech }) {
         {!displayForm && (
           <div
             className={`${classes.list} ${
-              window.innerWidth > 1200
+              screenSize === "desktop"
                 ? "animate__animated animate__slideInRight"
                 : ""
             }`}
