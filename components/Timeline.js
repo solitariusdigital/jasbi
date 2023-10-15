@@ -2,7 +2,7 @@ import { useState, Fragment } from "react";
 import classes from "./Timeline.module.scss";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { enToFaDigits } from "@/services/utility";
+import { enToFaDigits, sliceString } from "@/services/utility";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -100,7 +100,7 @@ export default function Timeline({ timelineData }) {
                         time.active ? classes.active : classes.description
                       }
                     >
-                      {description.slice(0, 25)} ... <span>بیشتر</span>
+                      {sliceString(description, 25)}...<span>بیشتر</span>
                     </p>
                   ) : (
                     <p
@@ -109,7 +109,7 @@ export default function Timeline({ timelineData }) {
                         time.active ? classes.active : classes.description
                       }
                     >
-                      {time.data[0].description.slice(0, 25)} ...{" "}
+                      {sliceString(time.data[0].description, 25)}...
                       <span>بیشتر</span>
                     </p>
                   )}

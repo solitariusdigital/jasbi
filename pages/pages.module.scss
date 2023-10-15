@@ -72,7 +72,6 @@
       color: config.$action;
       border-bottom: 1px solid config.$action;
       font-size: config.$tiny-font;
-      font-weight: bold;
 
       @include mixins.desktop {
         &:hover {
@@ -136,6 +135,8 @@
 
   .video {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
     @include mixins.border-radius();
   }
 }

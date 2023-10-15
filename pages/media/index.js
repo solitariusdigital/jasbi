@@ -8,7 +8,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { enToFaDigits } from "@/services/utility";
+import { enToFaDigits, sliceString } from "@/services/utility";
 import { getMediaApi, updateMediaApi } from "@/services/api";
 import MediaForm from "@/components/MediaForm";
 import { NextSeo } from "next-seo";
@@ -124,7 +124,7 @@ export default function Media({ media }) {
                       <p>{item.description}</p>
                     ) : (
                       <p>
-                        {item.description.slice(0, 100)} ...{" "}
+                        {sliceString(item.description, 120)}...
                         <span onClick={() => setExpandedItem(item["_id"])}>
                           بیشتر
                         </span>

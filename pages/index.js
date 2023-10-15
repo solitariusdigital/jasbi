@@ -8,7 +8,7 @@ import bullet from "@/assets/bullet.png";
 import Timeline from "@/components/Timeline";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
-import { enToFaDigits } from "@/services/utility";
+import { enToFaDigits, sliceString } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
@@ -294,7 +294,7 @@ export default function Home({
                     <p>{item.description}</p>
                   ) : (
                     <p>
-                      {item.description.slice(0, 100)} ...{" "}
+                      {sliceString(item.description, 120)}...
                       <span onClick={() => setExpandedItem(item["_id"])}>
                         بیشتر
                       </span>

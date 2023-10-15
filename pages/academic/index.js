@@ -10,7 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import { getAcademicApi, updateAcademicApi } from "@/services/api";
-import { enToFaDigits } from "@/services/utility";
+import { enToFaDigits, sliceString } from "@/services/utility";
 import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
 
@@ -162,7 +162,7 @@ export default function Academic({ academics }) {
                         </div>
                       </div>
                       <p>
-                        {item.description.slice(0, 150)} ...{" "}
+                        {sliceString(item.description, 120)}...
                         <span
                           onClick={() => {
                             setSelectedItem(item);

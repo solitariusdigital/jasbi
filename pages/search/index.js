@@ -11,6 +11,7 @@ import {
   enToFaDigits,
   onlyLettersAndNumbers,
   faToEnDigits,
+  sliceString,
 } from "@/services/utility";
 
 export default function Search({ archiveArray }) {
@@ -120,7 +121,7 @@ export default function Search({ archiveArray }) {
                         <p>{item.description}</p>
                       ) : (
                         <p>
-                          {item.description.slice(0, 150)} ...{" "}
+                          {sliceString(item.description, 120)}...
                           <span onClick={() => setExpandedItem(item["_id"])}>
                             بیشتر
                           </span>
