@@ -1,102 +1,96 @@
 @use "styles/_config.scss" as config;
 @use "styles/_mixins.scss" as mixins;
 
-.heroHeader {
-  width: config.$content-width;
-  margin: auto;
+.imageContainer {
+  position: relative;
+  height: calc(100vh - 140px);
+  margin-bottom: 20px;
 
-  @include mixins.desktop {
-    padding: 20px 0px;
-    @include mixins.row-space-between-center();
+  @include mixins.mobile {
+    height: 300px;
   }
-  @include mixins.tablet {
-    width: calc(100% - 24px);
-    display: flex;
-    flex-direction: column-reverse;
-  }
+}
+
+.information,
+.informationBio {
+  font-weight: 300;
+  text-align: right;
+  margin: 20px auto;
+  @include mixins.border-radius();
+
   @include mixins.mobile {
     width: calc(100% - 24px);
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .imageContainer {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    margin: 12px auto;
-    border-radius: 50%;
-    box-shadow: config.$image-shadow;
-
-    @include mixins.mobile {
-      width: 330px;
-      height: 330px;
-    }
-
-    .image {
-      border-radius: 50%;
-      box-shadow: config.$image-shadow;
-    }
-  }
-
-  .information,
-  .informationBio {
     height: 100%;
-    width: 25%;
-    font-weight: 300;
-    text-align: right;
-    margin: 20px 0px;
-    @include mixins.border-radius();
-
-    @include mixins.mobile {
-      width: 100%;
-      height: 100%;
-      padding: 12px;
-      background: config.$white;
-      margin-top: 0px;
-      border: 1px solid config.$lightgrey;
-    }
-
-    @include mixins.tablet {
-      width: 100%;
-      height: 100%;
-    }
-
-    h1 {
-      margin-bottom: 12px;
-    }
-
-    .details {
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-      margin: 4px 0px;
-
-      p {
-        margin-left: 8px;
-      }
-    }
+    padding: 12px;
+    background: config.$white;
+    margin-top: 0px;
+    border: 1px solid config.$lightgrey;
   }
 
-  .informationBio {
-    text-align: justify;
-    direction: rtl;
+  @include mixins.tablet {
+    width: calc(100% - 24px);
+    height: 100%;
+    padding: 12px;
+    background: config.$white;
+    margin-top: 0px;
+    border: 1px solid config.$lightgrey;
+  }
+
+  h1 {
+    margin-bottom: 12px;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 4px 0px;
+
+    p {
+      margin-left: 8px;
+    }
+  }
+}
+
+.informationBio {
+  text-align: justify;
+  direction: rtl;
+}
+
+.imageBoxDesktop {
+  position: relative;
+  height: 100%;
+
+  .informationBio,
+  .information {
+    position: absolute;
+    left: 50px;
+    bottom: 0px;
+    z-index: 3;
+    width: 50%;
+    font-weight: bold;
+  }
+
+  .information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+    text-align: right;
   }
 }
 
 .bannerContainer {
   display: flex;
-  position: relative;
-  top: -12px;
-  height: 100px;
+  height: 90px;
 
   @include mixins.mobile {
     height: 110px;
-    top: -8px;
   }
   @include mixins.tablet {
     height: 110px;
-    top: -8px;
   }
 
   .image {
@@ -183,7 +177,6 @@
   padding-top: 20px;
   margin: auto;
   width: config.$content-width;
-  border-top: 1px solid config.$action;
 
   @include mixins.mobile {
     width: calc(100% - 24px);
