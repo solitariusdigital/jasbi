@@ -2,7 +2,8 @@ import { useState, useContext, Fragment, useEffect } from "react";
 import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
-import background from "@/assets/background.png";
+import backgroundDesktop from "@/assets/backgroundDesktop.png";
+import backgroundMobile from "@/assets/backgroundMobile.png";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
 import Timeline from "@/components/Timeline";
@@ -93,7 +94,7 @@ export default function Home({
           <div className={classes.imageBoxDesktop}>
             <Image
               className={classes.image}
-              src={background}
+              src={backgroundDesktop}
               placeholder="blur"
               alt="image"
               layout="fill"
@@ -237,7 +238,7 @@ export default function Home({
         {screenSize !== "desktop" && (
           <Image
             className={classes.image}
-            src={background}
+            src={backgroundMobile}
             placeholder="blur"
             alt="image"
             layout="fill"
