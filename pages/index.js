@@ -47,7 +47,7 @@ export default function Home({
     let length = 0;
     switch (screenSize) {
       case "desktop":
-        length = 4;
+        length = 3;
         break;
       case "tablet":
         length = 2;
@@ -88,7 +88,6 @@ export default function Home({
           siteName: "دکتر جاسبی",
         }}
       />
-      <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.imageContainer}>
         {screenSize === "desktop" && (
           <div className={classes.imageBoxDesktop}>
@@ -260,6 +259,7 @@ export default function Home({
           در ایران است
         </div>
       )}
+      <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
         <p>رویدادهای مهم و ماندگار</p>

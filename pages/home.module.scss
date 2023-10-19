@@ -3,11 +3,11 @@
 
 .imageContainer {
   position: relative;
-  height: calc(100vh - 140px);
-  margin-bottom: 20px;
+  height: calc(100vh - 50px);
 
   @include mixins.mobile {
     height: 300px;
+    margin-bottom: 20px;
   }
 }
 
@@ -81,6 +81,7 @@
     }
   }
 }
+
 .informationBio {
   text-align: justify;
   direction: rtl;
@@ -102,14 +103,7 @@
 
 .bannerContainer {
   display: flex;
-  height: 90px;
-
-  @include mixins.mobile {
-    height: 110px;
-  }
-  @include mixins.tablet {
-    height: 110px;
-  }
+  height: 120px;
 
   .image {
     position: relative;
