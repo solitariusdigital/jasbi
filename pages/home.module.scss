@@ -19,19 +19,19 @@
   @include mixins.border-radius();
 
   @include mixins.mobile {
+    @include mixins.transparentBackground(0.03, config.$action);
     width: calc(100% - 24px);
     height: 100%;
     padding: 12px;
-    background: config.$white;
     margin-top: 0px;
     border: 1px solid config.$lightgrey;
   }
 
   @include mixins.tablet {
+    @include mixins.transparentBackground(0.03, config.$action);
     width: calc(100% - 24px);
     height: 100%;
     padding: 12px;
-    background: config.$white;
     margin-top: 0px;
     border: 1px solid config.$lightgrey;
   }
@@ -52,6 +52,35 @@
   }
 }
 
+.information {
+  @include mixins.transparentBackground(0.03, config.$action);
+  border: 1px solid config.$lightgrey;
+  padding: 12px;
+
+  @include mixins.desktop {
+    width: config.$content-width;
+  }
+
+  @include mixins.tablet {
+    @include mixins.row-space-between-center();
+    justify-content: space-around;
+    width: calc(100% - 24px);
+    flex-direction: row-reverse;
+  }
+
+  .row {
+    @include mixins.desktop {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+      gap: 12px;
+    }
+
+    @include mixins.tablet {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
 .informationBio {
   text-align: justify;
   direction: rtl;
@@ -61,24 +90,13 @@
   position: relative;
   height: 100%;
 
-  .informationBio,
-  .information {
+  .informationBio {
     position: absolute;
     left: 50px;
     bottom: 0px;
     z-index: 3;
     width: 50%;
     font-weight: bold;
-  }
-
-  .information {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    position: absolute;
-    left: 50px;
-    top: 0px;
-    text-align: right;
   }
 }
 
