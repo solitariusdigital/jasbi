@@ -17,6 +17,8 @@ import mediaModel from "@/models/Media";
 import politicModel from "@/models/Politic";
 import secureLocalStorage from "react-secure-storage";
 import { NextSeo } from "next-seo";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export default function Home({
   timelineData,
@@ -30,6 +32,7 @@ export default function Home({
   const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
+  const [expand, setExpand] = useState(false);
 
   const category = {
     academic: "پژوهشی و علمی",
@@ -101,21 +104,33 @@ export default function Home({
               loading="eager"
             />
             <div className={classes.informationBio}>
-              <h1>دکتر جاسبی</h1>
-              <p>
-                عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد
-                تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن
-                در سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت
-                امنای دانشگاه آزاد اسلامی است. وی همچنین استاد بازنشسته دانشگاه
-                علم و صنعت ایران، عضو سابق شورای عالی انقلاب فرهنگی و کاندیدای
-                دوره‌های ششم و هشتم ریاست جمهوری بوده‌ است. جاسبی در سال ۱۳۹۴ یک
-                سازمان مردم نهاد به نام بنیاد آفرینش اُنس که در زمینه گسترش و
-                تعاملات صاحب‌نظران و اندیشمندان دارای نقد سازنده و هماهنگ سازی و
-                افزایش نقش و تأثیر سمن‌ها، تشکل‌ها، انجمن‌ها و نهادهای علمی
-                پژوهشی کشور فعال است، راه اندازی نمود و در حال حاضر رئیس هیئت
-                امنا و مدیرعامل این بنیاد می‌باشد. او دانشمند تمام عیار در ایران
-                است
-              </p>
+              <div
+                className={classes.expand}
+                onClick={() => setExpand(!expand)}
+              >
+                <h1>دکتر جاسبی</h1>
+                {expand ? (
+                  <ExpandLessIcon sx={{ fontSize: 30 }} />
+                ) : (
+                  <ExpandMoreIcon sx={{ fontSize: 30 }} />
+                )}
+              </div>
+              {expand && (
+                <p className="animate__animated animate__zoomIn">
+                  عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده
+                  پیشنهاد تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای
+                  تأسیس آن در سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت
+                  مؤسس و هیئت امنای دانشگاه آزاد اسلامی است. وی همچنین استاد
+                  بازنشسته دانشگاه علم و صنعت ایران، عضو سابق شورای عالی انقلاب
+                  فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست جمهوری بوده‌ است.
+                  جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به نام بنیاد آفرینش اُنس
+                  که در زمینه گسترش و تعاملات صاحب‌نظران و اندیشمندان دارای نقد
+                  سازنده و هماهنگ سازی و افزایش نقش و تأثیر سمن‌ها، تشکل‌ها،
+                  انجمن‌ها و نهادهای علمی پژوهشی کشور فعال است، راه اندازی نمود
+                  و در حال حاضر رئیس هیئت امنا و مدیرعامل این بنیاد می‌باشد. او
+                  دانشمند تمام عیار در ایران است
+                </p>
+              )}
             </div>
           </div>
         )}
@@ -131,7 +146,82 @@ export default function Home({
           />
         )}
       </div>
+      {screenSize !== "desktop" && (
+        <div className={classes.informationBio}>
+          <div className={classes.expand} onClick={() => setExpand(!expand)}>
+            <h1>دکتر جاسبی</h1>
+            {expand ? (
+              <ExpandLessIcon sx={{ fontSize: 30 }} />
+            ) : (
+              <ExpandMoreIcon sx={{ fontSize: 30 }} />
+            )}
+          </div>
+          {expand && (
+            <p className="animate__animated animate__zoomIn">
+              عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد
+              تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در
+              سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای
+              دانشگاه آزاد اسلامی است. وی همچنین استاد بازنشسته دانشگاه علم و
+              صنعت ایران، عضو سابق شورای عالی انقلاب فرهنگی و کاندیدای دوره‌های
+              ششم و هشتم ریاست جمهوری بوده‌ است. جاسبی در سال ۱۳۹۴ یک سازمان
+              مردم نهاد به نام بنیاد آفرینش اُنس که در زمینه گسترش و تعاملات
+              صاحب‌نظران و اندیشمندان دارای نقد سازنده و هماهنگ سازی و افزایش
+              نقش و تأثیر سمن‌ها، تشکل‌ها، انجمن‌ها و نهادهای علمی پژوهشی کشور
+              فعال است، راه اندازی نمود و در حال حاضر رئیس هیئت امنا و مدیرعامل
+              این بنیاد می‌باشد. او دانشمند تمام عیار در ایران است
+            </p>
+          )}
+        </div>
+      )}
       <div className={classes.information}>
+        <div className={classes.row}>
+          <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <h3>کارشناس مهندس صنایع</h3>
+              <p>دانشگاه علم و صنعت ایران</p>
+            </div>
+          </div>
+          <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <h3>ارشد مدیریت صنعتی</h3>
+              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+            </div>
+          </div>
+          <div className={classes.details}>
+            <Image
+              className={classes.image}
+              src={bullet}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+            <div>
+              <h3>دکترای مدیریت تولید و فناوری</h3>
+              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+            </div>
+          </div>
+          <div className={classes.details}></div>
+        </div>
         <div className={classes.row}>
           <div className={classes.details}>
             <Image
@@ -196,69 +286,7 @@ export default function Home({
             </h2>
           </div>
         </div>
-        <div className={classes.row}>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <p>کارشناس مهندس صنایع</p>
-              <p>دانشگاه علم و صنعت ایران</p>
-            </div>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <p>ارشد مدیریت صنعتی</p>
-              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-            </div>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <p>دکترای مدیریت تولید و فناوری</p>
-              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-            </div>
-          </div>
-        </div>
       </div>
-      {screenSize !== "desktop" && (
-        <div className={classes.informationBio}>
-          عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد تشکیل
-          دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در سال ۱۳۶۱
-          تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای دانشگاه آزاد
-          اسلامی است. وی همچنین استاد بازنشسته دانشگاه علم و صنعت ایران، عضو
-          سابق شورای عالی انقلاب فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست
-          جمهوری بوده‌ است. جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به نام بنیاد
-          آفرینش اُنس که در زمینه گسترش و تعاملات صاحب‌نظران و اندیشمندان دارای
-          نقد سازنده و هماهنگ سازی و افزایش نقش و تأثیر سمن‌ها، تشکل‌ها،
-          انجمن‌ها و نهادهای علمی پژوهشی کشور فعال است، راه اندازی نمود و در حال
-          حاضر رئیس هیئت امنا و مدیرعامل این بنیاد می‌باشد. او دانشمند تمام عیار
-          در ایران است
-        </div>
-      )}
       <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>

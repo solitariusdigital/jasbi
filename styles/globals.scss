@@ -19,6 +19,24 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 32px !important;
+  @include mixins.mobile {
+    font-size: 27px !important;
+  }
+}
+
+h2 {
+  font-size: 27px !important;
+  @include mixins.mobile {
+    font-size: 19px !important;
+  }
+}
+
+h3 {
+  font-size: 19px !important;
+}
+
 .icon {
   @include mixins.desktop {
     &:hover {
