@@ -19,10 +19,12 @@ export default function Timeline({ timelineData }) {
   };
 
   const scrollRight = () => {
-    document.getElementById("timeline").scrollLeft += 100;
+    const section = document.getElementById("section").offsetWidth;
+    document.getElementById("timeline").scrollLeft += section + 16;
   };
   const scrollLeft = () => {
-    document.getElementById("timeline").scrollLeft -= 100;
+    const section = document.getElementById("section").offsetWidth;
+    document.getElementById("timeline").scrollLeft -= section + 16;
   };
 
   const selectTimeData = (timeIndex, dataIndex) => {
@@ -79,7 +81,7 @@ export default function Timeline({ timelineData }) {
                 selectTimeData(index, selectedIndex);
               };
               return (
-                <div key={index} className={classes.section}>
+                <div key={index} className={classes.section} id="section">
                   <div className={classes.row}>
                     <h3>{enToFaDigits(time.year)}</h3>
                     <select
@@ -100,7 +102,7 @@ export default function Timeline({ timelineData }) {
                         time.active ? classes.active : classes.description
                       }
                     >
-                      {sliceString(description, 25)}...<span>بیشتر</span>
+                      {sliceString(description, 30)}...<span>بیشتر</span>
                     </p>
                   ) : (
                     <p
@@ -109,7 +111,7 @@ export default function Timeline({ timelineData }) {
                         time.active ? classes.active : classes.description
                       }
                     >
-                      {sliceString(time.data[0].description, 25)}...
+                      {sliceString(time.data[0].description, 30)}...
                       <span>بیشتر</span>
                     </p>
                   )}
