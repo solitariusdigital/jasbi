@@ -8,6 +8,16 @@
 
   @include mixins.mobile {
     height: 300px;
+
+    .image {
+      transform: scale(1.3);
+    }
+  }
+
+  @include mixins.tablet {
+    .image {
+      transform: scale(1.5);
+    }
   }
 }
 
@@ -33,17 +43,16 @@
     width: calc(100% - 24px);
   }
 
-  .row {
-    @include mixins.desktop {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-      gap: 12px;
-      direction: rtl;
-    }
+  .section {
+    direction: rtl;
 
     @include mixins.tablet {
       display: flex;
       flex-direction: column;
+    }
+
+    @include mixins.mobile {
+      direction: ltr;
     }
   }
 
@@ -72,18 +81,17 @@
 }
 
 .informationBio {
-  user-select: none;
-  cursor: pointer;
-
-  .expand {
-    @include mixins.row-space-between-center();
-    flex-direction: row-reverse;
-    width: 100%;
-  }
-
   p {
     margin-top: 20px;
   }
+}
+
+.expand {
+  @include mixins.row-space-between-center();
+  flex-direction: row-reverse;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
 }
 
 .imageBoxDesktop {
@@ -92,16 +100,29 @@
 
   .informationBio {
     position: absolute;
+    right: 50px;
+    z-index: 3;
+    width: 25%;
+    border: none;
+  }
+
+  .information {
+    position: absolute;
     left: 50px;
     z-index: 3;
-    width: 35%;
+    width: 25%;
     border: none;
+
+    .section {
+      margin-top: 20px;
+    }
   }
 }
 
 .bannerContainer {
   display: flex;
   height: 120px;
+  margin-top: 50px;
 
   .image {
     position: relative;

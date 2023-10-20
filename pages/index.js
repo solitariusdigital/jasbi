@@ -3,7 +3,6 @@ import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import backgroundDesktop from "@/assets/backgroundDesktop.png";
-import backgroundMobile from "@/assets/backgroundMobile.png";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
 import Timeline from "@/components/Timeline";
@@ -32,7 +31,8 @@ export default function Home({
   const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
-  const [expand, setExpand] = useState(false);
+  const [expandBio, setExpandBio] = useState(false);
+  const [expandInfo, setExpandInfo] = useState(false);
 
   const category = {
     academic: "پژوهشی و علمی",
@@ -106,16 +106,16 @@ export default function Home({
             <div className={classes.informationBio}>
               <div
                 className={classes.expand}
-                onClick={() => setExpand(!expand)}
+                onClick={() => setExpandBio(!expandBio)}
               >
-                <h1>دکتر جاسبی</h1>
-                {expand ? (
+                <h2>دکتر جاسبی</h2>
+                {expandBio ? (
                   <ExpandLessIcon sx={{ fontSize: 30 }} />
                 ) : (
                   <ExpandMoreIcon sx={{ fontSize: 30 }} />
                 )}
               </div>
-              {expand && (
+              {expandBio && (
                 <p className="animate__animated animate__zoomIn">
                   عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده
                   پیشنهاد تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای
@@ -132,12 +132,147 @@ export default function Home({
                 </p>
               )}
             </div>
+            <div className={classes.information}>
+              <div
+                className={classes.expand}
+                onClick={() => setExpandInfo(!expandInfo)}
+              >
+                <h2>دانشنامه</h2>
+                {expandInfo ? (
+                  <ExpandLessIcon sx={{ fontSize: 30 }} />
+                ) : (
+                  <ExpandMoreIcon sx={{ fontSize: 30 }} />
+                )}
+              </div>
+              {expandInfo && (
+                <div className="animate__animated animate__zoomIn">
+                  <div className={classes.section}>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <div>
+                        <h3>کارشناس مهندس صنایع</h3>
+                        <p>دانشگاه علم و صنعت ایران</p>
+                      </div>
+                    </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <div>
+                        <h3>ارشد مدیریت صنعتی</h3>
+                        <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+                      </div>
+                    </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <div>
+                        <h3>دکترای مدیریت تولید و فناوری</h3>
+                        <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+                      </div>
+                    </div>
+                    <div className={classes.details}></div>
+                  </div>
+                  <div className={classes.section}>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <p>سیاسی و اجرایی</p>
+                      <h2>
+                        {enToFaDigits(
+                          politics?.filter((item) => item.confirm).length
+                        )}
+                      </h2>
+                    </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <p>پژوهشی و علمی</p>
+                      <h2>
+                        {enToFaDigits(
+                          academics?.filter((item) => item.confirm).length
+                        )}
+                      </h2>
+                    </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <p>انتشارات</p>
+                      <h2>
+                        {enToFaDigits(
+                          publications?.filter((item) => item.confirm).length
+                        )}
+                      </h2>
+                    </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <p>تصاویر</p>
+                      <h2>
+                        {enToFaDigits(
+                          media?.filter((item) => item.confirm).length
+                        )}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
         {screenSize !== "desktop" && (
           <Image
             className={classes.image}
-            src={backgroundMobile}
+            src={backgroundDesktop}
             placeholder="blur"
             alt="image"
             layout="fill"
@@ -148,15 +283,18 @@ export default function Home({
       </div>
       {screenSize !== "desktop" && (
         <div className={classes.informationBio}>
-          <div className={classes.expand} onClick={() => setExpand(!expand)}>
+          <div
+            className={classes.expand}
+            onClick={() => setExpandBio(!expandBio)}
+          >
             <h1>دکتر جاسبی</h1>
-            {expand ? (
+            {expandBio ? (
               <ExpandLessIcon sx={{ fontSize: 30 }} />
             ) : (
               <ExpandMoreIcon sx={{ fontSize: 30 }} />
             )}
           </div>
-          {expand && (
+          {expandBio && (
             <p className="animate__animated animate__zoomIn">
               عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد
               تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در
@@ -173,126 +311,128 @@ export default function Home({
           )}
         </div>
       )}
-      <div className={classes.information}>
-        <div className={classes.row}>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <h3>کارشناس مهندس صنایع</h3>
-              <p>دانشگاه علم و صنعت ایران</p>
+      {screenSize !== "desktop" && (
+        <div className={classes.information}>
+          <div className={classes.section}>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <div>
+                <h3>کارشناس مهندس صنایع</h3>
+                <p>دانشگاه علم و صنعت ایران</p>
+              </div>
+            </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <div>
+                <h3>ارشد مدیریت صنعتی</h3>
+                <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+              </div>
+            </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <div>
+                <h3>دکترای مدیریت تولید و فناوری</h3>
+                <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
+              </div>
+            </div>
+            <div className={classes.details}></div>
+          </div>
+          <div className={classes.section}>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <p>سیاسی و اجرایی</p>
+              <h2>
+                {enToFaDigits(politics?.filter((item) => item.confirm).length)}
+              </h2>
+            </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <p>پژوهشی و علمی</p>
+              <h2>
+                {enToFaDigits(academics?.filter((item) => item.confirm).length)}
+              </h2>
+            </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <p>انتشارات</p>
+              <h2>
+                {enToFaDigits(
+                  publications?.filter((item) => item.confirm).length
+                )}
+              </h2>
+            </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <p>تصاویر</p>
+              <h2>
+                {enToFaDigits(media?.filter((item) => item.confirm).length)}
+              </h2>
             </div>
           </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <h3>ارشد مدیریت صنعتی</h3>
-              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-            </div>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <div>
-              <h3>دکترای مدیریت تولید و فناوری</h3>
-              <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-            </div>
-          </div>
-          <div className={classes.details}></div>
         </div>
-        <div className={classes.row}>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <p>سیاسی و اجرایی</p>
-            <h2>
-              {enToFaDigits(politics?.filter((item) => item.confirm).length)}
-            </h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <p>پژوهشی و علمی</p>
-            <h2>
-              {enToFaDigits(academics?.filter((item) => item.confirm).length)}
-            </h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <p>انتشارات</p>
-            <h2>
-              {enToFaDigits(
-                publications?.filter((item) => item.confirm).length
-              )}
-            </h2>
-          </div>
-          <div className={classes.details}>
-            <Image
-              className={classes.image}
-              src={bullet}
-              placeholder="blur"
-              alt="image"
-              width={60}
-              height={60}
-              loading="eager"
-            />
-            <p>تصاویر</p>
-            <h2>
-              {enToFaDigits(media?.filter((item) => item.confirm).length)}
-            </h2>
-          </div>
-        </div>
-      </div>
-      <div className={classes.bannerContainer}>{generateBanner()}</div>
+      )}
       <div className={classes.timeline}>
         <h2>سیر تاریخی</h2>
         <p>رویدادهای مهم و ماندگار</p>
         <Timeline timelineData={timelineData} />
       </div>
+      <div className={classes.bannerContainer}>{generateBanner()}</div>
       <div className={classes.update}>
         <h2>آخرین به روزرسانی</h2>
       </div>
