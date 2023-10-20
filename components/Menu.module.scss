@@ -56,8 +56,7 @@
 }
 
 .nav {
-  border-bottom: 1px solid config.$brand;
-  font-weight: bold !important;
+  font-weight: 300 !important;
   @include mixins.row-space-between-center();
   justify-content: flex-end;
 
@@ -65,25 +64,15 @@
     &:hover {
       cursor: pointer;
       color: config.$action;
-      border-bottom: 1px solid config.$action;
     }
-  }
-
-  @include mixins.mobile {
-    border-bottom: 1px solid config.$brand;
   }
 }
 
 .navActive {
-  border-bottom: 1px solid config.$action;
   color: config.$action;
   font-weight: bold !important;
   @include mixins.row-space-between-center();
   justify-content: flex-end;
-
-  @include mixins.mobile {
-    border-bottom: 1px solid config.$brand;
-  }
 }
 
 .smallMenu {
@@ -120,7 +109,6 @@
 
     p {
       padding: 8px 0px;
-      color: config.$black;
     }
 
     @include mixins.desktop {
