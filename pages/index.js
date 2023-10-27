@@ -13,6 +13,7 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import mediaModel from "@/models/Media";
+import speachModel from "@/models/Speech";
 import politicModel from "@/models/Politic";
 import secureLocalStorage from "react-secure-storage";
 import { NextSeo } from "next-seo";
@@ -26,6 +27,7 @@ export default function Home({
   politics,
   publications,
   media,
+  speech,
 }) {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const [displayRegister, setDisplayRegister] = useState(false);
@@ -263,6 +265,23 @@ export default function Home({
                         )}
                       </h2>
                     </div>
+                    <div className={classes.details}>
+                      <Image
+                        className={classes.image}
+                        src={bullet}
+                        placeholder="blur"
+                        alt="image"
+                        width={60}
+                        height={60}
+                        loading="eager"
+                      />
+                      <p>سخنرانی</p>
+                      <h2>
+                        {enToFaDigits(
+                          speech?.filter((item) => item.confirm).length
+                        )}
+                      </h2>
+                    </div>
                   </div>
                 </div>
               )}
@@ -424,6 +443,21 @@ export default function Home({
                 {enToFaDigits(media?.filter((item) => item.confirm).length)}
               </h2>
             </div>
+            <div className={classes.details}>
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={60}
+                height={60}
+                loading="eager"
+              />
+              <p>سخنرانی</p>
+              <h2>
+                {enToFaDigits(speech?.filter((item) => item.confirm).length)}
+              </h2>
+            </div>
           </div>
         </div>
       )}
@@ -518,6 +552,7 @@ export async function getServerSideProps(context) {
     const politics = await politicModel.find();
     const publications = await publicationModel.find();
     const media = await mediaModel.find();
+    const speech = await speachModel.find();
 
     const archiveArray = [...academics, ...politics, ...publications].sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -548,6 +583,7 @@ export async function getServerSideProps(context) {
         politics: JSON.parse(JSON.stringify(politics)),
         publications: JSON.parse(JSON.stringify(publications)),
         media: JSON.parse(JSON.stringify(media)),
+        speech: JSON.parse(JSON.stringify(speech)),
         timelineData: JSON.parse(JSON.stringify(timelineData)),
         archiveArray: JSON.parse(JSON.stringify(archiveArray)),
       },

@@ -85,7 +85,7 @@ $screen-large: 2000px;
 }
 
 @mixin border-radius() {
-  border-radius: 12px;
+  border-radius: 0px;
 }
 
 @mixin transparentBackground($alpha, $color) {
