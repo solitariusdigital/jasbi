@@ -134,18 +134,19 @@ export default function Timeline({ timelineData }) {
           />
           <div className={classes.row}>
             {details.image && (
-              <Image
-                className={classes.image}
-                src={details.image}
-                placeholder="blur"
-                blurDataURL={details.image}
-                alt="image"
-                loading="eager"
-                width={300}
-                height={180}
-                objectFit="cover"
-                priority
-              />
+              <div>
+                <Image
+                  src={details.image}
+                  placeholder="blur"
+                  blurDataURL={details.image}
+                  alt="image"
+                  loading="eager"
+                  width={300}
+                  height={250}
+                  objectFit="cover"
+                  priority
+                />
+              </div>
             )}
             <div className={classes.information}>
               <h3>{details.title}</h3>

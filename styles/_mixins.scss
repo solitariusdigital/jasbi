@@ -84,10 +84,6 @@ $screen-large: 2000px;
   }
 }
 
-@mixin border-radius() {
-  border-radius: 0px;
-}
-
 @mixin transparentBackground($alpha, $color) {
   background-color: rgba(red($color), green($color), blue($color), $alpha);
 }

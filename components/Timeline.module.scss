@@ -41,7 +41,6 @@
   border: 1px solid config.$lightgrey;
   font-weight: 300;
   box-shadow: config.$inset-box-shadow;
-  @include mixins.border-radius();
   @include mixins.row-space-between-center();
   @include mixins.transparentBackground(0.03, config.$action);
 
@@ -57,7 +56,6 @@
     padding: 8px 0px;
     background: config.$white;
     border: 1px solid config.$lightgrey;
-    @include mixins.border-radius();
 
     @include mixins.desktop {
       min-width: calc(100% / 3 - 16px);
@@ -136,7 +134,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  @include mixins.border-radius();
   @include mixins.transparentBackground(0.03, config.$action);
   position: relative;
 
@@ -192,9 +189,5 @@
         cursor: pointer;
       }
     }
-  }
-
-  .image {
-    @include mixins.border-radius();
   }
 }

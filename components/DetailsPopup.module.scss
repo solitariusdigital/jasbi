@@ -10,7 +10,6 @@
   background: config.$background;
   border: 1px solid config.$lightgrey;
   box-shadow: config.$card-shadow;
-  @include mixins.border-radius();
 
   @include mixins.mobile {
     width: 100%;
@@ -26,10 +25,6 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
-
-    .image {
-      @include mixins.border-radius();
-    }
 
     p {
       margin: 8px 0px;
