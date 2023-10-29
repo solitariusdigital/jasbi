@@ -17,8 +17,6 @@ import speachModel from "@/models/Speech";
 import politicModel from "@/models/Politic";
 import secureLocalStorage from "react-secure-storage";
 import { NextSeo } from "next-seo";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export default function Home({
   timelineData,
@@ -33,8 +31,6 @@ export default function Home({
   const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
-  const [expandBio, setExpandBio] = useState(false);
-  const [expandInfo, setExpandInfo] = useState(false);
 
   const category = {
     academic: "پژوهشی و علمی",
@@ -105,186 +101,92 @@ export default function Home({
               objectFit="cover"
               loading="eager"
             />
-            <div className={classes.informationBio}>
-              <div
-                className={classes.expand}
-                onClick={() => setExpandBio(!expandBio)}
-              >
-                <h2>دکتر جاسبی</h2>
-                {expandBio ? (
-                  <ExpandLessIcon sx={{ fontSize: 30 }} />
-                ) : (
-                  <ExpandMoreIcon sx={{ fontSize: 30 }} />
-                )}
-              </div>
-              {expandBio && (
-                <p className="animate__animated animate__zoomIn">
-                  عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده
-                  پیشنهاد تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای
-                  تأسیس آن در سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت
-                  مؤسس و هیئت امنای دانشگاه آزاد اسلامی است. وی همچنین استاد
-                  بازنشسته دانشگاه علم و صنعت ایران، عضو سابق شورای عالی انقلاب
-                  فرهنگی و کاندیدای دوره‌های ششم و هشتم ریاست جمهوری بوده‌ است.
-                  جاسبی در سال ۱۳۹۴ یک سازمان مردم نهاد به نام بنیاد آفرینش اُنس
-                  که در زمینه گسترش و تعاملات صاحب‌نظران و اندیشمندان دارای نقد
-                  سازنده و هماهنگ سازی و افزایش نقش و تأثیر سمن‌ها، تشکل‌ها،
-                  انجمن‌ها و نهادهای علمی پژوهشی کشور فعال است، راه اندازی نمود
-                  و در حال حاضر رئیس هیئت امنا و مدیرعامل این بنیاد می‌باشد. او
-                  دانشمند تمام عیار در ایران است
-                </p>
-              )}
-            </div>
             <div className={classes.information}>
-              <div
-                className={classes.expand}
-                onClick={() => setExpandInfo(!expandInfo)}
-              >
-                <h2>دانشنامه</h2>
-                {expandInfo ? (
-                  <ExpandLessIcon sx={{ fontSize: 30 }} />
-                ) : (
-                  <ExpandMoreIcon sx={{ fontSize: 30 }} />
-                )}
-              </div>
-              {expandInfo && (
-                <div className="animate__animated animate__zoomIn">
-                  <div className={classes.section}>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <div>
-                        <h3>کارشناس مهندس صنایع</h3>
-                        <p>دانشگاه علم و صنعت ایران</p>
-                      </div>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <div>
-                        <h3>ارشد مدیریت صنعتی</h3>
-                        <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-                      </div>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <div>
-                        <h3>دکترای مدیریت تولید و فناوری</h3>
-                        <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-                      </div>
-                    </div>
-                    <div className={classes.details}></div>
-                  </div>
-                  <div className={classes.section}>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <p>سیاسی و اجرایی</p>
-                      <h2>
-                        {enToFaDigits(
-                          politics?.filter((item) => item.confirm).length
-                        )}
-                      </h2>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <p>پژوهشی و علمی</p>
-                      <h2>
-                        {enToFaDigits(
-                          academics?.filter((item) => item.confirm).length
-                        )}
-                      </h2>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <p>انتشارات</p>
-                      <h2>
-                        {enToFaDigits(
-                          publications?.filter((item) => item.confirm).length
-                        )}
-                      </h2>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <p>تصاویر</p>
-                      <h2>
-                        {enToFaDigits(
-                          media?.filter((item) => item.confirm).length
-                        )}
-                      </h2>
-                    </div>
-                    <div className={classes.details}>
-                      <Image
-                        className={classes.image}
-                        src={bullet}
-                        placeholder="blur"
-                        alt="image"
-                        width={60}
-                        height={60}
-                        loading="eager"
-                      />
-                      <p>سخنرانی</p>
-                      <h2>
-                        {enToFaDigits(
-                          speech?.filter((item) => item.confirm).length
-                        )}
-                      </h2>
-                    </div>
-                  </div>
+              <div className={classes.section}>
+                <div className={classes.details}>
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={60}
+                    height={60}
+                    loading="eager"
+                  />
+                  <p>سیاسی و اجرایی</p>
+                  <h2>
+                    {enToFaDigits(
+                      politics?.filter((item) => item.confirm).length
+                    )}
+                  </h2>
                 </div>
-              )}
+                <div className={classes.details}>
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={60}
+                    height={60}
+                    loading="eager"
+                  />
+                  <p>پژوهشی و علمی</p>
+                  <h2>
+                    {enToFaDigits(
+                      academics?.filter((item) => item.confirm).length
+                    )}
+                  </h2>
+                </div>
+                <div className={classes.details}>
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={60}
+                    height={60}
+                    loading="eager"
+                  />
+                  <p>انتشارات</p>
+                  <h2>
+                    {enToFaDigits(
+                      publications?.filter((item) => item.confirm).length
+                    )}
+                  </h2>
+                </div>
+                <div className={classes.details}>
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={60}
+                    height={60}
+                    loading="eager"
+                  />
+                  <p>تصاویر</p>
+                  <h2>
+                    {enToFaDigits(media?.filter((item) => item.confirm).length)}
+                  </h2>
+                </div>
+                <div className={classes.details}>
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={60}
+                    height={60}
+                    loading="eager"
+                  />
+                  <p>سخنرانی</p>
+                  <h2>
+                    {enToFaDigits(
+                      speech?.filter((item) => item.confirm).length
+                    )}
+                  </h2>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -301,85 +203,7 @@ export default function Home({
         )}
       </div>
       {screenSize !== "desktop" && (
-        <div className={classes.informationBio}>
-          <div
-            className={classes.expand}
-            onClick={() => setExpandBio(!expandBio)}
-          >
-            <h1>دکتر جاسبی</h1>
-            {expandBio ? (
-              <ExpandLessIcon sx={{ fontSize: 30 }} />
-            ) : (
-              <ExpandMoreIcon sx={{ fontSize: 30 }} />
-            )}
-          </div>
-          {expandBio && (
-            <p className="animate__animated animate__zoomIn">
-              عبدالله جعفر علی جاسبی سیاستمدار میانه‌رو و ارائه دهنده پیشنهاد
-              تشکیل دانشگاه آزاد اسلامی و رئیس این دانشگاه از ابتدای تأسیس آن در
-              سال ۱۳۶۱ تا دی ۱۳۹۰ بود و در حال حاضر عضو هیئت مؤسس و هیئت امنای
-              دانشگاه آزاد اسلامی است. وی همچنین استاد بازنشسته دانشگاه علم و
-              صنعت ایران، عضو سابق شورای عالی انقلاب فرهنگی و کاندیدای دوره‌های
-              ششم و هشتم ریاست جمهوری بوده‌ است. جاسبی در سال ۱۳۹۴ یک سازمان
-              مردم نهاد به نام بنیاد آفرینش اُنس که در زمینه گسترش و تعاملات
-              صاحب‌نظران و اندیشمندان دارای نقد سازنده و هماهنگ سازی و افزایش
-              نقش و تأثیر سمن‌ها، تشکل‌ها، انجمن‌ها و نهادهای علمی پژوهشی کشور
-              فعال است، راه اندازی نمود و در حال حاضر رئیس هیئت امنا و مدیرعامل
-              این بنیاد می‌باشد. او دانشمند تمام عیار در ایران است
-            </p>
-          )}
-        </div>
-      )}
-      {screenSize !== "desktop" && (
         <div className={classes.information}>
-          <div className={classes.section}>
-            <div className={classes.details}>
-              <Image
-                className={classes.image}
-                src={bullet}
-                placeholder="blur"
-                alt="image"
-                width={60}
-                height={60}
-                loading="eager"
-              />
-              <div>
-                <h3>کارشناس مهندس صنایع</h3>
-                <p>دانشگاه علم و صنعت ایران</p>
-              </div>
-            </div>
-            <div className={classes.details}>
-              <Image
-                className={classes.image}
-                src={bullet}
-                placeholder="blur"
-                alt="image"
-                width={60}
-                height={60}
-                loading="eager"
-              />
-              <div>
-                <h3>ارشد مدیریت صنعتی</h3>
-                <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-              </div>
-            </div>
-            <div className={classes.details}>
-              <Image
-                className={classes.image}
-                src={bullet}
-                placeholder="blur"
-                alt="image"
-                width={60}
-                height={60}
-                loading="eager"
-              />
-              <div>
-                <h3>دکترای مدیریت تولید و فناوری</h3>
-                <p>دانشگاه آستون، بیرمنگام، انگلستان</p>
-              </div>
-            </div>
-            <div className={classes.details}></div>
-          </div>
           <div className={classes.section}>
             <div className={classes.details}>
               <Image

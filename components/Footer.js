@@ -2,7 +2,7 @@ import classes from "./Footer.module.scss";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
-import logo from "@/assets/logo.svg";
+import logo from "@/assets/logo.png";
 import MuseTechLab from "@/assets/MuseTechLab.svg";
 
 export default function Footer() {
@@ -19,13 +19,13 @@ export default function Footer() {
             })
           }
         >
-          <Image width={100} height={100} src={logo} alt="logo" priority />
+          <Image width={150} height={100} src={logo} alt="logo" priority />
         </div>
       </div>
       <div className={classes.copyright}>
         <p>کليه حقوق اين وب اپلیکیشن به دکتر جاسبی تعلق دارد</p>
         <p>jasbi.net @Copyright {enToFaDigits(1402)}</p>
-        <div
+        {/* <div
           className={classes.row}
           onClick={() =>
             window.open(
@@ -44,7 +44,7 @@ export default function Footer() {
           />
           <p className={classes.action}>طراحی توسعه پشتیبانی</p>
           <PrecisionManufacturingIcon sx={{ fontSize: 18 }} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

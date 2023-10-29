@@ -8,27 +8,15 @@
 
   @include mixins.mobile {
     height: 300px;
-
-    .image {
-      transform: scale(1.3);
-    }
-  }
-
-  @include mixins.tablet {
-    .image {
-      transform: scale(1.5);
-    }
   }
 }
 
-.information,
-.informationBio {
+.information {
   font-weight: 300;
   text-align: right;
   margin: 20px auto;
   border: 1px solid config.$lightgrey;
   padding: 12px;
-  @include mixins.transparentBackground(0.03, config.$action);
 
   @include mixins.desktop {
     width: config.$content-width;
@@ -72,16 +60,12 @@
 }
 
 .information {
+  @include mixins.transparentBackground(0.03, config.$action);
+
   @include mixins.tablet {
     width: calc(100% - 24px);
     @include mixins.row-space-between-center();
     justify-content: space-around;
-  }
-}
-
-.informationBio {
-  p {
-    margin-top: 20px;
   }
 }
 
@@ -97,20 +81,14 @@
   position: relative;
   height: 100%;
 
-  .informationBio {
-    position: absolute;
-    right: 50px;
-    z-index: 3;
-    width: 25%;
-    border: none;
-  }
-
   .information {
     position: absolute;
-    left: 50px;
+    left: 20px;
     z-index: 3;
     width: 25%;
     border: none;
+    border-radius: 12px;
+    @include mixins.transparentBackground(0.2, config.$white);
 
     .section {
       margin-top: 20px;
