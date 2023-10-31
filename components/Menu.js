@@ -4,7 +4,7 @@ import classes from "./Menu.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import Router from "next/router";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -50,7 +50,7 @@ export default function Menu() {
         </div>
         <Image
           className={classes.logo}
-          width={75}
+          width={70}
           height={50}
           src={logo}
           alt="logo"
@@ -75,7 +75,7 @@ export default function Menu() {
           )}
           <Image
             className={classes.logo}
-            width={50}
+            width={70}
             height={50}
             src={logo}
             alt="logo"

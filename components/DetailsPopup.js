@@ -40,16 +40,14 @@ export default function DetailsPopup({ selectedItem }) {
             <p>سال : {enToFaDigits(selectedItem.year)} </p>
           </div>
           {selectedItem.image && (
-            <div>
+            <div className={classes.image}>
               <Image
-                className={classes.image}
                 src={selectedItem.image}
                 placeholder="blur"
                 blurDataURL={selectedItem.image}
                 alt="image"
                 loading="eager"
-                width={270}
-                height={300}
+                layout="fill"
                 objectFit="cover"
                 priority
               />

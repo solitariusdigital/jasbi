@@ -1,9 +1,9 @@
 import classes from "./Footer.module.scss";
-import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import MuseTechLab from "@/assets/MuseTechLab.svg";
+import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 
 export default function Footer() {
   return (
@@ -19,7 +19,7 @@ export default function Footer() {
             })
           }
         >
-          <Image width={150} height={100} src={logo} alt="logo" priority />
+          <Image width={100} height={100} src={logo} alt="logo" priority />
         </div>
       </div>
       <div className={classes.copyright}>
@@ -27,12 +27,7 @@ export default function Footer() {
         <p>jasbi.net @Copyright {enToFaDigits(1402)}</p>
         {/* <div
           className={classes.row}
-          onClick={() =>
-            window.open(
-              "https://docs.google.com/forms/d/e/1FAIpQLSdqKHLBydQIfm06LTtw0wELHaDJJFGU3GNQFsVWNd3t0jz5hA/viewform?usp=sf_link",
-              "_ self"
-            )
-          }
+          onClick={() => window.open("https://musetechlab.com/")}
         >
           <Image
             className={classes.image}

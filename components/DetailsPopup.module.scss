@@ -4,19 +4,13 @@
 .popUp {
   position: absolute;
   top: 75px;
-  width: 50%;
+  width: 100%;
   padding: 12px;
   text-align: right;
   background: config.$background;
   border: 1px solid config.$lightgrey;
   box-shadow: config.$card-shadow;
 
-  @include mixins.mobile {
-    width: 100%;
-  }
-  @include mixins.tablet {
-    width: 50%;
-  }
   @include mixins.desktop {
     right: 0px;
   }
@@ -26,6 +20,10 @@
     flex-direction: row;
     margin-bottom: 20px;
 
+    @include mixins.mobile {
+      flex-direction: column-reverse;
+    }
+
     p {
       margin: 8px 0px;
       font-size: config.$tiny-font;
@@ -33,6 +31,18 @@
 
     div {
       margin-left: 20px;
+    }
+
+    .image {
+      position: relative;
+      width: 550px;
+      height: 400px;
+      margin-bottom: 20px;
+
+      @include mixins.mobile {
+        width: 250px;
+        height: 300px;
+      }
     }
   }
 
