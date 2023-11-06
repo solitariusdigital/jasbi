@@ -34,8 +34,9 @@
     direction: rtl;
 
     @include mixins.tablet {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+      gap: 12px;
     }
 
     @include mixins.mobile {
@@ -60,20 +61,6 @@
 
 .information {
   @include mixins.transparentBackground(0.03, config.$brand);
-
-  @include mixins.tablet {
-    width: calc(100% - 24px);
-    @include mixins.row-space-between-center();
-    justify-content: space-around;
-  }
-}
-
-.expand {
-  @include mixins.row-space-between-center();
-  flex-direction: row-reverse;
-  width: 100%;
-  user-select: none;
-  cursor: pointer;
 }
 
 .imageBoxDesktop {
@@ -88,10 +75,6 @@
     border: none;
     border-radius: 12px;
     @include mixins.transparentBackground(0.2, config.$white);
-
-    .section {
-      margin-top: 20px;
-    }
   }
 }
 

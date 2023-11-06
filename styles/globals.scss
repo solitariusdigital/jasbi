@@ -20,9 +20,9 @@ a {
 }
 
 h1 {
-  font-size: 32px !important;
+  font-size: 45px !important;
   @include mixins.mobile {
-    font-size: 27px !important;
+    font-size: 30px !important;
   }
 }
 
@@ -35,6 +35,9 @@ h2 {
 
 h3 {
   font-size: 19px !important;
+  @include mixins.mobile {
+    font-size: 17px !important;
+  }
 }
 
 .icon {
