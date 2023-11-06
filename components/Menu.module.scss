@@ -63,13 +63,13 @@
   @include mixins.desktop {
     &:hover {
       cursor: pointer;
-      color: config.$action;
+      color: config.$brand;
     }
   }
 }
 
 .navActive {
-  color: config.$action;
+  color: config.$brand;
   font-weight: bold !important;
   @include mixins.row-space-between-center();
   justify-content: flex-end;

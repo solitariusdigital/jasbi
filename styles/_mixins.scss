@@ -60,7 +60,7 @@ $screen-large: 2000px;
   &:focus {
     outline: none;
     background: transparent;
-    border: 1px solid config.$action;
+    border: 1px solid config.$brand;
   }
 }
 

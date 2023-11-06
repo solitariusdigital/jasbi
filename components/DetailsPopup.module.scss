@@ -3,10 +3,12 @@
 
 .popUp {
   position: absolute;
-  top: 75px;
+  top: 0px;
   width: 100%;
   padding: 12px;
   text-align: right;
+  height: 800px;
+  overflow-y: auto;
   background: config.$background;
   border: 1px solid config.$lightgrey;
   box-shadow: config.$card-shadow;

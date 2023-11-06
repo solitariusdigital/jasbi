@@ -19,7 +19,7 @@
   }
 
   button {
-    @include mixins.button(config.$action, config.$white);
+    @include mixins.button(config.$brand, config.$white);
     margin: auto;
   }
 }
@@ -98,13 +98,13 @@
   @include mixins.desktop {
     &:hover {
       cursor: pointer;
-      color: config.$action;
+      color: config.$brand;
     }
   }
 }
 
 .navActive {
-  color: config.$action;
+  color: config.$brand;
   font-weight: bold !important;
 }
 

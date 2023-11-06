@@ -17,21 +17,30 @@ export default function PoliticsForm() {
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [type, setType] = useState("");
   const [activity, setActivity] = useState("");
   const [image, setImage] = useState("");
-  const categories = ["قبل", "بعد"];
-  const activities = [
-    "قبل انقلاب",
+  const [alert, setAlert] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
+  const [loader, setLoader] = useState(false);
+
+  const categories = ["قبل انقلاب", "بعد انقلاب"];
+  const types = [
+    "قبل حزب جمهوری اسلامی ",
     "حزب جمهوری اسلامی",
+    "دانشگاه آزاد اسلامی",
+    "جامعه اسلامی دانشگاهیان",
+    "جشنواره تلاشگران کیفیت",
+    "بنیاد آفرینش انس",
+  ];
+  const activities = [
     "تاسیس دانشگاه آزاد اسلامی",
     "دهه اول تثبیت دانشگاه آزاد اسلامی",
     "دهه دوم گسترش کمی دانشگاه آزاد اسلامی",
     "دهه سوم گسترش کیفی دانشگاه آزاد اسلامی",
     "دهه چهارم گسترش و رقابت دانشگاه آزاد اسلامی",
+    "دستاوردهای دانشگاه آزاد اسلامی",
   ];
-  const [alert, setAlert] = useState("");
-  const [disableButton, setDisableButton] = useState(false);
-  const [loader, setLoader] = useState(false);
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
 
@@ -43,16 +52,21 @@ export default function PoliticsForm() {
   };
 
   const handleSubmit = async () => {
-    if (
-      !title ||
-      !year ||
-      !description ||
-      !category ||
-      !position ||
-      !activity
-    ) {
+    if (!title || !year || !description || !category || !position) {
       showAlert("همه موارد الزامیست");
       return;
+    }
+    if (category === "بعد انقلاب") {
+      if (!type) {
+        showAlert("همه موارد الزامیست");
+        return;
+      }
+      if (type === "دانشگاه آزاد اسلامی") {
+        if (!activity) {
+          showAlert("همه موارد الزامیست");
+          return;
+        }
+      }
     }
 
     setLoader(true);
@@ -74,6 +88,7 @@ export default function PoliticsForm() {
       position: position,
       description: description,
       category: category,
+      type: type,
       activity: activity,
       group: imageFolder,
       image: imageLink,
@@ -176,29 +191,56 @@ export default function PoliticsForm() {
           })}
         </select>
       </div>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            فعالیت
-            <span>*</span>
-          </p>
+      {category === "بعد انقلاب" && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              فعالیت
+              <span>*</span>
+            </p>
+          </div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="default" disabled>
+              انتخاب
+            </option>
+            {types.map((type, index) => {
+              return (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              );
+            })}
+          </select>
         </div>
-        <select
-          defaultValue={"default"}
-          onChange={(e) => setActivity(e.target.value)}
-        >
-          <option value="default" disabled>
-            انتخاب
-          </option>
-          {activities.map((activity, index) => {
-            return (
-              <option key={index} value={activity}>
-                {activity}
-              </option>
-            );
-          })}
-        </select>
-      </div>
+      )}
+      {type === "دانشگاه آزاد اسلامی" && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              دوره
+              <span>*</span>
+            </p>
+          </div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setActivity(e.target.value)}
+          >
+            <option value="default" disabled>
+              انتخاب
+            </option>
+            {activities.map((activity, index) => {
+              return (
+                <option key={index} value={activity}>
+                  {activity}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه

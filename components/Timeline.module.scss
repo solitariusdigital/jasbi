@@ -22,7 +22,7 @@
     @include mixins.desktop {
       &:hover {
         cursor: pointer;
-        color: config.$action;
+        color: config.$brand;
       }
     }
   }
@@ -42,7 +42,7 @@
   font-weight: 300;
   box-shadow: config.$inset-box-shadow;
   @include mixins.row-space-between-center();
-  @include mixins.transparentBackground(0.03, config.$action);
+  @include mixins.transparentBackground(0.03, config.$brand);
 
   @include mixins.mobile {
     margin: 0px 4px;
@@ -69,7 +69,7 @@
 
     .row {
       width: 80%;
-      border-bottom: 1px solid config.$action;
+      border-bottom: 1px solid config.$brand;
       padding: 4px 0px;
       margin-bottom: 8px;
 
@@ -101,13 +101,13 @@
         &:hover {
           cursor: pointer;
           font-weight: bold;
-          color: config.$action;
+          color: config.$brand;
         }
       }
     }
 
     span {
-      color: config.$action;
+      color: config.$brand;
       font-size: config.$tiny-font;
 
       @include mixins.desktop {
@@ -121,7 +121,7 @@
   .active {
     margin: 0px;
     font-weight: bold;
-    color: config.$action;
+    color: config.$brand;
   }
 }
 
@@ -134,7 +134,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  @include mixins.transparentBackground(0.03, config.$action);
+  @include mixins.transparentBackground(0.03, config.$brand);
   position: relative;
 
   @include mixins.mobile {

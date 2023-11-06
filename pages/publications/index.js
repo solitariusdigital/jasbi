@@ -100,8 +100,8 @@ export default function Publications({ publications }) {
           </div>
         )}
         {!displayForm && (
-          <div className={classes.navigationContainer}>
-            <div className={classes.navigation}>
+          <div className={classes.categoryContainer}>
+            <div className={classes.category}>
               <p
                 className={
                   category === "مقالات" ? classes.navActive : classes.nav
@@ -132,7 +132,7 @@ export default function Publications({ publications }) {
             <PublicationsForm />
           </div>
         )}
-        {!displayForm && (
+        {!displayForm && !displayDetailsPopup && (
           <div
             className={`${classes.list} ${
               screenSize === "desktop"

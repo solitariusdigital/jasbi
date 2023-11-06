@@ -59,7 +59,7 @@
 }
 
 .information {
-  @include mixins.transparentBackground(0.03, config.$action);
+  @include mixins.transparentBackground(0.03, config.$brand);
 
   @include mixins.tablet {
     width: calc(100% - 24px);
@@ -146,8 +146,8 @@
       }
 
       span {
-        color: config.$action;
-        border-bottom: 1px solid config.$action;
+        color: config.$brand;
+        border-bottom: 1px solid config.$brand;
         font-size: config.$tiny-font;
 
         @include mixins.desktop {
@@ -202,7 +202,7 @@
   }
 
   button {
-    @include mixins.button(config.$action, config.$background);
+    @include mixins.button(config.$brand, config.$background);
     margin-bottom: 20px;
   }
 }

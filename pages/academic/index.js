@@ -100,8 +100,8 @@ export default function Academic({ academics }) {
           </div>
         )}
         {!displayForm && (
-          <div className={classes.navigationContainer}>
-            <div className={classes.navigation}>
+          <div className={classes.categoryContainer}>
+            <div className={classes.category}>
               <p
                 className={
                   category === "تدریس" ? classes.navActive : classes.nav
@@ -143,7 +143,7 @@ export default function Academic({ academics }) {
             <AcademicForm />
           </div>
         )}
-        {!displayForm && (
+        {!displayForm && !displayDetailsPopup && (
           <div
             className={`${classes.list} ${
               screenSize === "desktop"
@@ -187,6 +187,7 @@ export default function Academic({ academics }) {
                                 setSelectedItem(item);
                                 setDisplayDetailsPopup(true);
                                 window.scrollTo(0, 0);
+                                document.body.style.overflow = "hidden";
                               }}
                             />
                           </div>
@@ -203,6 +204,7 @@ export default function Academic({ academics }) {
                             setSelectedItem(item);
                             setDisplayDetailsPopup(true);
                             window.scrollTo(0, 0);
+                            document.body.style.overflow = "hidden";
                           }}
                         >
                           بیشتر
