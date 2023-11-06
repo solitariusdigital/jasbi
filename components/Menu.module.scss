@@ -32,22 +32,14 @@
   @include mixins.row-space-between-center();
   flex-direction: row-reverse;
 
-  @include mixins.mobile {
-    display: none;
-  }
-
   @include mixins.tablet {
     padding: 0px 12px;
     width: 100%;
   }
 
   .largeNavigation {
-    width: 60%;
+    width: 70%;
     @include mixins.row-space-between-center();
-
-    @include mixins.tablet {
-      width: 80%;
-    }
   }
 }
 
@@ -56,15 +48,13 @@
 }
 
 .nav {
-  font-weight: 300 !important;
+  font-weight: bold !important;
   @include mixins.row-space-between-center();
   justify-content: flex-end;
 
-  @include mixins.desktop {
-    &:hover {
-      cursor: pointer;
-      color: config.$brand;
-    }
+  &:hover {
+    cursor: pointer;
+    color: config.$brand;
   }
 }
 
@@ -77,18 +67,6 @@
 
 .smallMenu {
   width: 100%;
-
-  @include mixins.desktop {
-    display: none;
-  }
-
-  .menuIcon {
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
 
   .topBar {
     width: 100%;
@@ -105,31 +83,20 @@
     justify-content: space-between;
     width: 100%;
     padding: 12px;
-    background: config.$cream;
+    @include mixins.transparentBackground(0.9, config.$cream);
 
     p {
       padding: 8px 0px;
     }
 
-    @include mixins.desktop {
-      display: none;
-    }
+    .menuItems {
+      width: 100%;
+      @include mixins.row-space-between-center();
+      justify-content: space-around;
+      flex-direction: row-reverse;
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-
-      button {
-        @include mixins.button(config.$black, config.$black);
-        margin: 12px 0px;
-
-        @include mixins.desktop {
-          &:hover {
-            cursor: pointer;
-            background: config.$white;
-            color: config.$black;
-          }
-        }
+      @include mixins.mobile {
+        flex-direction: column;
       }
     }
   }

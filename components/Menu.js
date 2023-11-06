@@ -13,6 +13,7 @@ export default function Menu() {
   const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
   const { displayDetailsPopup, setDisplayDetailsPopup } =
     useContext(StateContext);
+  const { screenSize, setScreenSize } = useContext(StateContext);
 
   const activateNav = (link, index) => {
     setDisplayDetailsPopup(false);
@@ -30,49 +31,25 @@ export default function Menu() {
 
   return (
     <div className={classes.container}>
-      <div className={classes.largeMenu}>
-        <div className={classes.largeNavigation}>
-          {navigationTopBar
-            .map((nav, index) => (
-              <Fragment key={index}>
-                <div
-                  className={!nav.active ? classes.nav : classes.navActive}
-                  onClick={() => activateNav(nav.link, index)}
-                >
-                  <p>{nav.title}</p>
-                  {nav.title === "جستجو" && (
-                    <SearchIcon className={classes.icon} />
-                  )}
-                </div>
-              </Fragment>
-            ))
-            .reverse()}
-        </div>
-        <Image
-          className={classes.logo}
-          width={70}
-          height={50}
-          src={logo}
-          alt="logo"
-          onClick={() => window.location.assign("/")}
-          priority
-        />
-      </div>
-      <div className={classes.smallMenu}>
-        <div className={classes.topBar}>
-          {menuMobile ? (
-            <CloseIcon
-              className={classes.menuIcon}
-              onClick={() => setMenuMobile(!menuMobile)}
-              sx={{ fontSize: 30 }}
-            />
-          ) : (
-            <MenuIcon
-              className={classes.menuIcon}
-              onClick={() => setMenuMobile(!menuMobile)}
-              sx={{ fontSize: 30 }}
-            />
-          )}
+      {screenSize === "desktop" && (
+        <div className={classes.largeMenu}>
+          <div className={classes.largeNavigation}>
+            {navigationTopBar
+              .map((nav, index) => (
+                <Fragment key={index}>
+                  <div
+                    className={!nav.active ? classes.nav : classes.navActive}
+                    onClick={() => activateNav(nav.link, index)}
+                  >
+                    <p>{nav.title}</p>
+                    {nav.title === "جستجو" && (
+                      <SearchIcon className={classes.icon} />
+                    )}
+                  </div>
+                </Fragment>
+              ))
+              .reverse()}
+          </div>
           <Image
             className={classes.logo}
             width={70}
@@ -83,30 +60,60 @@ export default function Menu() {
             priority
           />
         </div>
-        {menuMobile && (
-          <Fragment>
-            <div
-              className={`${classes.menuMobile} animate__animated animate__slideInDown`}
-            >
-              <div className={classes.list}>
-                {navigationTopBar.map((nav, index) => (
-                  <Fragment key={index}>
-                    <div
-                      className={!nav.active ? classes.nav : classes.navActive}
-                      onClick={() => activateNav(nav.link, index)}
-                    >
-                      <p>{nav.title}</p>
-                      {nav.title === "جستجو" && (
-                        <SearchIcon className={classes.icon} />
-                      )}
-                    </div>
-                  </Fragment>
-                ))}
+      )}
+      {screenSize !== "desktop" && (
+        <div className={classes.smallMenu}>
+          <div className={classes.topBar}>
+            {menuMobile ? (
+              <CloseIcon
+                className="icon"
+                onClick={() => setMenuMobile(!menuMobile)}
+                sx={{ fontSize: 30 }}
+              />
+            ) : (
+              <MenuIcon
+                className="icon"
+                onClick={() => setMenuMobile(!menuMobile)}
+                sx={{ fontSize: 30 }}
+              />
+            )}
+            <Image
+              className={classes.logo}
+              width={70}
+              height={50}
+              src={logo}
+              alt="logo"
+              onClick={() => window.location.assign("/")}
+              priority
+            />
+          </div>
+          {menuMobile && (
+            <Fragment>
+              <div
+                className={`${classes.menuMobile} animate__animated animate__slideInDown`}
+              >
+                <div className={classes.menuItems}>
+                  {navigationTopBar.map((nav, index) => (
+                    <Fragment key={index}>
+                      <div
+                        className={
+                          !nav.active ? classes.nav : classes.navActive
+                        }
+                        onClick={() => activateNav(nav.link, index)}
+                      >
+                        <p>{nav.title}</p>
+                        {nav.title === "جستجو" && (
+                          <SearchIcon className={classes.icon} />
+                        )}
+                      </div>
+                    </Fragment>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Fragment>
-        )}
-      </div>
+            </Fragment>
+          )}
+        </div>
+      )}
     </div>
   );
 }

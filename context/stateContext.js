@@ -18,6 +18,11 @@ export const StateProvider = (props) => {
       active: false,
     },
     {
+      title: "زندگینامه",
+      link: "/biography",
+      active: false,
+    },
+    {
       title: "سیاسی و اجرایی",
       link: "/politics",
       active: false,
