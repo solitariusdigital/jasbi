@@ -1,6 +1,7 @@
 import classes from "./Footer.module.scss";
 import { enToFaDigits } from "@/services/utility";
 import Image from "next/legacy/image";
+import bullet from "@/assets/bullet.png";
 import logo from "@/assets/logo.svg";
 import MuseTechLab from "@/assets/MuseTechLab.svg";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
@@ -19,7 +20,25 @@ export default function Footer() {
             })
           }
         >
-          <Image width={100} height={100} src={logo} alt="logo" priority />
+          <Image
+            src={bullet}
+            placeholder="blur"
+            alt="image"
+            width={100}
+            height={100}
+            loading="eager"
+          />
+          <div className={classes.image}>
+            <Image width={100} height={100} src={logo} alt="logo" priority />
+          </div>
+          <Image
+            src={bullet}
+            placeholder="blur"
+            alt="image"
+            width={100}
+            height={100}
+            loading="eager"
+          />
         </div>
       </div>
       <div className={classes.copyright}>
