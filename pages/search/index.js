@@ -1,4 +1,5 @@
-import { useState, Fragment } from "react";
+import { useState, useContext, Fragment } from "react";
+import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
@@ -7,6 +8,7 @@ import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
 import { NextSeo } from "next-seo";
+import pattern from "@/assets/pattern.png";
 import {
   enToFaDigits,
   onlyLettersAndNumbers,
@@ -15,6 +17,8 @@ import {
 } from "@/services/utility";
 
 export default function Search({ archiveArray }) {
+  const { screenSize, setScreenSize } = useContext(StateContext);
+
   const [search, setSearch] = useState("");
   const [documents, setDocuments] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
@@ -40,6 +44,39 @@ export default function Search({ archiveArray }) {
     }
   };
 
+  const generateBanner = () => {
+    let length = 0;
+    switch (screenSize) {
+      case "desktop":
+        length = 4;
+        break;
+      case "tablet":
+        length = 3;
+        break;
+      case "mobile":
+        length = 1;
+        break;
+    }
+    return (
+      <Fragment>
+        {Array.from(Array(length)).map((item, index) => {
+          return (
+            <div key={index} className={classes.image}>
+              <Image
+                src={pattern}
+                placeholder="blur"
+                alt="image"
+                layout="fill"
+                objectFit="cover"
+                loading="eager"
+              />
+            </div>
+          );
+        })}
+      </Fragment>
+    );
+  };
+
   return (
     <Fragment>
       <NextSeo
@@ -52,9 +89,8 @@ export default function Search({ archiveArray }) {
           siteName: "دکتر جاسبی",
         }}
       />
-      <div
-        className={`${classes.container} animate__animated animate__slideInDown`}
-      >
+      <div className={classes.container}>
+        <div className={classes.bannerContainer}>{generateBanner()}</div>
         <div className={classes.inputSearch}>
           <button onClick={() => searchDocuments()}>جستجو</button>
           <input
