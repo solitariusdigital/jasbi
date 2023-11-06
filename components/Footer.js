@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={classes.copyright}>
-        <p>کليه حقوق اين وب اپلیکیشن به دکتر جاسبی تعلق دارد</p>
+        <p>کليه حقوق اين وب سایت به دکتر جاسبی تعلق دارد</p>
         <p>jasbi.net @Copyright {enToFaDigits(1402)}</p>
         {/* <div
           className={classes.row}

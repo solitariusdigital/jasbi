@@ -46,8 +46,7 @@
   .details {
     display: flex;
     align-items: center;
-    margin: 8px 0px;
-    width: 100%;
+    margin: 16px 0px;
 
     @include mixins.mobile {
       flex-direction: row-reverse;
@@ -85,7 +84,7 @@
     position: absolute;
     left: 20px;
     z-index: 3;
-    width: 25%;
+    width: 20%;
     border: none;
     border-radius: 12px;
     @include mixins.transparentBackground(0.2, config.$white);

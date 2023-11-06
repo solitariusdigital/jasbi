@@ -1,6 +1,7 @@
 import { useState, useContext, Fragment } from "react";
 import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
+import Image from "next/legacy/image";
 import dbConnect from "@/services/dbConnect";
 import speechModel from "@/models/Speech";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -11,6 +12,7 @@ import { enToFaDigits, sliceString } from "@/services/utility";
 import { getSpeechApi, updateSpeechApi } from "@/services/api";
 import SpeechForm from "@/components/SpeechForm";
 import { NextSeo } from "next-seo";
+import pattern from "@/assets/pattern.png";
 
 export default function Media({ speech }) {
   const { screenSize, setScreenSize } = useContext(StateContext);
@@ -39,6 +41,39 @@ export default function Media({ speech }) {
     }
   };
 
+  const generateBanner = () => {
+    let length = 0;
+    switch (screenSize) {
+      case "desktop":
+        length = 4;
+        break;
+      case "tablet":
+        length = 3;
+        break;
+      case "mobile":
+        length = 1;
+        break;
+    }
+    return (
+      <Fragment>
+        {Array.from(Array(length)).map((item, index) => {
+          return (
+            <div key={index} className={classes.image}>
+              <Image
+                src={pattern}
+                placeholder="blur"
+                alt="image"
+                layout="fill"
+                objectFit="cover"
+                loading="eager"
+              />
+            </div>
+          );
+        })}
+      </Fragment>
+    );
+  };
+
   return (
     <Fragment>
       <NextSeo
@@ -52,6 +87,7 @@ export default function Media({ speech }) {
         }}
       />
       <div className={classes.container}>
+        <div className={classes.bannerContainer}>{generateBanner()}</div>
         {permissionControl && (
           <div className={classes.button}>
             <button onClick={() => setDisplayForm(!displayForm)}>

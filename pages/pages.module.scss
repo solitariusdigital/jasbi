@@ -4,7 +4,6 @@
 .container {
   position: relative;
   margin: auto;
-  margin-top: 120px;
   font-weight: 300;
   width: config.$content-width;
 
@@ -22,6 +21,17 @@
 
     button {
       @include mixins.button(config.$action, config.$white);
+    }
+  }
+
+  .bannerContainer {
+    display: flex;
+    height: 150px;
+    opacity: 0.5;
+
+    .image {
+      position: relative;
+      width: 100%;
     }
   }
 }
@@ -136,7 +146,7 @@
 }
 
 .navigationContainer {
-  padding: 12px;
+  padding-bottom: 12px;
   margin: auto;
   margin-bottom: 20px;
   border-bottom: 1px solid config.$action;

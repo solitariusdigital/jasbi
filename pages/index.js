@@ -109,8 +109,8 @@ export default function Home({
                     src={bullet}
                     placeholder="blur"
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     loading="eager"
                   />
                   <p>سیاسی و اجرایی</p>
@@ -126,8 +126,8 @@ export default function Home({
                     src={bullet}
                     placeholder="blur"
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     loading="eager"
                   />
                   <p>پژوهشی و علمی</p>
@@ -143,8 +143,8 @@ export default function Home({
                     src={bullet}
                     placeholder="blur"
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     loading="eager"
                   />
                   <p>انتشارات</p>
@@ -160,8 +160,8 @@ export default function Home({
                     src={bullet}
                     placeholder="blur"
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     loading="eager"
                   />
                   <p>تصاویر</p>
@@ -175,8 +175,8 @@ export default function Home({
                     src={bullet}
                     placeholder="blur"
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     loading="eager"
                   />
                   <p>سخنرانی</p>
