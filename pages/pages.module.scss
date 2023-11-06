@@ -217,9 +217,13 @@
   }
 
   .nav {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: config.$grey;
     border: 1px solid config.$lightgrey;
+    border-radius: 12px;
+    height: 40px;
 
     &:hover {
       cursor: pointer;
@@ -230,9 +234,12 @@
   }
 
   .navActive {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: config.$brand;
     font-weight: bold;
     border: 1px solid config.$brand;
+    border-radius: 12px;
   }
 }
