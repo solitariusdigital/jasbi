@@ -48,10 +48,10 @@ export default function Home({
     let length = 0;
     switch (screenSize) {
       case "desktop":
-        length = 3;
+        length = 4;
         break;
       case "tablet":
-        length = 2;
+        length = 3;
         break;
       case "mobile":
         length = 1;
