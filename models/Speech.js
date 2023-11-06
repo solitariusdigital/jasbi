@@ -5,6 +5,7 @@ const SpeechSchema = new Schema(
     title: String,
     year: Number,
     description: String,
+    category: String,
     group: String,
     media: String,
     confirm: Boolean,

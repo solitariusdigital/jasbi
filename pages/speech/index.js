@@ -126,11 +126,23 @@ export default function Media({ speech }) {
                     )}
                     <div>
                       <h3>{item.title}</h3>
-                      <div className={classes.speechContainer}>
-                        <audio preload="metadata" controls>
-                          <source src={item.media} />
-                        </audio>
-                      </div>
+                      {item.category === "voice" && (
+                        <div className={classes.speechContainer}>
+                          <audio preload="metadata" controls>
+                            <source src={item.media} />
+                          </audio>
+                        </div>
+                      )}
+                      {item.category === "video" && (
+                        <div className={classes.mediaContainer}>
+                          <video
+                            className={classes.video}
+                            preload="metadata"
+                            src={item.media}
+                            controls
+                          />
+                        </div>
+                      )}
                       <p>سال : {enToFaDigits(item.year)} </p>
                     </div>
                     {expandedItem === item["_id"] ? (
