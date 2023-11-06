@@ -193,7 +193,7 @@
   position: relative;
   padding: 8px;
   margin: 20px auto;
-  width: 50%;
+  width: 60%;
   user-select: none;
 
   @include mixins.mobile {
@@ -211,8 +211,8 @@
       grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
     }
 
-    @include mixins.mobile {
-      justify-content: space-around;
+    @include mixins.tablet {
+      grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
     }
   }
 
