@@ -4,21 +4,10 @@
 .footer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  margin-top: 250px;
-  background: config.$cream;
+  margin-top: 200px;
   padding: 12px;
-  height: 100%;
-  min-height: 250px;
   font-weight: 300;
-
-  .scroll {
-    background: config.$brand;
-    border-radius: 50px;
-    position: relative;
-    bottom: 20px;
-  }
 
   .container {
     margin: auto;
@@ -34,8 +23,6 @@
     align-items: center;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    min-width: 100px;
     margin: 20px 0px;
 
     @include mixins.desktop {
@@ -51,7 +38,6 @@
 }
 
 .copyright {
-  margin-top: 20px;
   font-size: 12px;
   text-align: center;
 
