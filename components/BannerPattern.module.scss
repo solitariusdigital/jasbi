@@ -1,0 +1,13 @@
+@use "styles/_config.scss" as config;
+@use "styles/_mixins.scss" as mixins;
+
+.container {
+  display: flex;
+  height: 150px;
+  opacity: 0.6;
+
+  .image {
+    position: relative;
+    width: 100%;
+  }
+}

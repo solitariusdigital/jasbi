@@ -23,17 +23,6 @@
       @include mixins.button(config.$brand, config.$white);
     }
   }
-
-  .bannerContainer {
-    display: flex;
-    height: 150px;
-    opacity: 0.6;
-
-    .image {
-      position: relative;
-      width: 100%;
-    }
-  }
 }
 
 .inputSearch {

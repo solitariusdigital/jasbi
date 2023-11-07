@@ -1,5 +1,4 @@
-import { useState, useContext, Fragment } from "react";
-import { StateContext } from "@/context/stateContext";
+import { useState, Fragment } from "react";
 import classes from "../pages.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
@@ -8,7 +7,7 @@ import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
 import { NextSeo } from "next-seo";
-import pattern from "@/assets/pattern.png";
+import BannerPattern from "@/components/BannerPattern";
 import {
   enToFaDigits,
   onlyLettersAndNumbers,
@@ -17,12 +16,8 @@ import {
 } from "@/services/utility";
 
 export default function Search({ archiveArray }) {
-  const { screenSize, setScreenSize } = useContext(StateContext);
-
   const [search, setSearch] = useState("");
   const [documents, setDocuments] = useState([]);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [displayDetails, setDisplayDetails] = useState(false);
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
 
@@ -44,39 +39,6 @@ export default function Search({ archiveArray }) {
     }
   };
 
-  const generateBanner = () => {
-    let length = 0;
-    switch (screenSize) {
-      case "desktop":
-        length = 4;
-        break;
-      case "tablet":
-        length = 3;
-        break;
-      case "mobile":
-        length = 1;
-        break;
-    }
-    return (
-      <Fragment>
-        {Array.from(Array(length)).map((item, index) => {
-          return (
-            <div key={index} className={classes.image}>
-              <Image
-                src={pattern}
-                placeholder="blur"
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                loading="eager"
-              />
-            </div>
-          );
-        })}
-      </Fragment>
-    );
-  };
-
   return (
     <Fragment>
       <NextSeo
@@ -90,7 +52,7 @@ export default function Search({ archiveArray }) {
         }}
       />
       <div className={classes.container}>
-        <div className={classes.bannerContainer}>{generateBanner()}</div>
+        <BannerPattern />
         <div className={classes.inputSearch}>
           <button onClick={() => searchDocuments()}>جستجو</button>
           <input
@@ -122,13 +84,13 @@ export default function Search({ archiveArray }) {
               {item.confirm && (
                 <div className={classes.item}>
                   <div className={classes.row}>
-                    {item.image && (
+                    {item.media && (
                       <div className={classes.imageContainer}>
                         <Image
                           className={classes.image}
-                          src={item.image}
+                          src={item.media}
                           placeholder="blur"
-                          blurDataURL={item.image}
+                          blurDataURL={item.media}
                           alt="image"
                           loading="eager"
                           width={300}

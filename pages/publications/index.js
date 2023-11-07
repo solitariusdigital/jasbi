@@ -13,7 +13,7 @@ import { getPublicationApi, updatePublicationApi } from "@/services/api";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
-import pattern from "@/assets/pattern.png";
+import BannerPattern from "@/components/BannerPattern";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -45,39 +45,6 @@ export default function Publications({ publications }) {
     }
   };
 
-  const generateBanner = () => {
-    let length = 0;
-    switch (screenSize) {
-      case "desktop":
-        length = 4;
-        break;
-      case "tablet":
-        length = 3;
-        break;
-      case "mobile":
-        length = 1;
-        break;
-    }
-    return (
-      <Fragment>
-        {Array.from(Array(length)).map((item, index) => {
-          return (
-            <div key={index} className={classes.image}>
-              <Image
-                src={pattern}
-                placeholder="blur"
-                alt="image"
-                layout="fill"
-                objectFit="cover"
-                loading="eager"
-              />
-            </div>
-          );
-        })}
-      </Fragment>
-    );
-  };
-
   return (
     <Fragment>
       <NextSeo
@@ -91,7 +58,7 @@ export default function Publications({ publications }) {
         }}
       />
       <div className={classes.container}>
-        <div className={classes.bannerContainer}>{generateBanner()}</div>
+        <BannerPattern />
         {permissionControl && (
           <div className={classes.button}>
             <button onClick={() => setDisplayForm(!displayForm)}>
