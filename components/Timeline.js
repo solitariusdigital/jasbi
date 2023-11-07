@@ -189,8 +189,8 @@ export default function Timeline({ timelineData }) {
               {details.position && <p>سمت : {details.position}</p>}
               {details.activity && <p>فعالیت : {details.activity}</p>}
             </div>
-            <p className={classes.description}>{details.description}</p>
           </div>
+          <p className={classes.description}>{details.description}</p>
         </div>
       )}
     </Fragment>

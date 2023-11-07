@@ -299,6 +299,7 @@ export default function Home({
       <div className={classes.cardGrid}>
         {archiveArray
           .filter((item) => item.confirm)
+          .filter((item) => item.mediaType === "image")
           .map((item, index) => (
             <Fragment key={index}>
               <div className={classes.card}>
@@ -380,11 +381,9 @@ export async function getServerSideProps(context) {
     const media = await mediaModel.find();
     const speech = await speachModel.find();
 
-    const archiveArray = [
-      ...academics,
-      ...politics.filter((item) => item.mediaType === "image"),
-      ...publications,
-    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const archiveArray = [...academics, ...politics, ...publications].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
     let years = archiveArray.map((item) => {
       return item.year;
     });
