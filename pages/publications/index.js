@@ -125,18 +125,18 @@ export default function Publications({ publications }) {
                           sx={{ color: "#cd3d2c" }}
                         />
                       )}
-                      <div className={classes.row}>
+                      <div>
+                        <h3>{item.title}</h3>
+
                         {item.media && (
                           <div className={classes.imageContainer}>
                             <Image
-                              className={classes.image}
                               src={item.media}
                               placeholder="blur"
                               blurDataURL={item.media}
                               alt="image"
                               loading="eager"
-                              width={120}
-                              height={150}
+                              layout="fill"
                               objectFit="cover"
                               priority
                               onClick={() => {
@@ -148,7 +148,6 @@ export default function Publications({ publications }) {
                           </div>
                         )}
                         <div>
-                          <h3>{item.title}</h3>
                           <p>گردآورنده : {item.author}</p>
                           {item.author !== "دکتر عبدالله جاسبی" && (
                             <p>زیر نظز : دکتر عبدالله جاسبی</p>

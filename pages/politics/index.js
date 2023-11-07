@@ -169,14 +169,12 @@ export default function Politics({ politics }) {
                       {item.mediaType === "image" && (
                         <div className={classes.imageContainer}>
                           <Image
-                            className={classes.image}
                             src={item.media}
                             placeholder="blur"
                             blurDataURL={item.media}
                             alt="image"
                             loading="eager"
-                            width={120}
-                            height={150}
+                            layout="fill"
                             objectFit="cover"
                             priority
                             onClick={() => {

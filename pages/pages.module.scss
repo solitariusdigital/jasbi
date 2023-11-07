@@ -101,19 +101,10 @@
   }
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-
-  p {
-    margin: 8px 0px;
-    font-size: config.$tiny-font;
-  }
-
-  .imageContainer {
-    margin-left: 20px;
-    min-width: 130px;
-  }
+.imageContainer {
+  position: relative;
+  height: 300px;
+  margin: 20px 0px;
 }
 
 .mediaContainer,
