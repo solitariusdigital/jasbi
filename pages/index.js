@@ -102,7 +102,7 @@ export default function Home({
               loading="eager"
             />
             <div className={classes.information}>
-              <h3>آمار سایت</h3>
+              <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
               <div className={classes.section}>
                 <div className={classes.details}>
                   <Image
@@ -205,7 +205,7 @@ export default function Home({
       </div>
       {screenSize !== "desktop" && (
         <div className={classes.information}>
-          <h3>آمار سایت</h3>
+          <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
           <div className={classes.section}>
             <div className={classes.details}>
               <Image
@@ -302,13 +302,13 @@ export default function Home({
           .map((item, index) => (
             <Fragment key={index}>
               <div className={classes.card}>
-                {item.image && (
+                {item.media && (
                   <div className={classes.imageContainer}>
                     <Image
                       className={classes.image}
-                      src={item.image}
+                      src={item.media}
                       placeholder="blur"
-                      blurDataURL={item.image}
+                      blurDataURL={item.media}
                       alt="image"
                       loading="eager"
                       objectFit="cover"

@@ -71,7 +71,7 @@
     position: absolute;
     left: 20px;
     z-index: 3;
-    width: 20%;
+    width: 21%;
     border: none;
     border-radius: 12px;
     @include mixins.transparentBackground(0.2, config.$white);
@@ -205,5 +205,17 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+.notFound {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+
+  @include mixins.mobile {
+    width: calc(100% - 24px);
   }
 }

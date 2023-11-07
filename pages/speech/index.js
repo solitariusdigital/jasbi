@@ -126,14 +126,14 @@ export default function Media({ speech }) {
                     )}
                     <div>
                       <h3>{item.title}</h3>
-                      {item.category === "voice" && (
+                      {item.mediaType === "voice" && (
                         <div className={classes.speechContainer}>
                           <audio preload="metadata" controls>
                             <source src={item.media} />
                           </audio>
                         </div>
                       )}
-                      {item.category === "video" && (
+                      {item.mediaType === "video" && (
                         <div className={classes.mediaContainer}>
                           <video
                             className={classes.video}

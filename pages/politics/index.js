@@ -197,14 +197,15 @@ export default function Politics({ politics }) {
                         sx={{ color: "#cd3d2c" }}
                       />
                     )}
-                    <div className={classes.row}>
-                      {item.image && (
+                    <div>
+                      <h3>{item.title}</h3>
+                      {item.mediaType === "image" && (
                         <div className={classes.imageContainer}>
                           <Image
                             className={classes.image}
-                            src={item.image}
+                            src={item.media}
                             placeholder="blur"
-                            blurDataURL={item.image}
+                            blurDataURL={item.media}
                             alt="image"
                             loading="eager"
                             width={120}
@@ -219,8 +220,33 @@ export default function Politics({ politics }) {
                           />
                         </div>
                       )}
+                      {item.mediaType === "voice" && (
+                        <div className={classes.speechContainer}>
+                          <audio preload="metadata" controls>
+                            <source src={item.media} />
+                          </audio>
+                        </div>
+                      )}
+                      {item.mediaType === "video" && (
+                        <div className={classes.mediaContainer}>
+                          <video
+                            className={classes.video}
+                            preload="metadata"
+                            src={item.media}
+                            controls
+                          />
+                        </div>
+                      )}
+                      {item.mediaType === "pdf" && (
+                        <div className={classes.mediaContainer}>
+                          <embed
+                            src={item.media}
+                            height="300px"
+                            type="application/pdf"
+                          />
+                        </div>
+                      )}
                       <div>
-                        <h3>{item.title}</h3>
                         <p>سمت : {item.position}</p>
                         {type === "دانشگاه آزاد اسلامی" && (
                           <p>دوره : {item.activity}</p>

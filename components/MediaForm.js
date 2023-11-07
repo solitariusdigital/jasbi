@@ -41,9 +41,8 @@ export default function MediaForm() {
 
     // upload media
     let mediaLink = "";
-    let mediaFolder = "";
+    let mediaFolder = "media";
     if (media) {
-      mediaFolder = "media";
       let mediaId = `med${sixGenerator()}`;
       let format = mediaType === "image" ? ".jpg" : ".mp4";
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
@@ -54,9 +53,9 @@ export default function MediaForm() {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
-      category: mediaType,
       group: mediaFolder,
       media: mediaLink,
+      mediaType: mediaType,
       confirm: false,
     };
     await createMediaApi(mediaObject);
@@ -130,13 +129,19 @@ export default function MediaForm() {
       <div className={classes.navigation}>
         <p
           className={mediaType === "video" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("video")}
+          onClick={() => {
+            setMediaType("video");
+            setMedia("");
+          }}
         >
           ویدئو
         </p>
         <p
           className={mediaType === "image" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("image")}
+          onClick={() => {
+            setMediaType("image");
+            setMedia("");
+          }}
         >
           عکس
         </p>
@@ -154,21 +159,21 @@ export default function MediaForm() {
             <p>انتخاب عکس</p>
           </label>
           {media !== "" && (
-            <div className={classes.imagePreview}>
+            <div className={classes.mediaPreview}>
               <CloseIcon
                 className="icon"
                 onClick={() => setMedia("")}
                 sx={{ fontSize: 16 }}
               />
-              <Image
-                className={classes.image}
-                width={300}
-                height={200}
-                objectFit="contain"
-                src={URL.createObjectURL(media)}
-                alt="image"
-                priority
-              />
+              <div className={classes.media}>
+                <Image
+                  layout="fill"
+                  objectFit="contain"
+                  src={URL.createObjectURL(media)}
+                  alt="image"
+                  priority
+                />
+              </div>
             </div>
           )}
         </div>
@@ -186,15 +191,14 @@ export default function MediaForm() {
             <p>انتخاب ویدئو</p>
           </label>
           {media !== "" && (
-            <div className={classes.imagePreview}>
+            <div className={classes.mediaPreview}>
               <CloseIcon
                 className="icon"
                 onClick={() => setMedia("")}
                 sx={{ fontSize: 16 }}
               />
               <video
-                className={classes.imagePreview}
-                width={300}
+                className={classes.media}
                 preload="metadata"
                 src={URL.createObjectURL(media)}
                 controls

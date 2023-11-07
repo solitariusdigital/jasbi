@@ -39,12 +39,12 @@ export default function DetailsPopup({ selectedItem }) {
             {selectedItem.activity && <p>فعالیت : {selectedItem.activity}</p>}
             <p>سال : {enToFaDigits(selectedItem.year)} </p>
           </div>
-          {selectedItem.image && (
+          {selectedItem.media && (
             <div className={classes.image}>
               <Image
-                src={selectedItem.image}
+                src={selectedItem.media}
                 placeholder="blur"
-                blurDataURL={selectedItem.image}
+                blurDataURL={selectedItem.media}
                 alt="image"
                 loading="eager"
                 layout="fill"

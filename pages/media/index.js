@@ -126,7 +126,7 @@ export default function Media({ media }) {
                     )}
                     <div>
                       <h3>{item.title}</h3>
-                      {item.category === "image" && (
+                      {item.mediaType === "image" && (
                         <div className={classes.mediaContainer}>
                           <Image
                             className={classes.image}
@@ -142,7 +142,7 @@ export default function Media({ media }) {
                           />
                         </div>
                       )}
-                      {item.category === "video" && (
+                      {item.mediaType === "video" && (
                         <div className={classes.mediaContainer}>
                           <video
                             className={classes.video}

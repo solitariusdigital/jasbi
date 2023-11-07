@@ -71,11 +71,23 @@
   }
 }
 
-.imagePreview {
+.mediaPreview {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  margin-top: 12px;
+
+  .media,
+  .voice {
+    width: 100%;
+    object-fit: cover;
+    margin-top: 20px;
+  }
+
+  .media {
+    height: 300px;
+  }
 }
 
 .navigation {

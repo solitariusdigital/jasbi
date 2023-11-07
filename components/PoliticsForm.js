@@ -12,6 +12,9 @@ import {
 } from "@/services/utility";
 
 export default function PoliticsForm() {
+  const [mediaType, setMediaType] = useState(
+    "image" || "video" || "voice" || "pdf"
+  );
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [position, setPosition] = useState("");
@@ -19,14 +22,14 @@ export default function PoliticsForm() {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
   const [activity, setActivity] = useState("");
-  const [image, setImage] = useState("");
+  const [media, setMedia] = useState("");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const categories = ["قبل انقلاب", "بعد انقلاب"];
   const types = [
-    "قبل حزب جمهوری اسلامی ",
+    "قبل حزب جمهوری اسلامی",
     "حزب جمهوری اسلامی",
     "دانشگاه آزاد اسلامی",
     "جامعه اسلامی دانشگاهیان",
@@ -73,13 +76,27 @@ export default function PoliticsForm() {
     setDisableButton(true);
 
     // upload image
-    let imageLink = "";
-    let imageFolder = "";
-    if (image) {
-      imageFolder = "politics";
-      let imageId = `img${sixGenerator()}`;
-      imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
-      await uploadImage(image, imageId, imageFolder, ".jpg");
+    let mediaLink = "";
+    let mediaFolder = "politics";
+    let format = "";
+    if (media) {
+      let mediaId = `img${sixGenerator()}`;
+      switch (mediaType) {
+        case "voice":
+          format = ".mp3";
+          break;
+        case "video":
+          format = ".mp4";
+          break;
+        case "image":
+          format = ".jpg";
+          break;
+        case "pdf":
+          format = ".pdf";
+          break;
+      }
+      mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
+      await uploadImage(media, mediaId, mediaFolder, format);
     }
 
     let politicObject = {
@@ -90,8 +107,9 @@ export default function PoliticsForm() {
       category: category,
       type: type,
       activity: activity,
-      group: imageFolder,
-      image: imageLink,
+      group: mediaFolder,
+      media: mediaLink,
+      mediaType: mediaType,
       confirm: false,
     };
     await createPoliticApi(politicObject);
@@ -257,36 +275,160 @@ export default function PoliticsForm() {
           dir="rtl"
         ></textarea>
       </div>
-      <div className={classes.input}>
-        <label className={classes.file}>
-          <input
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-            type="file"
-            accept="image/*"
-          />
-          <p>عکس اختیاری</p>
-        </label>
-        {image !== "" && (
-          <div className={classes.imagePreview}>
-            <CloseIcon
-              className="icon"
-              onClick={() => setImage("")}
-              sx={{ fontSize: 16 }}
-            />
-            <Image
-              className={classes.image}
-              width={300}
-              height={200}
-              objectFit="contain"
-              src={URL.createObjectURL(image)}
-              alt="image"
-              priority
-            />
-          </div>
-        )}
+      <div className={classes.navigation}>
+        <p
+          className={mediaType === "pdf" ? classes.navActive : classes.nav}
+          onClick={() => {
+            setMediaType("pdf");
+            setMedia("");
+          }}
+        >
+          pdf
+        </p>
+        <p
+          className={mediaType === "voice" ? classes.navActive : classes.nav}
+          onClick={() => {
+            setMediaType("voice");
+            setMedia("");
+          }}
+        >
+          صوتی
+        </p>
+        <p
+          className={mediaType === "video" ? classes.navActive : classes.nav}
+          onClick={() => {
+            setMediaType("video");
+            setMedia("");
+          }}
+        >
+          ویدئو
+        </p>
+        <p
+          className={mediaType === "image" ? classes.navActive : classes.nav}
+          onClick={() => {
+            setMediaType("image");
+            setMedia("");
+          }}
+        >
+          عکس
+        </p>
       </div>
+      {mediaType === "image" && (
+        <div className={classes.input}>
+          <label className={classes.file}>
+            <input
+              onChange={(e) => {
+                setMedia(e.target.files[0]);
+              }}
+              type="file"
+              accept="image/*"
+            />
+            <p>انتخاب عکس اختیاری</p>
+          </label>
+          {media !== "" && (
+            <div className={classes.mediaPreview}>
+              <CloseIcon
+                className="icon"
+                onClick={() => setMedia("")}
+                sx={{ fontSize: 16 }}
+              />
+              <div className={classes.media}>
+                <Image
+                  layout="fill"
+                  objectFit="contain"
+                  src={URL.createObjectURL(media)}
+                  alt="image"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+      {mediaType === "video" && (
+        <div className={classes.input}>
+          <label className={classes.file}>
+            <input
+              onChange={(e) => {
+                setMedia(e.target.files[0]);
+              }}
+              type="file"
+              accept="video/*"
+            />
+            <p>انتخاب ویدئو اختیاری</p>
+          </label>
+          {media !== "" && (
+            <div className={classes.mediaPreview}>
+              <CloseIcon
+                className="icon"
+                onClick={() => setMedia("")}
+                sx={{ fontSize: 16 }}
+              />
+              <video
+                className={classes.media}
+                preload="metadata"
+                src={URL.createObjectURL(media)}
+                controls
+              />
+            </div>
+          )}
+        </div>
+      )}
+      {mediaType === "voice" && (
+        <div className={classes.input}>
+          <label className={classes.file}>
+            <input
+              onChange={(e) => {
+                setMedia(e.target.files[0]);
+              }}
+              type="file"
+              accept="audio/*"
+            />
+            <p>انتخاب فایل صوتی اختیاری</p>
+          </label>
+          {media !== "" && (
+            <div className={classes.mediaPreview}>
+              <CloseIcon
+                className="icon"
+                onClick={() => setMedia("")}
+                sx={{ fontSize: 16 }}
+              />
+              <audio className={classes.voice} preload="metadata" controls>
+                <source src={URL.createObjectURL(media)} />
+              </audio>
+            </div>
+          )}
+        </div>
+      )}
+      {mediaType === "pdf" && (
+        <div className={classes.input}>
+          <label className={classes.file}>
+            <input
+              onChange={(e) => {
+                setMedia(e.target.files[0]);
+              }}
+              type="file"
+              accept=".pdf"
+            />
+            <p>اختیاری pdf انتخاب فایل</p>
+          </label>
+          {media !== "" && (
+            <div className={classes.mediaPreview}>
+              <CloseIcon
+                className="icon"
+                onClick={() => setMedia("")}
+                sx={{ fontSize: 16 }}
+              />
+              <embed
+                className={classes.media}
+                src={URL.createObjectURL(media)}
+                height="300px"
+                type="application/pdf"
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div className={classes.formAction}>
         <p className="alert">{alert}</p>
         {loader && (

@@ -8,9 +8,10 @@ const PoliticSchema = new Schema(
     description: String,
     category: String,
     type: String,
-    group: String,
     activity: String,
-    image: String,
+    group: String,
+    media: String,
+    mediaType: String,
     confirm: Boolean,
   },
   { timestamps: true }

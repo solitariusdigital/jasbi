@@ -16,7 +16,7 @@ export default function AcademicForm() {
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
+  const [media, setMedia] = useState("");
   const categories = ["پروژه", "دستاور", "تدریس"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -41,14 +41,12 @@ export default function AcademicForm() {
     setDisableButton(true);
 
     // upload image
-    let imageLink = "";
-    let imageFolder = "";
-
-    if (image) {
-      imageFolder = "academic";
+    let mediaLink = "";
+    let mediaFolder = "academic";
+    if (media) {
       let imageId = `img${sixGenerator()}`;
-      imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
-      await uploadImage(image, imageId, imageFolder, ".jpg");
+      mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
+      await uploadImage(media, imageId, mediaFolder, ".jpg");
     }
 
     let academicObject = {
@@ -56,8 +54,9 @@ export default function AcademicForm() {
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
       category: category,
-      group: imageFolder,
-      image: imageLink,
+      group: mediaFolder,
+      media: mediaLink,
+      mediaType: "image",
       confirm: false,
     };
     await createAcademicApi(academicObject);
@@ -155,18 +154,18 @@ export default function AcademicForm() {
         <label className={classes.file}>
           <input
             onChange={(e) => {
-              setImage(e.target.files[0]);
+              setMedia(e.target.files[0]);
             }}
             type="file"
             accept="image/*"
           />
           <p>عکس اختیاری</p>
         </label>
-        {image !== "" && (
-          <div className={classes.imagePreview}>
+        {media !== "" && (
+          <div className={classes.mediaPreview}>
             <CloseIcon
               className="icon"
-              onClick={() => setImage("")}
+              onClick={() => setMedia("")}
               sx={{ fontSize: 16 }}
             />
             <Image
@@ -174,7 +173,7 @@ export default function AcademicForm() {
               width={300}
               height={200}
               objectFit="contain"
-              src={URL.createObjectURL(image)}
+              src={URL.createObjectURL(media)}
               alt="image"
               priority
             />

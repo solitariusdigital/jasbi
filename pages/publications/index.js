@@ -159,13 +159,13 @@ export default function Publications({ publications }) {
                         />
                       )}
                       <div className={classes.row}>
-                        {item.image && (
+                        {item.media && (
                           <div className={classes.imageContainer}>
                             <Image
                               className={classes.image}
-                              src={item.image}
+                              src={item.media}
                               placeholder="blur"
-                              blurDataURL={item.image}
+                              blurDataURL={item.media}
                               alt="image"
                               loading="eager"
                               width={120}

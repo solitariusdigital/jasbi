@@ -7,7 +7,8 @@ const AcademicSchema = new Schema(
     description: String,
     category: String,
     group: String,
-    image: String,
+    media: String,
+    mediaType: String,
     confirm: Boolean,
   },
   { timestamps: true }

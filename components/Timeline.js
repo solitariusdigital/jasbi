@@ -40,7 +40,7 @@ export default function Timeline({ timelineData }) {
           publisher: item.data[parseInt(dataIndex)].publisher,
           position: item.data[parseInt(dataIndex)].position,
           activity: item.data[parseInt(dataIndex)].activity,
-          image: item.data[parseInt(dataIndex)].image,
+          media: item.data[parseInt(dataIndex)].media,
           description: item.data[parseInt(dataIndex)].description,
         });
       } else {
@@ -133,12 +133,12 @@ export default function Timeline({ timelineData }) {
             onClick={() => setDisplayDetails(false)}
           />
           <div className={classes.row}>
-            {details.image && (
+            {details.media && (
               <div>
                 <Image
-                  src={details.image}
+                  src={details.media}
                   placeholder="blur"
-                  blurDataURL={details.image}
+                  blurDataURL={details.media}
                   alt="image"
                   loading="eager"
                   width={300}

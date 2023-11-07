@@ -12,7 +12,7 @@ import {
 } from "@/services/utility";
 
 export default function MediaForm() {
-  const [mediaType, setMediaType] = useState("voice" || "voice");
+  const [mediaType, setMediaType] = useState("voice" || "video");
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
@@ -41,9 +41,8 @@ export default function MediaForm() {
 
     // upload media
     let mediaLink = "";
-    let mediaFolder = "";
+    let mediaFolder = "speech";
     if (media) {
-      mediaFolder = "speech";
       let mediaId = `sp${sixGenerator()}`;
       let format = mediaType === "voice" ? ".mp3" : ".mp4";
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
@@ -54,9 +53,9 @@ export default function MediaForm() {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
-      category: mediaType,
       group: mediaFolder,
-      type: mediaType,
+      media: mediaLink,
+      mediaType: mediaType,
       confirm: false,
     };
     await createSpeechApi(mediaObject);
@@ -130,13 +129,19 @@ export default function MediaForm() {
       <div className={classes.navigation}>
         <p
           className={mediaType === "video" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("video")}
+          onClick={() => {
+            setMediaType("video");
+            setMedia("");
+          }}
         >
           ویدئو
         </p>
         <p
           className={mediaType === "voice" ? classes.navActive : classes.nav}
-          onClick={() => setMediaType("voice")}
+          onClick={() => {
+            setMediaType("voice");
+            setMedia("");
+          }}
         >
           صوتی
         </p>
@@ -154,17 +159,13 @@ export default function MediaForm() {
             <p>انتخاب فایل صوتی</p>
           </label>
           {media !== "" && (
-            <div className={classes.imagePreview}>
+            <div className={classes.mediaPreview}>
               <CloseIcon
                 className="icon"
                 onClick={() => setMedia("")}
                 sx={{ fontSize: 16 }}
               />
-              <audio
-                className={classes.imagePreview}
-                preload="metadata"
-                controls
-              >
+              <audio className={classes.voice} preload="metadata" controls>
                 <source src={URL.createObjectURL(media)} />
               </audio>
             </div>
@@ -184,15 +185,14 @@ export default function MediaForm() {
             <p>انتخاب ویدئو</p>
           </label>
           {media !== "" && (
-            <div className={classes.imagePreview}>
+            <div className={classes.mediaPreview}>
               <CloseIcon
                 className="icon"
                 onClick={() => setMedia("")}
                 sx={{ fontSize: 16 }}
               />
               <video
-                className={classes.imagePreview}
-                width={300}
+                className={classes.media}
                 preload="metadata"
                 src={URL.createObjectURL(media)}
                 controls
@@ -201,7 +201,6 @@ export default function MediaForm() {
           )}
         </div>
       )}
-
       <div className={classes.formAction}>
         <p className="alert">{alert}</p>
         {loader && (

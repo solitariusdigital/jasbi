@@ -18,7 +18,7 @@ export default function PublicationsForm() {
   const [year, setYear] = useState("");
   const [publisher, setPublisher] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
+  const [media, setMedia] = useState("");
   const categories = ["مقالات", "کتاب"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -43,13 +43,12 @@ export default function PublicationsForm() {
     setDisableButton(true);
 
     // upload image
-    let imageLink = "";
-    let imageFolder = "";
-    if (image) {
-      imageFolder = "publications";
+    let mediaLink = "";
+    let mediaFolder = "publications";
+    if (media) {
       let imageId = `img${sixGenerator()}`;
-      imageLink = `${sourceLink}/${imageFolder}/${imageId}.jpg`;
-      await uploadImage(image, imageId, imageFolder, ".jpg");
+      mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
+      await uploadImage(media, imageId, mediaFolder, ".jpg");
     }
 
     let publicationObject = {
@@ -59,8 +58,9 @@ export default function PublicationsForm() {
       description: description,
       category: category,
       publisher: publisher,
-      group: imageFolder,
-      image: imageLink,
+      group: mediaFolder,
+      media: mediaLink,
+      mediaType: "image",
       confirm: false,
     };
     await createPublicationApi(publicationObject);
@@ -202,18 +202,18 @@ export default function PublicationsForm() {
         <label className={classes.file}>
           <input
             onChange={(e) => {
-              setImage(e.target.files[0]);
+              setMedia(e.target.files[0]);
             }}
             type="file"
             accept="image/*"
           />
           <p>عکس اختیاری</p>
         </label>
-        {image !== "" && (
-          <div className={classes.imagePreview}>
+        {media !== "" && (
+          <div className={classes.mediaPreview}>
             <CloseIcon
               className="icon"
-              onClick={() => setImage("")}
+              onClick={() => setMedia("")}
               sx={{ fontSize: 16 }}
             />
             <Image
@@ -221,7 +221,7 @@ export default function PublicationsForm() {
               width={300}
               height={200}
               objectFit="contain"
-              src={URL.createObjectURL(image)}
+              src={URL.createObjectURL(media)}
               alt="image"
               priority
             />
