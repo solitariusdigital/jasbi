@@ -6,8 +6,6 @@ import backgroundDesktop from "@/assets/backgroundDesktop.png";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
 import Timeline from "@/components/Timeline";
-import Register from "@/components/Register";
-import SendForm from "@/components/SendForm";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
@@ -15,7 +13,6 @@ import publicationModel from "@/models/Publication";
 import mediaModel from "@/models/Media";
 import speachModel from "@/models/Speech";
 import politicModel from "@/models/Politic";
-import secureLocalStorage from "react-secure-storage";
 import { NextSeo } from "next-seo";
 
 export default function Home({
@@ -27,8 +24,6 @@ export default function Home({
   media,
   speech,
 }) {
-  const { currentUser, setCurrentUser } = useContext(StateContext);
-  const [displayRegister, setDisplayRegister] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
 
@@ -36,12 +31,6 @@ export default function Home({
     academic: "پژوهشی و علمی",
     publications: "انتشارات",
     politics: "سیاسی و اجرایی",
-  };
-
-  const logOut = () => {
-    secureLocalStorage.removeItem("currentUser");
-    setCurrentUser(null);
-    window.location.assign("/");
   };
 
   const generateBanner = () => {
@@ -350,23 +339,6 @@ export default function Home({
           ))
           .slice(0, 9)}
       </div>
-      <div className={classes.uploadForm}>
-        {!displayRegister && (
-          <p className="message">
-            ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات
-          </p>
-        )}
-        <button onClick={() => setDisplayRegister(!displayRegister)}>
-          {!displayRegister ? "ارتباط با دکتر جاسبی" : "برگشت"}
-        </button>
-        {displayRegister && !currentUser && <Register />}
-        {displayRegister && currentUser && <SendForm />}
-      </div>
-      {currentUser && (
-        <div className={classes.logout} onClick={() => logOut()}>
-          <p>خروج</p>
-        </div>
-      )}
     </Fragment>
   );
 }

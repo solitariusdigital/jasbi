@@ -101,6 +101,39 @@
   }
 }
 
+.uploadForm {
+  margin: auto;
+  text-align: center;
+  width: config.$content-width;
+
+  @include mixins.mobile {
+    width: calc(100% - 24px);
+  }
+
+  button {
+    @include mixins.button(config.$brand, config.$background);
+    margin-bottom: 20px;
+  }
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  font-weight: 300;
+  color: config.$grey;
+
+  p {
+    border-bottom: 1px solid config.$grey;
+  }
+
+  @include mixins.desktop {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .imageContainer {
   position: relative;
   height: 300px;

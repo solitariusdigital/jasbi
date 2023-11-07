@@ -83,6 +83,11 @@ export default function Register() {
 
   const handleRegister = async () => {
     if (token === Number(checkToken)) {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
       // Check if user already exists in the database
       const userData = appUsers.find((user) => user.phone === phone);
       if (userData) {

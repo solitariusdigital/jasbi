@@ -25,6 +25,10 @@
       }
     }
   }
+
+  button {
+    @include mixins.button(config.$brand, config.$background);
+  }
 }
 
 .largeMenu {

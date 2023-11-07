@@ -28,8 +28,8 @@ $screen-large: 2000px;
 }
 
 @mixin button($color, $subColor) {
-  width: 150px;
-  height: 40px;
+  width: 135px;
+  height: 35px;
   border-radius: 12px;
   font-weight: bold;
   background: $color;

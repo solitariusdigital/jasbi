@@ -1,5 +1,5 @@
 import { useContext, Fragment } from "react";
-import { StateContext } from "../context/stateContext";
+import { StateContext } from "@/context/stateContext";
 import classes from "./Menu.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/legacy/image";
@@ -50,6 +50,9 @@ export default function Menu() {
               ))
               .reverse()}
           </div>
+          <button onClick={() => Router.push("/login")}>
+            ارتباط با دکتر جاسبی
+          </button>
           <Image
             className={classes.logo}
             width={70}
@@ -108,6 +111,14 @@ export default function Menu() {
                       </div>
                     </Fragment>
                   ))}
+                  <button
+                    onClick={() => {
+                      Router.push("/login");
+                      setMenuMobile(false);
+                    }}
+                  >
+                    ارتباط با دکتر جاسبی
+                  </button>
                 </div>
               </div>
             </Fragment>

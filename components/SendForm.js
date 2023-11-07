@@ -5,7 +5,7 @@ import AcademicForm from "./AcademicForm";
 import MediaForm from "./MediaForm";
 import SpeechForm from "./SpeechForm";
 
-export default function SendForm() {
+export default function SendForm({ admin }) {
   const [type, setType] = useState("");
   const formTypes = ["سیاسی و اجرایی", "پژوهشی و علمی", "تصاویر", "سخنرانی"];
 
@@ -35,10 +35,10 @@ export default function SendForm() {
           })}
         </select>
       </div>
-      {type === "سیاسی و اجرایی" && <PoliticsForm />}
-      {type === "پژوهشی و علمی" && <AcademicForm />}
-      {type === "تصاویر" && <MediaForm />}
-      {type === "سخنرانی" && <SpeechForm />}
+      {type === "سیاسی و اجرایی" && <PoliticsForm admin={admin} />}
+      {type === "پژوهشی و علمی" && <AcademicForm admin={admin} />}
+      {type === "تصاویر" && <MediaForm admin={admin} />}
+      {type === "سخنرانی" && <SpeechForm admin={admin} />}
     </div>
   );
 }
