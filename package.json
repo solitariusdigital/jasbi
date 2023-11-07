@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.14.12",
     "aws-sdk": "^2.1472.0",
     "@mui/material": "^5.14.12",
-    "eslint-config-next": "13.5.4",
+    "eslint-config-next": "13.5.5",
     "eslint": "8.51.0",
     "kavenegar": "^1.1.4",
     "mongodb-shell": "^1.0.1",
