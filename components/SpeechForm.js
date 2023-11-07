@@ -11,7 +11,7 @@ import {
   uploadImage,
 } from "@/services/utility";
 
-export default function MediaForm() {
+export default function MediaForm({ admin }) {
   const [mediaType, setMediaType] = useState("voice" || "video");
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
@@ -31,9 +31,16 @@ export default function MediaForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !year || !description || !media) {
-      showAlert("همه موارد الزامیست");
-      return;
+    if (admin) {
+      if (!title || !year || !description || !media) {
+        showAlert("همه موارد الزامیست");
+        return;
+      }
+    } else {
+      if (!title) {
+        showAlert("عنوان  الزامیست");
+        return;
+      }
     }
 
     setLoader(true);
@@ -91,7 +98,7 @@ export default function MediaForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             سال
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
           <CloseIcon
             className="icon"
@@ -113,7 +120,7 @@ export default function MediaForm() {
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه
-          <span>*</span>
+          {admin && <span>*</span>}
         </p>
         <textarea
           placeholder="..."

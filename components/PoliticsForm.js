@@ -11,7 +11,7 @@ import {
   uploadImage,
 } from "@/services/utility";
 
-export default function PoliticsForm() {
+export default function PoliticsForm({ admin }) {
   const [mediaType, setMediaType] = useState(
     "image" || "video" || "voice" || "pdf"
   );
@@ -55,20 +55,27 @@ export default function PoliticsForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !year || !description || !category || !position) {
-      showAlert("همه موارد الزامیست");
-      return;
-    }
-    if (category === "بعد انقلاب") {
-      if (!type) {
+    if (admin) {
+      if (!title || !year || !description || !category || !position) {
         showAlert("همه موارد الزامیست");
         return;
       }
-      if (type === "دانشگاه آزاد اسلامی") {
-        if (!activity) {
+      if (category === "بعد انقلاب") {
+        if (!type) {
           showAlert("همه موارد الزامیست");
           return;
         }
+        if (type === "دانشگاه آزاد اسلامی") {
+          if (!activity) {
+            showAlert("همه موارد الزامیست");
+            return;
+          }
+        }
+      }
+    } else {
+      if (!title) {
+        showAlert("عنوان  الزامیست");
+        return;
       }
     }
 
@@ -145,7 +152,7 @@ export default function PoliticsForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             سمت
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
           <CloseIcon
             className="icon"
@@ -167,7 +174,7 @@ export default function PoliticsForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             سال
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
           <CloseIcon
             className="icon"
@@ -190,7 +197,7 @@ export default function PoliticsForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             دوره انقلاب
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
         </div>
         <select
@@ -214,7 +221,7 @@ export default function PoliticsForm() {
           <div className={classes.bar}>
             <p className={classes.label}>
               فعالیت
-              <span>*</span>
+              {admin && <span>*</span>}
             </p>
           </div>
           <select
@@ -239,7 +246,7 @@ export default function PoliticsForm() {
           <div className={classes.bar}>
             <p className={classes.label}>
               دوره
-              <span>*</span>
+              {admin && <span>*</span>}
             </p>
           </div>
           <select
@@ -262,7 +269,7 @@ export default function PoliticsForm() {
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه
-          <span>*</span>
+          {admin && <span>*</span>}
         </p>
         <textarea
           placeholder="..."

@@ -72,7 +72,7 @@
     position: absolute;
     left: 20px;
     z-index: 3;
-    width: 21%;
+    width: 25%;
     border: none;
     border-radius: 12px;
     @include mixins.transparentBackground(0.2, config.$white);

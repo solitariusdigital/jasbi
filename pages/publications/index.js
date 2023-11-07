@@ -96,7 +96,7 @@ export default function Publications({ publications }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <PublicationsForm />
+            <PublicationsForm admin={true} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (

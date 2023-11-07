@@ -64,7 +64,7 @@ export default function Media({ speech }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <SpeechForm />
+            <SpeechForm admin={true} />
           </div>
         )}
         {!displayForm && (

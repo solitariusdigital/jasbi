@@ -137,7 +137,7 @@ export default function Politics({ politics }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <PoliticsForm />
+            <PoliticsForm admin={true} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (

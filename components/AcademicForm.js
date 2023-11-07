@@ -11,7 +11,7 @@ import {
   uploadImage,
 } from "@/services/utility";
 
-export default function AcademicForm() {
+export default function AcademicForm({ admin }) {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
@@ -32,9 +32,16 @@ export default function AcademicForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !year || !description || !category) {
-      showAlert("همه موارد الزامیست");
-      return;
+    if (admin) {
+      if (!title || !year || !description || !category) {
+        showAlert("همه موارد الزامیست");
+        return;
+      }
+    } else {
+      if (!title) {
+        showAlert("عنوان  الزامیست");
+        return;
+      }
     }
 
     setLoader(true);
@@ -92,7 +99,7 @@ export default function AcademicForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             سال
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
           <CloseIcon
             className="icon"
@@ -115,7 +122,7 @@ export default function AcademicForm() {
         <div className={classes.bar}>
           <p className={classes.label}>
             دسته بندی
-            <span>*</span>
+            {admin && <span>*</span>}
           </p>
         </div>
         <select
@@ -137,7 +144,7 @@ export default function AcademicForm() {
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه
-          <span>*</span>
+          {admin && <span>*</span>}
         </p>
         <textarea
           placeholder="..."

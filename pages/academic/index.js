@@ -107,7 +107,7 @@ export default function Academic({ academics }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <AcademicForm />
+            <AcademicForm admin={true} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (

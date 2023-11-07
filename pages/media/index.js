@@ -64,7 +64,7 @@ export default function Media({ media }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <MediaForm />
+            <MediaForm admin={true} />
           </div>
         )}
         {!displayForm && (
