@@ -39,7 +39,7 @@ export default function DetailsPopup({ selectedItem }) {
             {selectedItem.activity && <p>فعالیت : {selectedItem.activity}</p>}
             <p>سال : {enToFaDigits(selectedItem.year)} </p>
           </div>
-          {selectedItem.media && (
+          {selectedItem.mediaType === "image" && (
             <div className={classes.image}>
               <Image
                 src={selectedItem.media}
@@ -50,6 +50,32 @@ export default function DetailsPopup({ selectedItem }) {
                 layout="fill"
                 objectFit="cover"
                 priority
+              />
+            </div>
+          )}
+          {selectedItem.mediaType === "video" && (
+            <div className={classes.mediaContainer}>
+              <video
+                className={classes.video}
+                preload="metadata"
+                src={selectedItem.media}
+                controls
+              />
+            </div>
+          )}
+          {selectedItem.mediaType === "voice" && (
+            <div>
+              <audio preload="metadata" controls>
+                <source src={selectedItem.media} />
+              </audio>
+            </div>
+          )}
+          {selectedItem.mediaType === "pdf" && (
+            <div>
+              <embed
+                src={selectedItem.media}
+                height="300px"
+                type="application/pdf"
               />
             </div>
           )}

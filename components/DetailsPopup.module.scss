@@ -46,6 +46,18 @@
         height: 300px;
       }
     }
+
+    .mediaContainer {
+      height: 400px;
+      width: 550px;
+      margin-bottom: 20px;
+
+      .video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
   }
 
   .details {
