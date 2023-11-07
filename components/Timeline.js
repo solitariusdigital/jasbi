@@ -41,6 +41,7 @@ export default function Timeline({ timelineData }) {
           position: item.data[parseInt(dataIndex)].position,
           activity: item.data[parseInt(dataIndex)].activity,
           media: item.data[parseInt(dataIndex)].media,
+          mediaType: item.data[parseInt(dataIndex)].mediaType,
           description: item.data[parseInt(dataIndex)].description,
         });
       } else {
@@ -133,18 +134,43 @@ export default function Timeline({ timelineData }) {
             onClick={() => setDisplayDetails(false)}
           />
           <div className={classes.row}>
-            {details.media && (
-              <div>
+            {details.mediaType === "image" && (
+              <div className={classes.mediaContainer}>
                 <Image
                   src={details.media}
                   placeholder="blur"
                   blurDataURL={details.media}
                   alt="image"
                   loading="eager"
-                  width={300}
-                  height={250}
+                  layout="fill"
                   objectFit="cover"
                   priority
+                />
+              </div>
+            )}
+            {details.mediaType === "voice" && (
+              <div className={classes.speechContainer}>
+                <audio preload="metadata" controls>
+                  <source src={details.media} />
+                </audio>
+              </div>
+            )}
+            {details.mediaType === "video" && (
+              <div className={classes.mediaContainer}>
+                <video
+                  className={classes.video}
+                  preload="metadata"
+                  src={details.media}
+                  controls
+                />
+              </div>
+            )}
+            {details.mediaType === "pdf" && (
+              <div className={classes.mediaContainer}>
+                <embed
+                  src={details.media}
+                  height="300px"
+                  type="application/pdf"
                 />
               </div>
             )}

@@ -380,9 +380,11 @@ export async function getServerSideProps(context) {
     const media = await mediaModel.find();
     const speech = await speachModel.find();
 
-    const archiveArray = [...academics, ...politics, ...publications].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
+    const archiveArray = [
+      ...academics,
+      ...politics.filter((item) => item.mediaType === "image"),
+      ...publications,
+    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     let years = archiveArray.map((item) => {
       return item.year;
     });
@@ -395,9 +397,11 @@ export async function getServerSideProps(context) {
       const dataObj1 = academics.filter((obj) => obj.year === year);
       const dataObj2 = politics.filter((obj) => obj.year === year);
       const dataObj3 = publications.filter((obj) => obj.year === year);
+      const dataObj4 = media.filter((obj) => obj.year === year);
+      const dataObj5 = speech.filter((obj) => obj.year === year);
       const combined = {
         year: year,
-        data: [...dataObj1, ...dataObj2, ...dataObj3],
+        data: [...dataObj1, ...dataObj2, ...dataObj3, ...dataObj4, ...dataObj5],
         active: false,
       };
       timelineData.push(combined);

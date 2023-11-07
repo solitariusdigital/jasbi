@@ -32,6 +32,24 @@
   }
 }
 
+.mediaContainer,
+.speechContainer {
+  position: relative;
+  margin: 12px 0px;
+  width: 100%;
+  text-align: center;
+
+  .video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.mediaContainer {
+  height: 300px;
+}
+
 .timeline {
   overflow: auto;
   scroll-snap-type: x mandatory;
@@ -136,6 +154,8 @@
   align-items: center;
   @include mixins.transparentBackground(0.03, config.$brand);
   position: relative;
+  height: 500px;
+  overflow-y: auto;
 
   @include mixins.mobile {
     width: 100%;
@@ -159,7 +179,7 @@
 
     .information {
       text-align: right;
-      margin: 0px 20px;
+      margin: 0px 40px;
       width: 30%;
 
       @include mixins.mobile {
@@ -170,7 +190,7 @@
 
     .description {
       text-align: right;
-      width: 70%;
+      width: 100%;
       margin: 0px;
 
       @include mixins.mobile {
