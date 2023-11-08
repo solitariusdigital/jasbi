@@ -147,10 +147,9 @@ export default function Search({ archiveArray }) {
               {item.confirm && (
                 <div className={classes.item}>
                   <div className={classes.row}>
-                    {item.media && (
+                    {item.mediaType === "image" && (
                       <div className={classes.mediaContainer}>
                         <Image
-                          className={classes.image}
                           src={item.media}
                           placeholder="blur"
                           blurDataURL={item.media}
@@ -160,6 +159,32 @@ export default function Search({ archiveArray }) {
                           objectFit="cover"
                           priority
                           onClick={() => setExpandedItem(item["_id"])}
+                        />
+                      </div>
+                    )}
+                    {item.mediaType === "voice" && (
+                      <div className={classes.speechContainer}>
+                        <audio preload="metadata" controls>
+                          <source src={item.media} />
+                        </audio>
+                      </div>
+                    )}
+                    {item.mediaType === "video" && (
+                      <div className={classes.mediaContainer}>
+                        <video
+                          className={classes.video}
+                          preload="metadata"
+                          src={item.media}
+                          controls
+                        />
+                      </div>
+                    )}
+                    {item.mediaType === "pdf" && (
+                      <div className={classes.mediaContainer}>
+                        <embed
+                          src={item.media}
+                          height="300px"
+                          type="application/pdf"
                         />
                       </div>
                     )}
