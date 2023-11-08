@@ -2,18 +2,16 @@ import { useState, useContext, Fragment } from "react";
 import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
-import CloseIcon from "@mui/icons-material/Close";
 import PublicationsForm from "@/components/PublicationsForm";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import publicationModel from "@/models/Publication";
-import { getPublicationApi, updatePublicationApi } from "@/services/api";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
+import ActionComponent from "@/components/ActionComponent";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -23,27 +21,6 @@ export default function Publications({ publications }) {
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
-
-  const action = async (id, type) => {
-    const message = `${
-      type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
-    }`;
-    const confirm = window.confirm(message);
-
-    if (confirm) {
-      let data = await getPublicationApi(id);
-      switch (type) {
-        case "confirm":
-          data.confirm = true;
-          break;
-        case "cancel":
-          data.confirm = false;
-          break;
-      }
-      await updatePublicationApi(data);
-      window.location.assign("/publications");
-    }
-  };
 
   return (
     <Fragment>
@@ -59,7 +36,7 @@ export default function Publications({ publications }) {
       />
       <div className={classes.container}>
         <BannerPattern />
-        {permissionControl && (
+        {permissionControl !== "user" && (
           <div className={classes.button}>
             <button onClick={() => setDisplayForm(!displayForm)}>
               {!displayForm ? "بارگذاری" : "برگشت"}
@@ -109,11 +86,12 @@ export default function Publications({ publications }) {
           >
             {publications
               .filter((item) => item.category === category)
+              .sort((a, b) => a.confirm - b.confirm)
               .map((item, index) => (
                 <Fragment key={index}>
-                  {(permissionControl || item.confirm) && (
+                  {(permissionControl !== "user" || item.confirm) && (
                     <div className={classes.item}>
-                      {permissionControl && item.confirm && (
+                      {permissionControl !== "user" && item.confirm && (
                         <VerifiedUserIcon
                           className={classes.verified}
                           sx={{ color: "#57a361" }}
@@ -168,24 +146,7 @@ export default function Publications({ publications }) {
                           بیشتر
                         </span>
                       </p>
-                      {permissionControl && (
-                        <div className={classes.action}>
-                          {!item.confirm && (
-                            <TaskAltIcon
-                              className={classes.icon}
-                              sx={{ color: "#57a361" }}
-                              onClick={() => action(item["_id"], "confirm")}
-                            />
-                          )}
-                          {item.confirm && (
-                            <CloseIcon
-                              className={classes.icon}
-                              sx={{ color: "#cd3d2c" }}
-                              onClick={() => action(item["_id"], "cancel")}
-                            />
-                          )}
-                        </div>
-                      )}
+                      <ActionComponent item={item} route={"publications"} />
                     </div>
                   )}
                 </Fragment>

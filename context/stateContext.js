@@ -5,7 +5,9 @@ export const StateProvider = (props) => {
   // application user context
   const [appUsers, setAppUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [permissionControl, setPermissionControl] = useState(false);
+  const [permissionControl, setPermissionControl] = useState(
+    "user" || "super" || "admin"
+  );
   const [displayDetailsPopup, setDisplayDetailsPopup] = useState(false);
   const [screenSize, setScreenSize] = useState(
     "desktop" || "tablet" || "mobile"

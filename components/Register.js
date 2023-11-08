@@ -93,7 +93,10 @@ export default function Register() {
       if (userData) {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        if (userData.permission === "admin") {
+        if (
+          userData.permission === "super" ||
+          userData.permission === "admin"
+        ) {
           window.location.assign("/");
         }
       } else {
@@ -127,7 +130,10 @@ export default function Register() {
       } else {
         setCurrentUser(userData);
         secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-        if (userData.permission === "admin") {
+        if (
+          userData.permission === "super" ||
+          userData.permission === "admin"
+        ) {
           window.location.assign("/");
         }
       }

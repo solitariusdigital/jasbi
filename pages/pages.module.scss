@@ -94,21 +94,6 @@
       left: 12px;
       top: 12px;
     }
-
-    .action {
-      display: flex;
-      margin-top: 20px;
-
-      .icon {
-        margin: 0px 8px;
-
-        @include mixins.desktop {
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-    }
   }
 }
 

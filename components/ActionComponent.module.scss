@@ -1,0 +1,23 @@
+@use "styles/_config.scss" as config;
+@use "styles/_mixins.scss" as mixins;
+
+.action {
+  @include mixins.row-space-between-center();
+  margin-top: 20px;
+
+  input {
+    @include mixins.input();
+    height: 30px;
+    width: 150px;
+  }
+
+  .icon {
+    margin: 0px 8px;
+
+    @include mixins.desktop {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
