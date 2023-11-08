@@ -15,6 +15,7 @@ import mediaModel from "@/models/Media";
 import speachModel from "@/models/Speech";
 import politicModel from "@/models/Politic";
 import { NextSeo } from "next-seo";
+import Router from "next/router";
 
 export default function Home({
   timelineData,
@@ -27,6 +28,7 @@ export default function Home({
 }) {
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
+  const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
 
   const category = {
     academic: "پژوهشی و علمی",
@@ -67,6 +69,18 @@ export default function Home({
     );
   };
 
+  const activateNav = (link) => {
+    navigationTopBar.map((nav) => {
+      if (nav.link === link) {
+        Router.push(link);
+        nav.active = true;
+      } else {
+        nav.active = false;
+      }
+    });
+    setNavigationTopBar([...navigationTopBar]);
+  };
+
   return (
     <Fragment>
       <NextSeo
@@ -94,7 +108,10 @@ export default function Home({
             <div className={classes.information}>
               <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
               <div className={classes.section}>
-                <div className={classes.details}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/politics")}
+                >
                   <Image
                     className={classes.image}
                     src={bullet}
@@ -111,7 +128,10 @@ export default function Home({
                     )}
                   </h2>
                 </div>
-                <div className={classes.details}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/academic")}
+                >
                   <Image
                     className={classes.image}
                     src={bullet}
@@ -128,7 +148,10 @@ export default function Home({
                     )}
                   </h2>
                 </div>
-                <div className={classes.details}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/publications")}
+                >
                   <Image
                     className={classes.image}
                     src={bullet}
@@ -145,7 +168,10 @@ export default function Home({
                     )}
                   </h2>
                 </div>
-                <div className={classes.details}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/media")}
+                >
                   <Image
                     className={classes.image}
                     src={bullet}
@@ -160,7 +186,10 @@ export default function Home({
                     {enToFaDigits(media?.filter((item) => item.confirm).length)}
                   </h2>
                 </div>
-                <div className={classes.details}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/speech")}
+                >
                   <Image
                     className={classes.image}
                     src={bullet}
@@ -197,7 +226,10 @@ export default function Home({
         <div className={classes.information}>
           <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
           <div className={classes.section}>
-            <div className={classes.details}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/politics")}
+            >
               <Image
                 className={classes.image}
                 src={bullet}
@@ -212,7 +244,10 @@ export default function Home({
                 {enToFaDigits(politics?.filter((item) => item.confirm).length)}
               </h2>
             </div>
-            <div className={classes.details}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/academic")}
+            >
               <Image
                 className={classes.image}
                 src={bullet}
@@ -227,7 +262,10 @@ export default function Home({
                 {enToFaDigits(academics?.filter((item) => item.confirm).length)}
               </h2>
             </div>
-            <div className={classes.details}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/publications")}
+            >
               <Image
                 className={classes.image}
                 src={bullet}
@@ -244,7 +282,10 @@ export default function Home({
                 )}
               </h2>
             </div>
-            <div className={classes.details}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/media")}
+            >
               <Image
                 className={classes.image}
                 src={bullet}
@@ -259,7 +300,10 @@ export default function Home({
                 {enToFaDigits(media?.filter((item) => item.confirm).length)}
               </h2>
             </div>
-            <div className={classes.details}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/speech")}
+            >
               <Image
                 className={classes.image}
                 src={bullet}
