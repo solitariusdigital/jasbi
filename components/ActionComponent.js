@@ -101,7 +101,7 @@ export default function ActionComponent({ item, route }) {
           <input
             placeholder="کد تایید"
             type="password"
-            id="password"
+            id={item["_id"]}
             name="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}

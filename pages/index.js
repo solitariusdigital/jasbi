@@ -5,6 +5,7 @@ import Image from "next/legacy/image";
 import backgroundDesktop from "@/assets/backgroundDesktop.png";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
+import bulletTimeline from "@/assets/bulletTimeline.png";
 import Timeline from "@/components/Timeline";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
@@ -277,8 +278,34 @@ export default function Home({
         </div>
       )}
       <div className={classes.timeline}>
-        <h2>سیر تاریخی</h2>
-        <p>رویدادهای مهم و ماندگار</p>
+        <div className={classes.row}>
+          {screenSize === "desktop" && (
+            <Image
+              className={classes.image}
+              src={bulletTimeline}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+          )}
+          <div>
+            <h2>سیر تاریخی</h2>
+            <p>رویدادهای مهم و ماندگار</p>
+          </div>
+          {screenSize === "desktop" && (
+            <Image
+              className={classes.image}
+              src={bulletTimeline}
+              placeholder="blur"
+              alt="image"
+              width={60}
+              height={60}
+              loading="eager"
+            />
+          )}
+        </div>
         <Timeline timelineData={timelineData} />
       </div>
       <div className={classes.bannerContainer}>{generateBanner()}</div>

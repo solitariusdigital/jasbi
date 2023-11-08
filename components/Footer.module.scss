@@ -24,15 +24,10 @@
     justify-content: center;
     align-items: center;
     margin: 20px 0px;
-
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    cursor: pointer;
 
     .image {
-      margin: 0px 12px;
+      margin: 0px 20px;
     }
   }
 }
@@ -46,12 +41,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
-    @include mixins.desktop {
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    cursor: pointer;
 
     .action {
       margin: 0px 8px;

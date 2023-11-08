@@ -168,6 +168,18 @@
   margin: auto;
   width: config.$content-width;
 
+  .row {
+    width: 25%;
+    margin: auto;
+    @include mixins.row-space-between-center();
+
+    @include mixins.mobile {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
   @include mixins.mobile {
     width: calc(100% - 24px);
   }

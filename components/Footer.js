@@ -24,8 +24,8 @@ export default function Footer() {
             src={bullet}
             placeholder="blur"
             alt="image"
-            width={80}
-            height={80}
+            width={60}
+            height={60}
             loading="eager"
           />
           <div className={classes.image}>
@@ -35,8 +35,8 @@ export default function Footer() {
             src={bullet}
             placeholder="blur"
             alt="image"
-            width={80}
-            height={80}
+            width={60}
+            height={60}
             loading="eager"
           />
         </div>
