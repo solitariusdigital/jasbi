@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
+import { NextSeo } from "next-seo";
 import Register from "@/components/Register";
 import SendForm from "@/components/SendForm";
 import secureLocalStorage from "react-secure-storage";
@@ -16,17 +17,29 @@ export default function Login() {
   };
 
   return (
-    <div className={classes.container}>
-      <BannerPattern />
-      <div className={classes.uploadForm}>
-        {!currentUser && <Register />}
-        {currentUser && <SendForm admin={false} />}
-      </div>
-      {currentUser && (
-        <div className={classes.logout} onClick={() => logOut()}>
-          <p>خروج</p>
+    <Fragment>
+      <NextSeo
+        title="عضویت"
+        description="ارتباط با دکتر جاسبی برای ارسال خاطرات و مستندات"
+        openGraph={{
+          type: "website",
+          locale: "fa_IR",
+          url: "https://jasbi.net/",
+          siteName: "دکتر جاسبی",
+        }}
+      />
+      <div className={classes.container}>
+        <BannerPattern />
+        <div className={classes.uploadForm}>
+          {!currentUser && <Register />}
+          {currentUser && <SendForm admin={false} />}
         </div>
-      )}
-    </div>
+        {currentUser && (
+          <div className={classes.logout} onClick={() => logOut()}>
+            <p>خروج</p>
+          </div>
+        )}
+      </div>
+    </Fragment>
   );
 }
