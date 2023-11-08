@@ -12,6 +12,7 @@ const PoliticSchema = new Schema(
     group: String,
     media: String,
     mediaType: String,
+    tags: String,
     confirm: Boolean,
   },
   { timestamps: true }

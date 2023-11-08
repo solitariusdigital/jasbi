@@ -19,6 +19,7 @@ export default function PublicationsForm() {
   const [publisher, setPublisher] = useState("");
   const [category, setCategory] = useState("");
   const [media, setMedia] = useState("");
+  const [tags, setTags] = useState("");
   const categories = ["مقالات", "کتاب"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -34,7 +35,15 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = async () => {
-    if (!title || !author || !description || !year || !publisher || !category) {
+    if (
+      !title ||
+      !author ||
+      !description ||
+      !year ||
+      !publisher ||
+      !category ||
+      !tags
+    ) {
       showAlert("همه موارد الزامیست");
       return;
     }
@@ -61,6 +70,7 @@ export default function PublicationsForm() {
       group: mediaFolder,
       media: mediaLink,
       mediaType: "image",
+      tags: tags,
       confirm: false,
     };
     await createPublicationApi(publicationObject);
@@ -181,6 +191,29 @@ export default function PublicationsForm() {
             );
           })}
         </select>
+      </div>
+      <div className={classes.input}>
+        <div className={classes.bar}>
+          <p className={classes.label}>
+            کلمات کلیدی
+            <span>*</span>
+          </p>
+          <CloseIcon
+            className="icon"
+            onClick={() => setTags("")}
+            sx={{ fontSize: 16 }}
+          />
+        </div>
+        <input
+          placeholder="دانشگاه علم فرهنگ"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(e) => setTags(e.target.value)}
+          value={tags}
+          autoComplete="off"
+          dir="rtl"
+        />
       </div>
       <div className={classes.input}>
         <p className={classes.label}>

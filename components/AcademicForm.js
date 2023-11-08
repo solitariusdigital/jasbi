@@ -17,6 +17,7 @@ export default function AcademicForm({ admin }) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [media, setMedia] = useState("");
+  const [tags, setTags] = useState("");
   const categories = ["پروژه", "دستاور", "تدریس"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -33,7 +34,7 @@ export default function AcademicForm({ admin }) {
 
   const handleSubmit = async () => {
     if (admin) {
-      if (!title || !year || !description || !category) {
+      if (!title || !year || !description || !category || !tags) {
         showAlert("همه موارد الزامیست");
         return;
       }
@@ -64,6 +65,7 @@ export default function AcademicForm({ admin }) {
       group: mediaFolder,
       media: mediaLink,
       mediaType: "image",
+      tags: tags,
       confirm: false,
     };
     await createAcademicApi(academicObject);
@@ -140,6 +142,29 @@ export default function AcademicForm({ admin }) {
             );
           })}
         </select>
+      </div>
+      <div className={classes.input}>
+        <div className={classes.bar}>
+          <p className={classes.label}>
+            کلمات کلیدی
+            <span>*</span>
+          </p>
+          <CloseIcon
+            className="icon"
+            onClick={() => setTags("")}
+            sx={{ fontSize: 16 }}
+          />
+        </div>
+        <input
+          placeholder="دانشگاه علم فرهنگ"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(e) => setTags(e.target.value)}
+          value={tags}
+          autoComplete="off"
+          dir="rtl"
+        />
       </div>
       <div className={classes.input}>
         <p className={classes.label}>

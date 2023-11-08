@@ -79,7 +79,6 @@ export default function Search({ archiveArray }) {
               className="icon"
               sx={{ fontSize: 16 }}
               onClick={() => {
-                setDocuments([]);
                 setSearchText("");
                 setSearchEmpty(false);
               }}
@@ -100,7 +99,6 @@ export default function Search({ archiveArray }) {
               className="icon"
               sx={{ fontSize: 16 }}
               onClick={() => {
-                setDocuments([]);
                 setSearchTitle("");
                 setSearchEmpty(false);
               }}
@@ -121,7 +119,6 @@ export default function Search({ archiveArray }) {
               className="icon"
               sx={{ fontSize: 16 }}
               onClick={() => {
-                setDocuments([]);
                 setSearchYear("");
                 setSearchEmpty(false);
               }}

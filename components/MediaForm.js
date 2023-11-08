@@ -17,6 +17,7 @@ export default function MediaForm({ admin }) {
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState("");
+  const [tags, setTags] = useState("");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -32,7 +33,7 @@ export default function MediaForm({ admin }) {
 
   const handleSubmit = async () => {
     if (admin) {
-      if (!title || !year || !description || !media) {
+      if (!title || !year || !description || !media || !tags) {
         showAlert("همه موارد الزامیست");
         return;
       }
@@ -63,6 +64,7 @@ export default function MediaForm({ admin }) {
       group: mediaFolder,
       media: mediaLink,
       mediaType: mediaType,
+      tags: tags,
       confirm: false,
     };
     await createMediaApi(mediaObject);
@@ -113,6 +115,29 @@ export default function MediaForm({ admin }) {
           name="year"
           onChange={(e) => setYear(e.target.value)}
           value={year}
+          autoComplete="off"
+          dir="rtl"
+        />
+      </div>
+      <div className={classes.input}>
+        <div className={classes.bar}>
+          <p className={classes.label}>
+            کلمات کلیدی
+            <span>*</span>
+          </p>
+          <CloseIcon
+            className="icon"
+            onClick={() => setTags("")}
+            sx={{ fontSize: 16 }}
+          />
+        </div>
+        <input
+          placeholder="دانشگاه علم فرهنگ"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(e) => setTags(e.target.value)}
+          value={tags}
           autoComplete="off"
           dir="rtl"
         />

@@ -23,6 +23,7 @@ export default function PoliticsForm({ admin }) {
   const [type, setType] = useState("");
   const [activity, setActivity] = useState("");
   const [media, setMedia] = useState("");
+  const [tags, setTags] = useState("");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -56,7 +57,7 @@ export default function PoliticsForm({ admin }) {
 
   const handleSubmit = async () => {
     if (admin) {
-      if (!title || !year || !description || !category || !position) {
+      if (!title || !year || !description || !category || !position || !tags) {
         showAlert("همه موارد الزامیست");
         return;
       }
@@ -117,6 +118,7 @@ export default function PoliticsForm({ admin }) {
       group: mediaFolder,
       media: mediaLink,
       mediaType: mediaType,
+      tags: tags,
       confirm: false,
     };
     await createPoliticApi(politicObject);
@@ -266,6 +268,29 @@ export default function PoliticsForm({ admin }) {
           </select>
         </div>
       )}
+      <div className={classes.input}>
+        <div className={classes.bar}>
+          <p className={classes.label}>
+            کلمات کلیدی
+            <span>*</span>
+          </p>
+          <CloseIcon
+            className="icon"
+            onClick={() => setTags("")}
+            sx={{ fontSize: 16 }}
+          />
+        </div>
+        <input
+          placeholder="دانشگاه علم فرهنگ"
+          type="text"
+          id="tags"
+          name="tags"
+          onChange={(e) => setTags(e.target.value)}
+          value={tags}
+          autoComplete="off"
+          dir="rtl"
+        />
+      </div>
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه
