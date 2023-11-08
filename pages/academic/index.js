@@ -139,7 +139,7 @@ export default function Academic({ academics }) {
                       <div>
                         <h3>{item.title}</h3>
                         {item.media && (
-                          <div className={classes.imageContainer}>
+                          <div className={classes.mediaContainer}>
                             <Image
                               src={item.media}
                               placeholder="blur"

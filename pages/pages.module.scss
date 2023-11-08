@@ -27,13 +27,24 @@
 
 .inputSearch {
   @include mixins.row-space-between-center();
-  width: 100%;
-  margin: 50px 0px;
+  direction: rtl;
+
+  @include mixins.mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  @include mixins.tablet {
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    margin: 20px 20px;
+  }
 
   input {
     @include mixins.input();
-    width: 100%;
-    margin: 0px 20px;
+    width: 250px;
+    margin-right: 20px;
   }
 
   button {
@@ -132,12 +143,6 @@
       cursor: pointer;
     }
   }
-}
-
-.imageContainer {
-  position: relative;
-  height: 300px;
-  margin: 20px 0px;
 }
 
 .mediaContainer,

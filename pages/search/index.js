@@ -6,6 +6,8 @@ import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
+import mediaModel from "@/models/Media";
+import speachModel from "@/models/Speech";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import {
@@ -16,26 +18,44 @@ import {
 } from "@/services/utility";
 
 export default function Search({ archiveArray }) {
-  const [search, setSearch] = useState("");
   const [documents, setDocuments] = useState([]);
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
+  const [searchText, setSearchText] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchYear, setSearchYear] = useState("");
 
   const searchDocuments = () => {
     setSearchEmpty(false);
     let searchDocuments = [];
-    if (search) {
-      searchDocuments = archiveArray.filter((item) =>
-        Object.values(item).some((val) =>
-          String(val).includes(
-            onlyLettersAndNumbers(search) ? search.trim() : faToEnDigits(search)
-          )
-        )
-      );
+    if (searchText || searchTitle || searchYear) {
+      searchDocuments = archiveArray.filter((item) => {
+        let matches = [];
+        if (searchText || searchTitle) {
+          let search = searchText || searchTitle;
+          matches.push(
+            Object.values(item).some((val) =>
+              String(val).includes(
+                !onlyLettersAndNumbers(search)
+                  ? search.trim().slice(0, 20)
+                  : null
+              )
+            )
+          );
+        }
+        if (searchYear) {
+          matches.push(
+            Object.values(item).some((val) =>
+              String(val).includes(faToEnDigits(searchYear))
+            )
+          );
+        }
+        return matches.every((match) => match);
+      });
       setDocuments(searchDocuments);
-      if (searchDocuments.length === 0) {
-        setSearchEmpty(true);
-      }
+    }
+    if (searchDocuments.length === 0) {
+      setSearchEmpty(true);
     }
   };
 
@@ -54,29 +74,75 @@ export default function Search({ archiveArray }) {
       <div className={classes.container}>
         <BannerPattern />
         <div className={classes.inputSearch}>
+          <div className={classes.row}>
+            <CloseIcon
+              className="icon"
+              sx={{ fontSize: 16 }}
+              onClick={() => {
+                setDocuments([]);
+                setSearchText("");
+                setSearchEmpty(false);
+              }}
+            />
+            <input
+              placeholder="متن"
+              type="text"
+              id="searchText"
+              name="searchText"
+              onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
+              autoComplete="off"
+              dir="rtl"
+            />
+          </div>
+          <div className={classes.row}>
+            <CloseIcon
+              className="icon"
+              sx={{ fontSize: 16 }}
+              onClick={() => {
+                setDocuments([]);
+                setSearchTitle("");
+                setSearchEmpty(false);
+              }}
+            />
+            <input
+              placeholder="عنوان، سمت، کلمه"
+              type="text"
+              id="searchTitle"
+              name="searchTitle"
+              onChange={(e) => setSearchTitle(e.target.value)}
+              value={searchTitle}
+              autoComplete="off"
+              dir="rtl"
+            />
+          </div>
+          <div className={classes.row}>
+            <CloseIcon
+              className="icon"
+              sx={{ fontSize: 16 }}
+              onClick={() => {
+                setDocuments([]);
+                setSearchYear("");
+                setSearchEmpty(false);
+              }}
+            />
+            <input
+              placeholder="سال"
+              type="text"
+              id="searchYear"
+              name="searchYear"
+              onChange={(e) => setSearchYear(e.target.value)}
+              value={searchYear}
+              autoComplete="off"
+              dir="rtl"
+            />
+          </div>
           <button onClick={() => searchDocuments()}>جستجو</button>
-          <input
-            placeholder="جستجو ... متن، عنوان، سمت، فعالیت، سال"
-            type="text"
-            id="search"
-            name="search"
-            onChange={(e) => setSearch(e.target.value)}
-            maxLength={30}
-            value={search}
-            autoComplete="off"
-            dir="rtl"
-          />
-          <CloseIcon
-            className="icon"
-            onClick={() => {
-              setDocuments([]);
-              setSearch("");
-              setSearchEmpty(false);
-            }}
-          />
         </div>
         {searchEmpty && (
-          <p className="message">مطلبی برای نمایش موجود نیست جستجو کنید</p>
+          <p className="message">
+            مطلبی برای نمایش موجود نیست. دوباره جستجو کنید
+          </p>
         )}
         <div className={classes.list}>
           {documents.map((item, index) => (
@@ -85,7 +151,7 @@ export default function Search({ archiveArray }) {
                 <div className={classes.item}>
                   <div className={classes.row}>
                     {item.media && (
-                      <div className={classes.imageContainer}>
+                      <div className={classes.mediaContainer}>
                         <Image
                           className={classes.image}
                           src={item.media}
@@ -93,8 +159,7 @@ export default function Search({ archiveArray }) {
                           blurDataURL={item.media}
                           alt="image"
                           loading="eager"
-                          width={300}
-                          height={370}
+                          layout="fill"
                           objectFit="cover"
                           priority
                           onClick={() => setExpandedItem(item["_id"])}
@@ -144,10 +209,16 @@ export async function getServerSideProps(context) {
     const academics = await academicModel.find();
     const politics = await politicModel.find();
     const publications = await publicationModel.find();
+    const media = await mediaModel.find();
+    const speech = await speachModel.find();
 
-    const archiveArray = [...academics, ...politics, ...publications].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
+    const archiveArray = [
+      ...academics,
+      ...politics,
+      ...publications,
+      ...media,
+      ...speech,
+    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return {
       props: {

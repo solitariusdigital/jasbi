@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment } from "react";
 import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
@@ -78,7 +78,7 @@ export default function Home({
           siteName: "دکتر جاسبی",
         }}
       />
-      <div className={classes.imageContainer}>
+      <div className={classes.coverImageContainer}>
         {screenSize === "desktop" && (
           <div className={classes.imageBoxDesktop}>
             <Image
@@ -293,7 +293,7 @@ export default function Home({
             <Fragment key={index}>
               <div className={classes.card}>
                 {item.media && (
-                  <div className={classes.imageContainer}>
+                  <div className={classes.coverImageContainer}>
                     <Image
                       className={classes.image}
                       src={item.media}
@@ -353,9 +353,13 @@ export async function getServerSideProps(context) {
     const media = await mediaModel.find();
     const speech = await speachModel.find();
 
-    const archiveArray = [...academics, ...politics, ...publications].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
+    const archiveArray = [
+      ...academics,
+      ...politics,
+      ...publications,
+      ...media,
+      ...speech,
+    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     let years = archiveArray.map((item) => {
       return item.year;
     });
