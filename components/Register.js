@@ -9,7 +9,6 @@ import { createUserApi, getUsersApi } from "@/services/api";
 export default function Register() {
   const { currentUser, setCurrentUser } = useContext(StateContext);
   const { appUsers, setAppUsers } = useContext(StateContext);
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [token, setToken] = useState("");

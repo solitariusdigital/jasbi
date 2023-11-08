@@ -9,6 +9,7 @@ const UserSchema = new Schema(
       unique: true,
     },
     permission: String,
+    code: String,
   },
   { timestamps: true }
 );

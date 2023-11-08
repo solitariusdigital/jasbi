@@ -14,12 +14,14 @@ import {
   updateMediaApi,
   getSpeechApi,
   updateSpeechApi,
+  getUsersApi,
 } from "@/services/api";
 import AES from "crypto-js/aes";
 import { enc } from "crypto-js";
 
 export default function ActionComponent({ item, route }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const { currentUser, setCurrentUser } = useContext(StateContext);
   const [password, setPassword] = useState("");
 
   const actionObject = {
@@ -46,22 +48,35 @@ export default function ActionComponent({ item, route }) {
   };
 
   const action = async (id, type) => {
-    const message = `${
-      type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
-    }`;
-    const confirm = window.confirm(message);
-    if (confirm) {
-      let data = await actionObject[route].get(id);
-      switch (type) {
-        case "confirm":
-          data.confirm = true;
-          break;
-        case "cancel":
-          data.confirm = false;
-          break;
+    const users = await getUsersApi();
+    const admin = users.find((user) => user["_id"] === currentUser["_id"]);
+
+    const decryptedBytes = AES.decrypt(
+      admin.code,
+      process.env.NEXT_PUBLIC_CRYPTO_SECRETKEY
+    );
+    const decryptedPassword = decryptedBytes.toString(enc.Utf8);
+
+    if (decryptedPassword === password) {
+      const message = `${
+        type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
+      }`;
+      const confirm = window.confirm(message);
+      if (confirm) {
+        let data = await actionObject[route].get(id);
+        switch (type) {
+          case "confirm":
+            data.confirm = true;
+            break;
+          case "cancel":
+            data.confirm = false;
+            break;
+        }
+        await actionObject[route].update(data);
+        window.location.assign(`/${route}`);
       }
-      await actionObject[route].update(data);
-      window.location.assign(`/${route}`);
+    } else {
+      window.confirm("کد تایید اشتباه");
     }
   };
 
@@ -84,7 +99,7 @@ export default function ActionComponent({ item, route }) {
             />
           )}
           <input
-            placeholder="Code"
+            placeholder="کد تایید"
             type="password"
             id="password"
             name="password"
@@ -92,7 +107,6 @@ export default function ActionComponent({ item, route }) {
             value={password}
             maxLength={6}
             autoComplete="off"
-            dir="ltr"
           />
         </div>
       )}
