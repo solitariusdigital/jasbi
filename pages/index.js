@@ -2,12 +2,11 @@ import { useState, useContext, Fragment } from "react";
 import { StateContext } from "../context/stateContext";
 import classes from "./home.module.scss";
 import Image from "next/legacy/image";
-import backgroundDesktop from "@/assets/backgroundDesktop.png";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
 import bulletTimeline from "@/assets/bulletTimeline.png";
 import Timeline from "@/components/Timeline";
-import { enToFaDigits, sliceString } from "@/services/utility";
+import { enToFaDigits, sliceString, uploadImage } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
@@ -16,6 +15,7 @@ import speachModel from "@/models/Speech";
 import politicModel from "@/models/Politic";
 import { NextSeo } from "next-seo";
 import Router from "next/router";
+import loaderImage from "@/assets/loader.png";
 
 export default function Home({
   timelineData,
@@ -29,6 +29,10 @@ export default function Home({
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
   const { navigationTopBar, setNavigationTopBar } = useContext(StateContext);
+  const { permissionControl, setPermissionControl } = useContext(StateContext);
+  const [image, setImage] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const category = {
     academic: "پژوهشی و علمی",
@@ -81,6 +85,15 @@ export default function Home({
     setNavigationTopBar([...navigationTopBar]);
   };
 
+  const uploadImageToServer = async () => {
+    if (image) {
+      setLoader(true);
+      setDisableButton(true);
+      await uploadImage(image, "imgCover", "cover", ".jpg");
+      window.location.assign("/");
+    }
+  };
+
   return (
     <Fragment>
       <NextSeo
@@ -98,7 +111,8 @@ export default function Home({
           <div className={classes.imageBoxDesktop}>
             <Image
               className={classes.image}
-              src={backgroundDesktop}
+              src="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
+              blurDataURL="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
               placeholder="blur"
               alt="image"
               layout="fill"
@@ -206,6 +220,50 @@ export default function Home({
                     )}
                   </h2>
                 </div>
+                {permissionControl === "super" && (
+                  <div className={classes.input}>
+                    <label className={classes.file}>
+                      <input
+                        onChange={(e) => {
+                          setImage(e.target.files[0]);
+                        }}
+                        type="file"
+                        accept="image/*"
+                      />
+                      <p>تغییر عکس کاور</p>
+                    </label>
+                    {image && (
+                      <div className={classes.image}>
+                        <Image
+                          width={100}
+                          height={50}
+                          objectFit="contain"
+                          src={URL.createObjectURL(image)}
+                          alt="image"
+                          priority
+                        />
+                      </div>
+                    )}
+                    {loader && (
+                      <div className={classes.loader}>
+                        <Image
+                          width={50}
+                          height={50}
+                          src={loaderImage}
+                          alt="isLoading"
+                        />
+                      </div>
+                    )}
+                    {image && (
+                      <button
+                        disabled={disableButton}
+                        onClick={() => uploadImageToServer()}
+                      >
+                        بارگذاری
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -213,7 +271,8 @@ export default function Home({
         {screenSize !== "desktop" && (
           <Image
             className={classes.image}
-            src={backgroundDesktop}
+            src="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
+            blurDataURL="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
             placeholder="blur"
             alt="image"
             layout="fill"

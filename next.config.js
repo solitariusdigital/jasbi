@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ["jasbi.storage.iran.liara.space", "trustseal.enamad.ir"],
+    domains: ["jasbi.storage.iran.liara.space"],
   },
 };
 
