@@ -32,6 +32,13 @@ export default function MediaForm({ admin }) {
   };
 
   const handleSubmit = async () => {
+    const maxSizeInBytes = 2 * 1024 * 1024;
+    if (mediaType === "image" && media.size > maxSizeInBytes) {
+      showAlert("2MB سایز عکس کمتر از");
+      const inputFile = document.getElementById("inputFile");
+      inputFile.value = null;
+      return;
+    }
     if (admin) {
       if (!title || !year || !description || !media || !tags) {
         showAlert("همه موارد الزامیست");
@@ -187,27 +194,27 @@ export default function MediaForm({ admin }) {
               onChange={(e) => {
                 setMedia(e.target.files[0]);
               }}
+              id="inputFile"
               type="file"
               accept="image/*"
             />
             <p>انتخاب عکس</p>
           </label>
-          {media !== "" && (
+          {media && (
             <div className={classes.mediaPreview}>
               <CloseIcon
                 className="icon"
                 onClick={() => setMedia("")}
                 sx={{ fontSize: 16 }}
               />
-              <div className={classes.media}>
-                <Image
-                  layout="fill"
-                  objectFit="contain"
-                  src={URL.createObjectURL(media)}
-                  alt="image"
-                  priority
-                />
-              </div>
+              <Image
+                width={300}
+                height={200}
+                objectFit="contain"
+                src={URL.createObjectURL(media)}
+                alt="image"
+                priority
+              />
             </div>
           )}
         </div>

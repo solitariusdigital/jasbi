@@ -35,6 +35,13 @@ export default function PublicationsForm() {
   };
 
   const handleSubmit = async () => {
+    const maxSizeInBytes = 2 * 1024 * 1024;
+    if (media.size > maxSizeInBytes) {
+      showAlert("2MB سایز عکس کمتر از");
+      const inputFile = document.getElementById("inputFile");
+      inputFile.value = null;
+      return;
+    }
     if (
       !title ||
       !author ||
@@ -237,12 +244,13 @@ export default function PublicationsForm() {
             onChange={(e) => {
               setMedia(e.target.files[0]);
             }}
+            id="inputFile"
             type="file"
             accept="image/*"
           />
           <p>عکس اختیاری</p>
         </label>
-        {media !== "" && (
+        {media && (
           <div className={classes.mediaPreview}>
             <CloseIcon
               className="icon"
