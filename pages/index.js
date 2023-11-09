@@ -222,7 +222,7 @@ export default function Home({
                 </div>
                 {permissionControl === "super" && (
                   <div className={classes.input}>
-                    <label className={classes.file}>
+                    <label className="file">
                       <input
                         onChange={(e) => {
                           setImage(e.target.files[0]);

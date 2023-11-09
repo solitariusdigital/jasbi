@@ -347,7 +347,7 @@ export default function PoliticsForm({ admin }) {
       </div>
       {mediaType === "image" && (
         <div className={classes.input}>
-          <label className={classes.file}>
+          <label className="file">
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
@@ -379,7 +379,7 @@ export default function PoliticsForm({ admin }) {
       )}
       {mediaType === "video" && (
         <div className={classes.input}>
-          <label className={classes.file}>
+          <label className="file">
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
@@ -408,7 +408,7 @@ export default function PoliticsForm({ admin }) {
       )}
       {mediaType === "voice" && (
         <div className={classes.input}>
-          <label className={classes.file}>
+          <label className="file">
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
@@ -434,7 +434,7 @@ export default function PoliticsForm({ admin }) {
       )}
       {mediaType === "pdf" && (
         <div className={classes.input}>
-          <label className={classes.file}>
+          <label className="file">
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);

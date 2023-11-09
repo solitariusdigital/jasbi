@@ -183,7 +183,7 @@ export default function AcademicForm({ admin }) {
         ></textarea>
       </div>
       <div className={classes.input}>
-        <label className={classes.file}>
+        <label className="file">
           <input
             onChange={(e) => {
               setMedia(e.target.files[0]);
