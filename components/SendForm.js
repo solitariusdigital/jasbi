@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from "./Form.module.scss";
 import PoliticsForm from "./PoliticsForm";
-import AcademicForm from "./AcademicForm";
+import AcademicBioForm from "./AcademicBioForm";
 import MediaForm from "./MediaForm";
 import SpeechForm from "./SpeechForm";
 
@@ -36,7 +36,9 @@ export default function SendForm({ admin }) {
         </select>
       </div>
       {type === "سیاسی و اجرایی" && <PoliticsForm admin={admin} />}
-      {type === "پژوهشی و علمی" && <AcademicForm admin={admin} />}
+      {type === "پژوهشی و علمی" && (
+        <AcademicBioForm admin={admin} type={"academic"} />
+      )}
       {type === "تصاویر" && <MediaForm admin={admin} />}
       {type === "سخنرانی" && <SpeechForm admin={admin} />}
     </div>

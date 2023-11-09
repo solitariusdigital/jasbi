@@ -14,6 +14,8 @@ import {
   updateMediaApi,
   getSpeechApi,
   updateSpeechApi,
+  getBiographyApi,
+  updateBiographyApi,
   getUsersApi,
 } from "@/services/api";
 import AES from "crypto-js/aes";
@@ -44,6 +46,10 @@ export default function ActionComponent({ item, route }) {
     speech: {
       get: getSpeechApi,
       update: updateSpeechApi,
+    },
+    biography: {
+      get: getBiographyApi,
+      update: updateBiographyApi,
     },
   };
 

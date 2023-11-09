@@ -2,7 +2,7 @@ import { useState, useContext, Fragment } from "react";
 import { StateContext } from "@/context/stateContext";
 import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
-import AcademicForm from "@/components/AcademicForm";
+import AcademicBioForm from "@/components/AcademicBioForm";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
@@ -84,7 +84,7 @@ export default function Academic({ academics }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <AcademicForm admin={true} />
+            <AcademicBioForm admin={true} type={"academic"} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (

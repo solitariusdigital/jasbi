@@ -3,7 +3,7 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createAcademicApi } from "@/services/api";
+import { createAcademicApi, createBiographyApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
@@ -11,7 +11,7 @@ import {
   uploadImage,
 } from "@/services/utility";
 
-export default function AcademicForm({ admin }) {
+export default function AcademicBioForm({ admin, type }) {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
@@ -34,9 +34,15 @@ export default function AcademicForm({ admin }) {
 
   const handleSubmit = async () => {
     if (admin) {
-      if (!title || !year || !description || !category || !tags) {
+      if (!title || !year || !description || !tags) {
         showAlert("همه موارد الزامیست");
         return;
+      }
+      if (type === "academic") {
+        if (!category) {
+          showAlert("همه موارد الزامیست");
+          return;
+        }
       }
     } else {
       if (!title) {
@@ -50,14 +56,14 @@ export default function AcademicForm({ admin }) {
 
     // upload image
     let mediaLink = "";
-    let mediaFolder = "academic";
+    let mediaFolder = type;
     if (media) {
       let imageId = `img${sixGenerator()}`;
       mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
       await uploadImage(media, imageId, mediaFolder, ".jpg");
     }
 
-    let academicObject = {
+    let dataObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
@@ -68,13 +74,19 @@ export default function AcademicForm({ admin }) {
       tags: tags,
       confirm: false,
     };
-    await createAcademicApi(academicObject);
-    window.location.assign("/academic");
+    if (type === "academic") {
+      await createAcademicApi(dataObject);
+    } else {
+      await createBiographyApi(dataObject);
+    }
+    window.location.assign(`/${type}`);
   };
 
   return (
     <div className={classes.form}>
-      <p className={classes.title}>پژوهشی و علمی</p>
+      <p className={classes.title}>
+        {type === "academic" ? "پژوهشی و علمی" : "زندگینامه"}
+      </p>
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>
@@ -120,29 +132,31 @@ export default function AcademicForm({ admin }) {
           dir="rtl"
         />
       </div>
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            دسته بندی
-            {admin && <span>*</span>}
-          </p>
+      {type === "academic" && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              دسته بندی
+              {admin && <span>*</span>}
+            </p>
+          </div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="default" disabled>
+              انتخاب
+            </option>
+            {categories.map((category, index) => {
+              return (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              );
+            })}
+          </select>
         </div>
-        <select
-          defaultValue={"default"}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="default" disabled>
-            انتخاب
-          </option>
-          {categories.map((category, index) => {
-            return (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            );
-          })}
-        </select>
-      </div>
+      )}
       <div className={classes.input}>
         <div className={classes.bar}>
           <p className={classes.label}>

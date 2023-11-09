@@ -237,3 +237,43 @@ export const getSpeechesApi = async () => {
   });
   return await response.json();
 };
+
+// biography api
+export const updateBiographyApi = async (data) => {
+  const response = await fetch("/api/biographys", {
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const createBiographyApi = async (data) => {
+  const response = await fetch("/api/biographys", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const getBiographyApi = async (id) => {
+  const response = await fetch(`/api/biography?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+export const getBiographysApi = async () => {
+  const response = await fetch("/api/biographys", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
