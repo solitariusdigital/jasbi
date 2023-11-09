@@ -33,9 +33,9 @@ export default function AcademicBioForm({ admin, type }) {
   };
 
   const handleSubmit = async () => {
-    const maxSizeInBytes = 2 * 1024 * 1024;
+    const maxSizeInBytes = 1 * 1024 * 1024;
     if (media.size > maxSizeInBytes) {
-      showAlert("2MB سایز عکس کمتر از");
+      showAlert("1MB سایز عکس کمتر از");
       const inputFile = document.getElementById("inputFile");
       inputFile.value = null;
       return;
