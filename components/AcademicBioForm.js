@@ -157,29 +157,31 @@ export default function AcademicBioForm({ admin, type }) {
           </select>
         </div>
       )}
-      <div className={classes.input}>
-        <div className={classes.bar}>
-          <p className={classes.label}>
-            کلمات کلیدی
-            <span>*</span>
-          </p>
-          <CloseIcon
-            className="icon"
-            onClick={() => setTags("")}
-            sx={{ fontSize: 16 }}
+      {admin && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              کلمات کلیدی
+              <span>*</span>
+            </p>
+            <CloseIcon
+              className="icon"
+              onClick={() => setTags("")}
+              sx={{ fontSize: 16 }}
+            />
+          </div>
+          <input
+            placeholder="دانشگاه علم فرهنگ"
+            type="text"
+            id="tags"
+            name="tags"
+            onChange={(e) => setTags(e.target.value)}
+            value={tags}
+            autoComplete="off"
+            dir="rtl"
           />
         </div>
-        <input
-          placeholder="دانشگاه علم فرهنگ"
-          type="text"
-          id="tags"
-          name="tags"
-          onChange={(e) => setTags(e.target.value)}
-          value={tags}
-          autoComplete="off"
-          dir="rtl"
-        />
-      </div>
+      )}
       <div className={classes.input}>
         <p className={classes.label}>
           خلاصه

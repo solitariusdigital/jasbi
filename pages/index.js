@@ -4,7 +4,6 @@ import classes from "./home.module.scss";
 import Image from "next/legacy/image";
 import banner from "@/assets/banner.png";
 import bullet from "@/assets/bullet.png";
-import bulletTimeline from "@/assets/bulletTimeline.png";
 import Timeline from "@/components/Timeline";
 import { enToFaDigits, sliceString, uploadImage } from "@/services/utility";
 import dbConnect from "@/services/dbConnect";
@@ -12,6 +11,7 @@ import academicModel from "@/models/Academic";
 import publicationModel from "@/models/Publication";
 import mediaModel from "@/models/Media";
 import speachModel from "@/models/Speech";
+import biographyModel from "@/models/Biography";
 import politicModel from "@/models/Politic";
 import { NextSeo } from "next-seo";
 import Router from "next/router";
@@ -38,6 +38,7 @@ export default function Home({
     academic: "پژوهشی و علمی",
     publications: "انتشارات",
     politics: "سیاسی و اجرایی",
+    biography: "زندگینامه",
   };
 
   const generateBanner = () => {
@@ -230,7 +231,7 @@ export default function Home({
                         type="file"
                         accept="image/*"
                       />
-                      <p>تغییر عکس کاور</p>
+                      <p>تغییر عکس</p>
                     </label>
                     {image && (
                       <div className={classes.image}>
@@ -385,7 +386,7 @@ export default function Home({
           {screenSize === "desktop" && (
             <Image
               className={classes.image}
-              src={bulletTimeline}
+              src={bullet}
               placeholder="blur"
               alt="image"
               width={60}
@@ -400,7 +401,7 @@ export default function Home({
           {screenSize === "desktop" && (
             <Image
               className={classes.image}
-              src={bulletTimeline}
+              src={bullet}
               placeholder="blur"
               alt="image"
               width={60}
@@ -482,6 +483,7 @@ export async function getServerSideProps(context) {
     const publications = await publicationModel.find();
     const media = await mediaModel.find();
     const speech = await speachModel.find();
+    const biography = await biographyModel.find();
 
     const archiveArray = [
       ...academics,
@@ -489,6 +491,7 @@ export async function getServerSideProps(context) {
       ...publications,
       ...media,
       ...speech,
+      ...biography,
     ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     let years = archiveArray.map((item) => {
       return item.year;
@@ -504,9 +507,17 @@ export async function getServerSideProps(context) {
       const dataObj3 = publications.filter((obj) => obj.year === year);
       const dataObj4 = media.filter((obj) => obj.year === year);
       const dataObj5 = speech.filter((obj) => obj.year === year);
+      const dataObj6 = biography.filter((obj) => obj.year === year);
       const combined = {
         year: year,
-        data: [...dataObj1, ...dataObj2, ...dataObj3, ...dataObj4, ...dataObj5],
+        data: [
+          ...dataObj1,
+          ...dataObj2,
+          ...dataObj3,
+          ...dataObj4,
+          ...dataObj5,
+          ...dataObj6,
+        ],
         active: false,
       };
       timelineData.push(combined);
