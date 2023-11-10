@@ -42,7 +42,7 @@
       margin-bottom: 20px;
 
       @include mixins.mobile {
-        width: 250px;
+        width: 300px;
         height: 300px;
       }
     }
@@ -51,6 +51,11 @@
       height: 400px;
       width: 550px;
       margin-bottom: 20px;
+
+      @include mixins.mobile {
+        width: 300px;
+        height: 300px;
+      }
 
       .video {
         height: 100%;
