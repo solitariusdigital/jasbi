@@ -45,9 +45,9 @@ export default function RootLayout({ children }) {
           const userData = await getUserApi(currentUser["_id"]);
           setCurrentUser(userData);
           secureLocalStorage.setItem("currentUser", JSON.stringify(userData));
-          if (currentUser.permission === "super") {
+          if (userData.permission === "super") {
             setPermissionControl("super");
-          } else if (currentUser.permission === "admin") {
+          } else if (userData.permission === "admin") {
             setPermissionControl("admin");
           } else {
             setPermissionControl("user");
