@@ -4,8 +4,8 @@ export default async function imageHandler(req, res) {
   res.setHeader("Cache-Control", "s-maxage=10");
   aws.config.update({
     endpoint: process.env.NEXT_PUBLIC_LIARA_ENDPOINT,
-    accessKeyId: process.env.LIARA_ACCESS_KEY,
-    secretAccessKey: process.env.LIARA_SECRET_KEY,
+    accessKeyId: process.env.NEXT_PUBLIC_LIARA_ACCESS_KEY,
+    secretAccessKey: process.env.NEXT_PUBLIC_LIARA_SECRET_KEY,
     region: "default",
   });
 
