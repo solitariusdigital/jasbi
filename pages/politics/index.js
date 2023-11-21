@@ -158,6 +158,7 @@ export default function Politics({ politics }) {
                               layout="fill"
                               objectFit="cover"
                               priority
+                              as="image"
                               onClick={() => {
                                 setSelectedItem(item);
                                 setDisplayDetailsPopup(true);
@@ -168,7 +169,7 @@ export default function Politics({ politics }) {
                         )}
                         {item.mediaType === "voice" && (
                           <div className={classes.speechContainer}>
-                            <audio preload="metadata" controls>
+                            <audio preload="metadata" controls as="audio">
                               <source src={item.media} />
                             </audio>
                           </div>
@@ -180,6 +181,7 @@ export default function Politics({ politics }) {
                               preload="metadata"
                               src={item.media}
                               controls
+                              as="video"
                             />
                           </div>
                         )}

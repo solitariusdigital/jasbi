@@ -73,7 +73,7 @@ export default function Media({ speech }) {
                         <h3>{item.title}</h3>
                         {item.mediaType === "voice" && (
                           <div className={classes.speechContainer}>
-                            <audio preload="metadata" controls>
+                            <audio preload="metadata" controls as="audio">
                               <source src={item.media} />
                             </audio>
                           </div>
@@ -85,6 +85,7 @@ export default function Media({ speech }) {
                               preload="metadata"
                               src={item.media}
                               controls
+                              as="video"
                             />
                           </div>
                         )}
@@ -94,6 +95,7 @@ export default function Media({ speech }) {
                               src={item.media}
                               height="300px"
                               type="application/pdf"
+                              as="document"
                             />
                           </div>
                         )}

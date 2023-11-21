@@ -117,6 +117,7 @@ export default function Publications({ publications }) {
                               layout="fill"
                               objectFit="cover"
                               priority
+                              as="image"
                               onClick={() => {
                                 setSelectedItem(item);
                                 setDisplayDetailsPopup(true);

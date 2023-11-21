@@ -119,6 +119,7 @@ export default function Home({
               layout="fill"
               objectFit="cover"
               loading="eager"
+              as="image"
             />
             <div className={classes.information}>
               <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
@@ -135,6 +136,7 @@ export default function Home({
                     width={40}
                     height={40}
                     loading="eager"
+                    as="image"
                   />
                   <p>سیاسی و اجرایی</p>
                   <h2>
@@ -155,6 +157,7 @@ export default function Home({
                     width={40}
                     height={40}
                     loading="eager"
+                    as="image"
                   />
                   <p>پژوهشی و علمی</p>
                   <h2>
@@ -175,6 +178,7 @@ export default function Home({
                     width={40}
                     height={40}
                     loading="eager"
+                    as="image"
                   />
                   <p>انتشارات</p>
                   <h2>
@@ -195,6 +199,7 @@ export default function Home({
                     width={40}
                     height={40}
                     loading="eager"
+                    as="image"
                   />
                   <p>تصاویر</p>
                   <h2>
@@ -213,6 +218,7 @@ export default function Home({
                     width={40}
                     height={40}
                     loading="eager"
+                    as="image"
                   />
                   <p>سخنرانی</p>
                   <h2>
@@ -242,6 +248,7 @@ export default function Home({
                           src={URL.createObjectURL(image)}
                           alt="image"
                           priority
+                          as="image"
                         />
                       </div>
                     )}
@@ -252,6 +259,7 @@ export default function Home({
                           height={50}
                           src={loaderImage}
                           alt="isLoading"
+                          as="image"
                         />
                       </div>
                     )}
@@ -279,6 +287,7 @@ export default function Home({
             layout="fill"
             objectFit="cover"
             loading="eager"
+            as="image"
           />
         )}
       </div>
@@ -298,6 +307,7 @@ export default function Home({
                 width={40}
                 height={40}
                 loading="eager"
+                as="image"
               />
               <p>سیاسی و اجرایی</p>
               <h2>
@@ -316,6 +326,7 @@ export default function Home({
                 width={40}
                 height={40}
                 loading="eager"
+                as="image"
               />
               <p>پژوهشی و علمی</p>
               <h2>
@@ -334,6 +345,7 @@ export default function Home({
                 width={40}
                 height={40}
                 loading="eager"
+                as="image"
               />
               <p>انتشارات</p>
               <h2>
@@ -354,6 +366,7 @@ export default function Home({
                 width={40}
                 height={40}
                 loading="eager"
+                as="image"
               />
               <p>تصاویر</p>
               <h2>
@@ -372,6 +385,7 @@ export default function Home({
                 width={40}
                 height={40}
                 loading="eager"
+                as="image"
               />
               <p>سخنرانی</p>
               <h2>
@@ -392,6 +406,7 @@ export default function Home({
               width={60}
               height={60}
               loading="eager"
+              as="image"
             />
           )}
           <div>
@@ -407,6 +422,7 @@ export default function Home({
               width={60}
               height={60}
               loading="eager"
+              as="image"
             />
           )}
         </div>
@@ -435,6 +451,7 @@ export default function Home({
                       objectFit="cover"
                       layout="fill"
                       priority
+                      as="image"
                       onClick={() => setExpandedItem(item["_id"])}
                     />
                   </div>

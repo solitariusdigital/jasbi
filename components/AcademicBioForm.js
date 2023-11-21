@@ -3,25 +3,34 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createAcademicApi, createBiographyApi } from "@/services/api";
+import {
+  createAcademicApi,
+  createBiographyApi,
+  updateAcademicApi,
+  updateBiographyApi,
+} from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
+  enToFaDigits,
   sixGenerator,
   uploadImage,
 } from "@/services/utility";
 
-export default function AcademicBioForm({ admin, type }) {
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [media, setMedia] = useState("");
-  const [tags, setTags] = useState("");
-  const categories = ["پروژه", "دستاور", "تدریس"];
+export default function AcademicBioForm({ admin, type, editData }) {
+  const [title, setTitle] = useState(editData ? editData.title : "");
+  const [year, setYear] = useState(editData ? enToFaDigits(editData.year) : "");
+  const [description, setDescription] = useState(
+    editData ? editData.description : ""
+  );
+  const [category, setCategory] = useState(editData ? editData.category : "");
+  const [media, setMedia] = useState(editData ? editData.media : "");
+  const [tags, setTags] = useState(editData ? editData.tags : "");
+  const categories = ["پروژه", "دستاورد", "تدریس"];
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [editMedia, setEditMedia] = useState(editData ? true : false);
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
 
@@ -32,12 +41,16 @@ export default function AcademicBioForm({ admin, type }) {
     }, 3000);
   };
 
+  const removeMediaInputFile = () => {
+    const inputFile = document.getElementById("inputFile");
+    inputFile.value = null;
+  };
+
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
     if (media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
-      const inputFile = document.getElementById("inputFile");
-      inputFile.value = null;
+      removeMediaInputFile();
       return;
     }
     if (admin) {
@@ -64,10 +77,12 @@ export default function AcademicBioForm({ admin, type }) {
     // upload image
     let mediaLink = "";
     let mediaFolder = type;
-    if (media) {
+    if (media && !editMedia) {
       let imageId = `aca${sixGenerator()}`;
       mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
       await uploadImage(media, imageId, mediaFolder, ".jpg");
+    } else {
+      mediaLink = media;
     }
 
     let dataObject = {
@@ -82,9 +97,19 @@ export default function AcademicBioForm({ admin, type }) {
       confirm: false,
     };
     if (type === "academic") {
-      await createAcademicApi(dataObject);
+      if (editData) {
+        dataObject.id = editData["_id"];
+        await updateAcademicApi(dataObject);
+      } else {
+        await createAcademicApi(dataObject);
+      }
     } else {
-      await createBiographyApi(dataObject);
+      if (editData) {
+        dataObject.id = editData["_id"];
+        await updateBiographyApi(dataObject);
+      } else {
+        await createBiographyApi(dataObject);
+      }
     }
     window.location.assign(`/${type}`);
   };
@@ -152,7 +177,7 @@ export default function AcademicBioForm({ admin, type }) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="default" disabled>
-              انتخاب
+              {editData ? category : "انتخاب"}
             </option>
             {categories.map((category, index) => {
               return (
@@ -209,7 +234,10 @@ export default function AcademicBioForm({ admin, type }) {
         <label className="file">
           <input
             onChange={(e) => {
-              setMedia(e.target.files[0]);
+              {
+                setMedia(e.target.files[0]);
+                setEditMedia(false);
+              }
             }}
             id="inputFile"
             type="file"
@@ -229,7 +257,7 @@ export default function AcademicBioForm({ admin, type }) {
               width={300}
               height={200}
               objectFit="contain"
-              src={URL.createObjectURL(media)}
+              src={editMedia ? media : URL.createObjectURL(media)}
               alt="image"
               priority
             />

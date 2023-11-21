@@ -158,13 +158,14 @@ export default function Search({ archiveArray }) {
                           layout="fill"
                           objectFit="cover"
                           priority
+                          as="image"
                           onClick={() => setExpandedItem(item["_id"])}
                         />
                       </div>
                     )}
                     {item.mediaType === "voice" && (
                       <div className={classes.speechContainer}>
-                        <audio preload="metadata" controls>
+                        <audio preload="metadata" controls as="audio">
                           <source src={item.media} />
                         </audio>
                       </div>
@@ -176,6 +177,7 @@ export default function Search({ archiveArray }) {
                           preload="metadata"
                           src={item.media}
                           controls
+                          as="video"
                         />
                       </div>
                     )}
@@ -185,6 +187,7 @@ export default function Search({ archiveArray }) {
                           src={item.media}
                           height="300px"
                           type="application/pdf"
+                          as="document"
                         />
                       </div>
                     )}

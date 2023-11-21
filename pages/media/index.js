@@ -84,6 +84,7 @@ export default function Media({ media }) {
                               objectFit="cover"
                               layout="fill"
                               priority
+                              as="image"
                               onClick={() => setExpandedItem(item["_id"])}
                             />
                           </div>
@@ -95,6 +96,7 @@ export default function Media({ media }) {
                               preload="metadata"
                               src={item.media}
                               controls
+                              as="video"
                             />
                           </div>
                         )}

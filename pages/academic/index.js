@@ -5,6 +5,7 @@ import Image from "next/legacy/image";
 import AcademicBioForm from "@/components/AcademicBioForm";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import EditIcon from "@mui/icons-material/Edit";
 import dbConnect from "@/services/dbConnect";
 import academicModel from "@/models/Academic";
 import { enToFaDigits, sliceString } from "@/services/utility";
@@ -12,6 +13,7 @@ import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import ActionComponent from "@/components/ActionComponent";
+import { getAcademicApi } from "@/services/api";
 
 export default function Academic({ academics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -21,6 +23,13 @@ export default function Academic({ academics }) {
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [editData, setEditData] = useState({});
+
+  const getEditItem = async (id) => {
+    let data = await getAcademicApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   return (
     <Fragment>
@@ -84,7 +93,11 @@ export default function Academic({ academics }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <AcademicBioForm admin={true} type={"academic"} />
+            <AcademicBioForm
+              admin={true}
+              type={"academic"}
+              editData={editData}
+            />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (
@@ -108,6 +121,12 @@ export default function Academic({ academics }) {
                           sx={{ color: "#57a361" }}
                         />
                       )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
+                        />
+                      )}
                       {!item.confirm && (
                         <VisibilityOffIcon
                           className={classes.verified}
@@ -126,7 +145,7 @@ export default function Academic({ academics }) {
                               loading="eager"
                               layout="fill"
                               objectFit="cover"
-                              priority
+                              as="image"
                               onClick={() => {
                                 setSelectedItem(item);
                                 setDisplayDetailsPopup(true);

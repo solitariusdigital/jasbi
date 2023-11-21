@@ -10,8 +10,10 @@ import DetailsPopup from "@/components/DetailsPopup";
 import ActionComponent from "@/components/ActionComponent";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import EditIcon from "@mui/icons-material/Edit";
 import AcademicBioForm from "@/components/AcademicBioForm";
 import { enToFaDigits, sliceString } from "@/services/utility";
+import { getBiographyApi } from "@/services/api";
 
 export default function Biography({ biographys }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -20,6 +22,13 @@ export default function Biography({ biographys }) {
   const { screenSize, setScreenSize } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [editData, setEditData] = useState({});
+
+  const getEditItem = async (id) => {
+    let data = await getBiographyApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   return (
     <Fragment>
@@ -44,7 +53,11 @@ export default function Biography({ biographys }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <AcademicBioForm admin={true} type={"biography"} />
+            <AcademicBioForm
+              admin={true}
+              type={"biography"}
+              editData={editData}
+            />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (
@@ -67,6 +80,12 @@ export default function Biography({ biographys }) {
                           sx={{ color: "#57a361" }}
                         />
                       )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
+                        />
+                      )}
                       {!item.confirm && (
                         <VisibilityOffIcon
                           className={classes.verified}
@@ -86,6 +105,7 @@ export default function Biography({ biographys }) {
                               layout="fill"
                               objectFit="cover"
                               priority
+                              as="image"
                               onClick={() => {
                                 setSelectedItem(item);
                                 setDisplayDetailsPopup(true);
