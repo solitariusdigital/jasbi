@@ -77,7 +77,7 @@ export default function AcademicBioForm({ admin, type }) {
       category: category,
       group: mediaFolder,
       media: mediaLink,
-      mediaType: "image",
+      mediaType: media ? "image" : "",
       tags: tags,
       confirm: false,
     };

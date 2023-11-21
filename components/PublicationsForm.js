@@ -76,7 +76,7 @@ export default function PublicationsForm() {
       publisher: publisher,
       group: mediaFolder,
       media: mediaLink,
-      mediaType: "image",
+      mediaType: media ? "image" : "",
       tags: tags,
       confirm: false,
     };

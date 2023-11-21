@@ -38,8 +38,8 @@ export default function MediaForm({ admin }) {
         return;
       }
     } else {
-      if (!title) {
-        showAlert("عنوان  الزامیست");
+      if (!title || !media) {
+        showAlert("عنوان و فایل الزامیست");
         return;
       }
     }

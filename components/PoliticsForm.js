@@ -37,13 +37,20 @@ export default function PoliticsForm({ admin }) {
     "جشنواره تلاشگران کیفیت",
     "بنیاد آفرینش انس",
   ];
-  const activities = [
+  const uniActivities = [
     "تاسیس دانشگاه آزاد اسلامی",
     "دهه اول تثبیت دانشگاه آزاد اسلامی",
     "دهه دوم گسترش کمی دانشگاه آزاد اسلامی",
     "دهه سوم گسترش کیفی دانشگاه آزاد اسلامی",
     "دهه چهارم گسترش و رقابت دانشگاه آزاد اسلامی",
     "دستاوردهای دانشگاه آزاد اسلامی",
+  ];
+  const onsActivities = [
+    "اهداف و ساختار",
+    "جلسات برگزار شده و سخنرانان",
+    "صورتجلسات و مصوبات",
+    "دعوتنامه برگزاری جلسات",
+    "انتشارات",
   ];
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
@@ -124,7 +131,7 @@ export default function PoliticsForm({ admin }) {
       activity: activity,
       group: mediaFolder,
       media: mediaLink,
-      mediaType: mediaType,
+      mediaType: media ? mediaType : "",
       tags: tags,
       confirm: false,
     };
@@ -265,7 +272,32 @@ export default function PoliticsForm({ admin }) {
             <option value="default" disabled>
               انتخاب
             </option>
-            {activities.map((activity, index) => {
+            {uniActivities.map((activity, index) => {
+              return (
+                <option key={index} value={activity}>
+                  {activity}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
+      {type === "بنیاد آفرینش انس" && (
+        <div className={classes.input}>
+          <div className={classes.bar}>
+            <p className={classes.label}>
+              بخش
+              {admin && <span>*</span>}
+            </p>
+          </div>
+          <select
+            defaultValue={"default"}
+            onChange={(e) => setActivity(e.target.value)}
+          >
+            <option value="default" disabled>
+              انتخاب
+            </option>
+            {onsActivities.map((activity, index) => {
               return (
                 <option key={index} value={activity}>
                   {activity}

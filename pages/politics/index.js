@@ -195,6 +195,9 @@ export default function Politics({ politics }) {
                           {type === "دانشگاه آزاد اسلامی" && (
                             <p>دوره : {item.activity}</p>
                           )}
+                          {type === "بنیاد آفرینش انس" && (
+                            <p>بخش : {item.activity}</p>
+                          )}
                           <p>سال : {enToFaDigits(item.year)} </p>
                         </div>
                       </div>
