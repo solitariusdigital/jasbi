@@ -4,6 +4,7 @@ import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import PublicationsForm from "@/components/PublicationsForm";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import EditIcon from "@mui/icons-material/Edit";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import publicationModel from "@/models/Publication";
@@ -12,6 +13,7 @@ import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import ActionComponent from "@/components/ActionComponent";
+import { getPublicationApi } from "@/services/api";
 
 export default function Publications({ publications }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -21,6 +23,13 @@ export default function Publications({ publications }) {
   const [category, setCategory] = useState("کتاب" || "مقالات");
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
+  const [editData, setEditData] = useState({});
+
+  const getEditItem = async (id) => {
+    let data = await getPublicationApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   return (
     <Fragment>
@@ -73,7 +82,7 @@ export default function Publications({ publications }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <PublicationsForm admin={true} />
+            <PublicationsForm admin={true} editData={editData} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (
@@ -95,6 +104,12 @@ export default function Publications({ publications }) {
                         <VerifiedUserIcon
                           className={classes.verified}
                           sx={{ color: "#57a361" }}
+                        />
+                      )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
                         />
                       )}
                       {!item.confirm && (

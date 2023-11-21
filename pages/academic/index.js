@@ -68,11 +68,11 @@ export default function Academic({ academics }) {
               </p>
               <p
                 className={
-                  category === "دستاور" ? classes.navActive : classes.nav
+                  category === "دستاورد" ? classes.navActive : classes.nav
                 }
                 onClick={() => {
                   setDisplayDetailsPopup(false);
-                  setCategory("دستاور");
+                  setCategory("دستاورد");
                 }}
               >
                 دستاورد

@@ -1,28 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createSpeechApi } from "@/services/api";
+import { createSpeechApi, updateSpeechApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
+  enToFaDigits,
   sixGenerator,
   uploadImage,
 } from "@/services/utility";
 
-export default function MediaForm({ admin }) {
+export default function MediaForm({ admin, editData }) {
   const [mediaType, setMediaType] = useState("voice" || "video" || "pdf");
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
-  const [media, setMedia] = useState("");
-  const [tags, setTags] = useState("");
+  const [title, setTitle] = useState(editData ? editData.title : "");
+  const [year, setYear] = useState(editData ? enToFaDigits(editData.year) : "");
+  const [description, setDescription] = useState(
+    editData ? editData.description : ""
+  );
+  const [media, setMedia] = useState(editData ? editData.media : "");
+  const [tags, setTags] = useState(editData ? editData.tags : "");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [editMedia, setEditMedia] = useState(editData ? true : false);
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
+
+  useEffect(() => {
+    if (editData) {
+      setMediaType(editData.mediaType);
+    }
+  }, [editData]);
 
   const showAlert = (message) => {
     setAlert(message);
@@ -51,7 +61,7 @@ export default function MediaForm({ admin }) {
     let mediaLink = "";
     let mediaFolder = "speech";
     let format = "";
-    if (media) {
+    if (media && !editMedia) {
       let mediaId = `spe${sixGenerator()}`;
       switch (mediaType) {
         case "voice":
@@ -66,9 +76,11 @@ export default function MediaForm({ admin }) {
       }
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
       await uploadImage(media, mediaId, mediaFolder, format);
+    } else {
+      mediaLink = media;
     }
 
-    let mediaObject = {
+    let dataObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
@@ -78,7 +90,12 @@ export default function MediaForm({ admin }) {
       tags: tags,
       confirm: false,
     };
-    await createSpeechApi(mediaObject);
+    if (editData) {
+      dataObject.id = editData["_id"];
+      await updateSpeechApi(dataObject);
+    } else {
+      await createSpeechApi(dataObject);
+    }
     window.location.assign("/speech");
   };
 
@@ -206,6 +223,7 @@ export default function MediaForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept="audio/*"
@@ -220,7 +238,7 @@ export default function MediaForm({ admin }) {
                 sx={{ fontSize: 16 }}
               />
               <audio className={classes.voice} preload="metadata" controls>
-                <source src={URL.createObjectURL(media)} />
+                <source src={editMedia ? media : URL.createObjectURL(media)} />
               </audio>
             </div>
           )}
@@ -232,6 +250,7 @@ export default function MediaForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept="video/*"
@@ -248,7 +267,7 @@ export default function MediaForm({ admin }) {
               <video
                 className={classes.media}
                 preload="metadata"
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 controls
               />
             </div>
@@ -261,6 +280,7 @@ export default function MediaForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept=".pdf"
@@ -276,7 +296,7 @@ export default function MediaForm({ admin }) {
               />
               <embed
                 className={classes.media}
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 height="300px"
                 type="application/pdf"
               />

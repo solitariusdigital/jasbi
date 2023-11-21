@@ -3,28 +3,36 @@ import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createPublicationApi } from "@/services/api";
+import { createPublicationApi, updatePublicationApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
+  enToFaDigits,
   sixGenerator,
   uploadImage,
 } from "@/services/utility";
 
-export default function PublicationsForm() {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("دکتر عبدالله جاسبی");
-  const [description, setDescription] = useState("");
-  const [year, setYear] = useState("");
-  const [publisher, setPublisher] = useState("");
-  const [category, setCategory] = useState("");
-  const [media, setMedia] = useState("");
-  const [tags, setTags] = useState("");
-  const categories = ["مقالات", "کتاب"];
+export default function PublicationsForm({ editData }) {
+  const [title, setTitle] = useState(editData ? editData.title : "");
+  const [author, setAuthor] = useState(
+    editData ? editData.title : "دکتر عبدالله جاسبی"
+  );
+  const [description, setDescription] = useState(
+    editData ? editData.description : ""
+  );
+  const [year, setYear] = useState(editData ? enToFaDigits(editData.year) : "");
+  const [publisher, setPublisher] = useState(
+    editData ? editData.publisher : ""
+  );
+  const [category, setCategory] = useState(editData ? editData.category : "");
+  const [media, setMedia] = useState(editData ? editData.media : "");
+  const [tags, setTags] = useState(editData ? editData.tags : "");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [editMedia, setEditMedia] = useState(editData ? true : false);
 
+  const categories = ["مقالات", "کتاب"];
   const sourceLink = "https://jasbi.storage.iran.liara.space";
 
   const showAlert = (message) => {
@@ -61,13 +69,15 @@ export default function PublicationsForm() {
     // upload media
     let mediaLink = "";
     let mediaFolder = "publications";
-    if (media) {
+    if (media && !editMedia) {
       let imageId = `pub${sixGenerator()}`;
       mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
       await uploadImage(media, imageId, mediaFolder, ".jpg");
+    } else {
+      mediaLink = media;
     }
 
-    let publicationObject = {
+    let dataObject = {
       title: title,
       author: author,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
@@ -80,7 +90,12 @@ export default function PublicationsForm() {
       tags: tags,
       confirm: false,
     };
-    await createPublicationApi(publicationObject);
+    if (editData) {
+      dataObject.id = editData["_id"];
+      await updatePublicationApi(dataObject);
+    } else {
+      await createPublicationApi(dataObject);
+    }
     window.location.assign("/publications");
   };
 
@@ -243,6 +258,7 @@ export default function PublicationsForm() {
           <input
             onChange={(e) => {
               setMedia(e.target.files[0]);
+              setEditMedia(false);
             }}
             id="inputFile"
             type="file"
@@ -262,7 +278,7 @@ export default function PublicationsForm() {
               width={300}
               height={200}
               objectFit="contain"
-              src={URL.createObjectURL(media)}
+              src={editMedia ? media : URL.createObjectURL(media)}
               alt="image"
               priority
             />

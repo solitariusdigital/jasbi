@@ -1,32 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createPoliticApi } from "@/services/api";
+import { createPoliticApi, updatePoliticApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
+  enToFaDigits,
   sixGenerator,
   uploadImage,
 } from "@/services/utility";
 
-export default function PoliticsForm({ admin }) {
+export default function PoliticsForm({ admin, editData }) {
   const [mediaType, setMediaType] = useState(
     "image" || "video" || "voice" || "pdf"
   );
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [position, setPosition] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [type, setType] = useState("");
-  const [activity, setActivity] = useState("");
-  const [media, setMedia] = useState("");
-  const [tags, setTags] = useState("");
+  const [title, setTitle] = useState(editData ? editData.title : "");
+  const [year, setYear] = useState(editData ? enToFaDigits(editData.year) : "");
+  const [position, setPosition] = useState(editData ? editData.position : "");
+  const [description, setDescription] = useState(
+    editData ? editData.description : ""
+  );
+  const [category, setCategory] = useState(editData ? editData.category : "");
+  const [type, setType] = useState(editData ? editData.type : "");
+  const [activity, setActivity] = useState(editData ? editData.activity : "");
+  const [media, setMedia] = useState(editData ? editData.media : "");
+  const [tags, setTags] = useState(editData ? editData.tags : "");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [editMedia, setEditMedia] = useState(editData ? true : false);
 
   const categories = ["قبل انقلاب", "بعد انقلاب"];
   const types = [
@@ -55,6 +59,12 @@ export default function PoliticsForm({ admin }) {
   ];
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
+
+  useEffect(() => {
+    if (editData) {
+      setMediaType(editData.mediaType);
+    }
+  }, [editData]);
 
   const showAlert = (message) => {
     setAlert(message);
@@ -102,7 +112,7 @@ export default function PoliticsForm({ admin }) {
     let mediaLink = "";
     let mediaFolder = "politics";
     let format = "";
-    if (media) {
+    if (media && !editMedia) {
       let mediaId = `pol${sixGenerator()}`;
       switch (mediaType) {
         case "voice":
@@ -120,9 +130,11 @@ export default function PoliticsForm({ admin }) {
       }
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
       await uploadImage(media, mediaId, mediaFolder, format);
+    } else {
+      mediaLink = media;
     }
 
-    let politicObject = {
+    let dataObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       position: position,
@@ -136,7 +148,12 @@ export default function PoliticsForm({ admin }) {
       tags: tags,
       confirm: false,
     };
-    await createPoliticApi(politicObject);
+    if (editData) {
+      dataObject.id = editData["_id"];
+      await updatePoliticApi(dataObject);
+    } else {
+      await createPoliticApi(dataObject);
+    }
     window.location.assign("/politics");
   };
 
@@ -222,7 +239,7 @@ export default function PoliticsForm({ admin }) {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="default" disabled>
-            انتخاب
+            {editData.category ? category : "انتخاب"}
           </option>
           {categories.map((category, index) => {
             return (
@@ -246,7 +263,7 @@ export default function PoliticsForm({ admin }) {
             onChange={(e) => setType(e.target.value)}
           >
             <option value="default" disabled>
-              انتخاب
+              {editData.type ? type : "انتخاب"}
             </option>
             {types.map((type, index) => {
               return (
@@ -271,7 +288,7 @@ export default function PoliticsForm({ admin }) {
             onChange={(e) => setActivity(e.target.value)}
           >
             <option value="default" disabled>
-              انتخاب
+              {editData.activity ? activity : "انتخاب"}
             </option>
             {uniActivities.map((activity, index) => {
               return (
@@ -296,7 +313,7 @@ export default function PoliticsForm({ admin }) {
             onChange={(e) => setActivity(e.target.value)}
           >
             <option value="default" disabled>
-              انتخاب
+              {editData.activity ? activity : "انتخاب"}
             </option>
             {onsActivities.map((activity, index) => {
               return (
@@ -393,6 +410,7 @@ export default function PoliticsForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               id="inputFile"
               type="file"
@@ -411,7 +429,7 @@ export default function PoliticsForm({ admin }) {
                 width={300}
                 height={200}
                 objectFit="contain"
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 alt="image"
                 priority
               />
@@ -425,6 +443,7 @@ export default function PoliticsForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept="video/*"
@@ -441,7 +460,7 @@ export default function PoliticsForm({ admin }) {
               <video
                 className={classes.media}
                 preload="metadata"
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 controls
               />
             </div>
@@ -454,6 +473,7 @@ export default function PoliticsForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept="audio/*"
@@ -468,7 +488,7 @@ export default function PoliticsForm({ admin }) {
                 sx={{ fontSize: 16 }}
               />
               <audio className={classes.voice} preload="metadata" controls>
-                <source src={URL.createObjectURL(media)} />
+                <source src={editMedia ? media : URL.createObjectURL(media)} />
               </audio>
             </div>
           )}
@@ -480,6 +500,7 @@ export default function PoliticsForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept=".pdf"
@@ -495,7 +516,7 @@ export default function PoliticsForm({ admin }) {
               />
               <embed
                 className={classes.media}
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 height="300px"
                 type="application/pdf"
               />

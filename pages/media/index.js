@@ -6,17 +6,26 @@ import mediaModel from "@/models/Media";
 import Image from "next/legacy/image";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import EditIcon from "@mui/icons-material/Edit";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import MediaForm from "@/components/MediaForm";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import ActionComponent from "@/components/ActionComponent";
+import { getMediaApi } from "@/services/api";
 
 export default function Media({ media }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const { screenSize, setScreenSize } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
+  const [editData, setEditData] = useState({});
+
+  const getEditItem = async (id) => {
+    let data = await getMediaApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   return (
     <Fragment>
@@ -41,7 +50,7 @@ export default function Media({ media }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <MediaForm admin={true} />
+            <MediaForm admin={true} editData={editData} />
           </div>
         )}
         {!displayForm && (
@@ -62,6 +71,12 @@ export default function Media({ media }) {
                         <VerifiedUserIcon
                           className={classes.verified}
                           sx={{ color: "#57a361" }}
+                        />
+                      )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
                         />
                       )}
                       {!item.confirm && (

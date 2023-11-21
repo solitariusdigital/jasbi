@@ -177,7 +177,7 @@ export default function AcademicBioForm({ admin, type, editData }) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="default" disabled>
-              {editData ? category : "انتخاب"}
+              {editData.category ? category : "انتخاب"}
             </option>
             {categories.map((category, index) => {
               return (

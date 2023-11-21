@@ -4,6 +4,7 @@ import classes from "../pages.module.scss";
 import Image from "next/legacy/image";
 import PoliticsForm from "@/components/PoliticsForm";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import EditIcon from "@mui/icons-material/Edit";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import dbConnect from "@/services/dbConnect";
 import politicModel from "@/models/Politic";
@@ -12,6 +13,7 @@ import DetailsPopup from "@/components/DetailsPopup";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import ActionComponent from "@/components/ActionComponent";
+import { getPoliticApi } from "@/services/api";
 
 export default function Politics({ politics }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
@@ -30,6 +32,7 @@ export default function Politics({ politics }) {
   );
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
+  const [editData, setEditData] = useState({});
 
   const categories = [{ name: "قبل انقلاب" }, { name: "بعد انقلاب" }];
   const types = [
@@ -41,6 +44,12 @@ export default function Politics({ politics }) {
     { name: "بنیاد آفرینش انس" },
     { name: "چکاد آزاد اندیشان" },
   ];
+
+  const getEditItem = async (id) => {
+    let data = await getPoliticApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   const filterPolitics = () => {
     if (category === "بعد انقلاب") {
@@ -116,7 +125,7 @@ export default function Politics({ politics }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <PoliticsForm admin={true} />
+            <PoliticsForm admin={true} editData={editData} />
           </div>
         )}
         {!displayForm && !displayDetailsPopup && (
@@ -137,6 +146,12 @@ export default function Politics({ politics }) {
                         <VerifiedUserIcon
                           className={classes.verified}
                           sx={{ color: "#57a361" }}
+                        />
+                      )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
                         />
                       )}
                       {!item.confirm && (
@@ -196,11 +211,15 @@ export default function Politics({ politics }) {
                         )}
                         <div>
                           <p>سمت : {item.position}</p>
-                          {type === "دانشگاه آزاد اسلامی" && (
-                            <p>دوره : {item.activity}</p>
-                          )}
-                          {type === "بنیاد آفرینش انس" && (
-                            <p>بخش : {item.activity}</p>
+                          {item.category === "بعد انقلاب" && (
+                            <Fragment>
+                              {type === "دانشگاه آزاد اسلامی" && (
+                                <p>دوره : {item.activity}</p>
+                              )}
+                              {type === "بنیاد آفرینش انس" && (
+                                <p>بخش : {item.activity}</p>
+                              )}
+                            </Fragment>
                           )}
                           <p>سال : {enToFaDigits(item.year)} </p>
                         </div>

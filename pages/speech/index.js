@@ -5,17 +5,26 @@ import dbConnect from "@/services/dbConnect";
 import speechModel from "@/models/Speech";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import EditIcon from "@mui/icons-material/Edit";
 import { enToFaDigits, sliceString } from "@/services/utility";
 import SpeechForm from "@/components/SpeechForm";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import ActionComponent from "@/components/ActionComponent";
+import { getSpeechApi } from "@/services/api";
 
 export default function Media({ speech }) {
   const { screenSize, setScreenSize } = useContext(StateContext);
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
+  const [editData, setEditData] = useState({});
+
+  const getEditItem = async (id) => {
+    let data = await getSpeechApi(id);
+    setEditData(data);
+    setDisplayForm(true);
+  };
 
   return (
     <Fragment>
@@ -40,7 +49,7 @@ export default function Media({ speech }) {
         )}
         {displayForm && (
           <div className={classes.form}>
-            <SpeechForm admin={true} />
+            <SpeechForm admin={true} editData={editData} />
           </div>
         )}
         {!displayForm && (
@@ -61,6 +70,12 @@ export default function Media({ speech }) {
                         <VerifiedUserIcon
                           className={classes.verified}
                           sx={{ color: "#57a361" }}
+                        />
+                      )}
+                      {permissionControl === "super" && (
+                        <EditIcon
+                          className={classes.edit}
+                          onClick={() => getEditItem(item["_id"])}
                         />
                       )}
                       {!item.confirm && (

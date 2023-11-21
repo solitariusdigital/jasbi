@@ -1,28 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./Form.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/legacy/image";
 import loaderImage from "@/assets/loader.png";
-import { createMediaApi } from "@/services/api";
+import { createMediaApi, updateMediaApi } from "@/services/api";
 import {
   onlyLettersAndNumbers,
   faToEnDigits,
+  enToFaDigits,
   sixGenerator,
   uploadImage,
 } from "@/services/utility";
 
-export default function MediaForm({ admin }) {
+export default function MediaForm({ admin, editData }) {
   const [mediaType, setMediaType] = useState("image" || "video");
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
-  const [media, setMedia] = useState("");
-  const [tags, setTags] = useState("");
+  const [title, setTitle] = useState(editData ? editData.title : "");
+  const [year, setYear] = useState(editData ? enToFaDigits(editData.year) : "");
+  const [description, setDescription] = useState(
+    editData ? editData.description : ""
+  );
+  const [media, setMedia] = useState(editData ? editData.media : "");
+  const [tags, setTags] = useState(editData ? editData.tags : "");
   const [alert, setAlert] = useState("");
   const [disableButton, setDisableButton] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [editMedia, setEditMedia] = useState(editData ? true : false);
 
   const sourceLink = "https://jasbi.storage.iran.liara.space";
+
+  useEffect(() => {
+    if (editData) {
+      setMediaType(editData.mediaType);
+    }
+  }, [editData]);
 
   const showAlert = (message) => {
     setAlert(message);
@@ -31,12 +41,16 @@ export default function MediaForm({ admin }) {
     }, 3000);
   };
 
+  const removeMediaInputFile = () => {
+    const inputFile = document.getElementById("inputFile");
+    inputFile.value = null;
+  };
+
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
     if (mediaType === "image" && media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
-      const inputFile = document.getElementById("inputFile");
-      inputFile.value = null;
+      removeMediaInputFile();
       return;
     }
     if (admin) {
@@ -57,14 +71,16 @@ export default function MediaForm({ admin }) {
     // upload media
     let mediaLink = "";
     let mediaFolder = "media";
-    if (media) {
+    if (media && !editMedia) {
       let mediaId = `med${sixGenerator()}`;
       let format = mediaType === "image" ? ".jpg" : ".mp4";
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
       await uploadImage(media, mediaId, mediaFolder, format);
+    } else {
+      mediaLink = media;
     }
 
-    let mediaObject = {
+    let dataObject = {
       title: title,
       year: onlyLettersAndNumbers(year) ? year : faToEnDigits(year),
       description: description,
@@ -74,7 +90,12 @@ export default function MediaForm({ admin }) {
       tags: tags,
       confirm: false,
     };
-    await createMediaApi(mediaObject);
+    if (editData) {
+      dataObject.id = editData["_id"];
+      await updateMediaApi(dataObject);
+    } else {
+      await createMediaApi(dataObject);
+    }
     window.location.assign("/media");
   };
 
@@ -193,6 +214,7 @@ export default function MediaForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               id="inputFile"
               type="file"
@@ -211,7 +233,7 @@ export default function MediaForm({ admin }) {
                 width={300}
                 height={200}
                 objectFit="contain"
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 alt="image"
                 priority
               />
@@ -225,6 +247,7 @@ export default function MediaForm({ admin }) {
             <input
               onChange={(e) => {
                 setMedia(e.target.files[0]);
+                setEditMedia(false);
               }}
               type="file"
               accept="video/*"
@@ -241,7 +264,7 @@ export default function MediaForm({ admin }) {
               <video
                 className={classes.media}
                 preload="metadata"
-                src={URL.createObjectURL(media)}
+                src={editMedia ? media : URL.createObjectURL(media)}
                 controls
               />
             </div>
