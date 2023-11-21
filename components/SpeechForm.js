@@ -12,7 +12,7 @@ import {
 } from "@/services/utility";
 
 export default function MediaForm({ admin }) {
-  const [mediaType, setMediaType] = useState("voice" || "video");
+  const [mediaType, setMediaType] = useState("voice" || "video" || "pdf");
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
@@ -50,9 +50,20 @@ export default function MediaForm({ admin }) {
     // upload media
     let mediaLink = "";
     let mediaFolder = "speech";
+    let format = "";
     if (media) {
-      let mediaId = `sp${sixGenerator()}`;
-      let format = mediaType === "voice" ? ".mp3" : ".mp4";
+      let mediaId = `spe${sixGenerator()}`;
+      switch (mediaType) {
+        case "voice":
+          format = ".mp3";
+          break;
+        case "video":
+          format = ".mp4";
+          break;
+        case "pdf":
+          format = ".pdf";
+          break;
+      }
       mediaLink = `${sourceLink}/${mediaFolder}/${mediaId}${format}`;
       await uploadImage(media, mediaId, mediaFolder, format);
     }
@@ -162,6 +173,15 @@ export default function MediaForm({ admin }) {
       </div>
       <div className={classes.navigation}>
         <p
+          className={mediaType === "pdf" ? classes.navActive : classes.nav}
+          onClick={() => {
+            setMediaType("pdf");
+            setMedia("");
+          }}
+        >
+          pdf
+        </p>
+        <p
           className={mediaType === "video" ? classes.navActive : classes.nav}
           onClick={() => {
             setMediaType("video");
@@ -230,6 +250,35 @@ export default function MediaForm({ admin }) {
                 preload="metadata"
                 src={URL.createObjectURL(media)}
                 controls
+              />
+            </div>
+          )}
+        </div>
+      )}
+      {mediaType === "pdf" && (
+        <div className={classes.input}>
+          <label className="file">
+            <input
+              onChange={(e) => {
+                setMedia(e.target.files[0]);
+              }}
+              type="file"
+              accept=".pdf"
+            />
+            <p>اختیاری pdf انتخاب فایل</p>
+          </label>
+          {media !== "" && (
+            <div className={classes.mediaPreview}>
+              <CloseIcon
+                className="icon"
+                onClick={() => setMedia("")}
+                sx={{ fontSize: 16 }}
+              />
+              <embed
+                className={classes.media}
+                src={URL.createObjectURL(media)}
+                height="300px"
+                type="application/pdf"
               />
             </div>
           )}

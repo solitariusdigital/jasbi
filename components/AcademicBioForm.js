@@ -65,7 +65,7 @@ export default function AcademicBioForm({ admin, type }) {
     let mediaLink = "";
     let mediaFolder = type;
     if (media) {
-      let imageId = `img${sixGenerator()}`;
+      let imageId = `aca${sixGenerator()}`;
       mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
       await uploadImage(media, imageId, mediaFolder, ".jpg");
     }

@@ -90,12 +90,12 @@ export default function PoliticsForm({ admin }) {
     setLoader(true);
     setDisableButton(true);
 
-    // upload image
+    // upload media
     let mediaLink = "";
     let mediaFolder = "politics";
     let format = "";
     if (media) {
-      let mediaId = `img${sixGenerator()}`;
+      let mediaId = `pol${sixGenerator()}`;
       switch (mediaType) {
         case "voice":
           format = ".mp3";

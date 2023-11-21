@@ -88,6 +88,15 @@ export default function Media({ speech }) {
                             />
                           </div>
                         )}
+                        {item.mediaType === "pdf" && (
+                          <div className={classes.mediaContainer}>
+                            <embed
+                              src={item.media}
+                              height="300px"
+                              type="application/pdf"
+                            />
+                          </div>
+                        )}
                         <p>سال : {enToFaDigits(item.year)} </p>
                       </div>
                       {expandedItem === item["_id"] ? (

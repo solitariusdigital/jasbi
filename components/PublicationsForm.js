@@ -58,11 +58,11 @@ export default function PublicationsForm() {
     setLoader(true);
     setDisableButton(true);
 
-    // upload image
+    // upload media
     let mediaLink = "";
     let mediaFolder = "publications";
     if (media) {
-      let imageId = `img${sixGenerator()}`;
+      let imageId = `pub${sixGenerator()}`;
       mediaLink = `${sourceLink}/${mediaFolder}/${imageId}.jpg`;
       await uploadImage(media, imageId, mediaFolder, ".jpg");
     }
