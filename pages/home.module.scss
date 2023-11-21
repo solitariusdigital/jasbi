@@ -3,7 +3,7 @@
 
 .coverImageContainer {
   position: relative;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
   margin-bottom: 20px;
 
   @include mixins.mobile {

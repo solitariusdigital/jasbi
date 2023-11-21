@@ -56,11 +56,8 @@
   height: 170px;
   padding: 0px 4px;
   margin: 0px 12px;
-  border: 1px solid config.$lightgrey;
   font-weight: 300;
-  box-shadow: config.$inset-box-shadow;
   @include mixins.row-space-between-center();
-  @include mixins.transparentBackground(0.03, config.$brand);
 
   @include mixins.mobile {
     margin: 0px 4px;
