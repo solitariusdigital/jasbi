@@ -25,7 +25,8 @@ export default function Politics({ politics }) {
       "قبل حزب جمهوری اسلامی" ||
       "جامعه اسلامی دانشگاهیان" ||
       "جشنواره تلاشگران کیفیت" ||
-      "بنیاد آفرینش انس"
+      "بنیاد آفرینش انس" ||
+      "چکاد آزاد اندیشان"
   );
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
@@ -38,6 +39,7 @@ export default function Politics({ politics }) {
     { name: "جامعه اسلامی دانشگاهیان" },
     { name: "جشنواره تلاشگران کیفیت" },
     { name: "بنیاد آفرینش انس" },
+    { name: "چکاد آزاد اندیشان" },
   ];
 
   const filterPolitics = () => {
