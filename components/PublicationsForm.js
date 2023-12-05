@@ -44,7 +44,7 @@ export default function PublicationsForm({ editData }) {
 
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
-    if (media.size > maxSizeInBytes) {
+    if (media && media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
       const inputFile = document.getElementById("inputFile");
       inputFile.value = null;

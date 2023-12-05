@@ -18,7 +18,7 @@ export default function Media({ speech }) {
   const { permissionControl, setPermissionControl } = useContext(StateContext);
   const [displayForm, setDisplayForm] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState(null);
 
   const getEditItem = async (id) => {
     let data = await getSpeechApi(id);
@@ -72,7 +72,7 @@ export default function Media({ speech }) {
                           sx={{ color: "#57a361" }}
                         />
                       )}
-                      {permissionControl === "super" && (
+                      {permissionControl !== "user" && (
                         <EditIcon
                           className={classes.edit}
                           onClick={() => getEditItem(item["_id"])}

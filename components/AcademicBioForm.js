@@ -48,7 +48,7 @@ export default function AcademicBioForm({ admin, type, editData }) {
 
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
-    if (media.size > maxSizeInBytes) {
+    if (media && media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
       removeMediaInputFile();
       return;
@@ -96,6 +96,9 @@ export default function AcademicBioForm({ admin, type, editData }) {
       tags: tags,
       confirm: false,
     };
+
+    console.log(dataObject, "xxx");
+
     if (type === "academic") {
       if (editData) {
         dataObject.id = editData["_id"];
@@ -177,7 +180,7 @@ export default function AcademicBioForm({ admin, type, editData }) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="default" disabled>
-              {editData.category ? category : "انتخاب"}
+              {editData && editData.category ? category : "انتخاب"}
             </option>
             {categories.map((category, index) => {
               return (

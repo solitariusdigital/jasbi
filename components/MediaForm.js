@@ -48,7 +48,7 @@ export default function MediaForm({ admin, editData }) {
 
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
-    if (mediaType === "image" && media.size > maxSizeInBytes) {
+    if (media && mediaType === "image" && media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
       removeMediaInputFile();
       return;

@@ -75,7 +75,7 @@ export default function PoliticsForm({ admin, editData }) {
 
   const handleSubmit = async () => {
     const maxSizeInBytes = 1 * 1024 * 1024;
-    if (mediaType === "image" && media.size > maxSizeInBytes) {
+    if (media && mediaType === "image" && media.size > maxSizeInBytes) {
       showAlert("1MB سایز عکس کمتر از");
       const inputFile = document.getElementById("inputFile");
       inputFile.value = null;
@@ -239,7 +239,7 @@ export default function PoliticsForm({ admin, editData }) {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="default" disabled>
-            {editData.category ? category : "انتخاب"}
+            {editData && editData.category ? category : "انتخاب"}
           </option>
           {categories.map((category, index) => {
             return (
@@ -263,7 +263,7 @@ export default function PoliticsForm({ admin, editData }) {
             onChange={(e) => setType(e.target.value)}
           >
             <option value="default" disabled>
-              {editData.type ? type : "انتخاب"}
+              {editData && editData.type ? type : "انتخاب"}
             </option>
             {types.map((type, index) => {
               return (
@@ -288,7 +288,7 @@ export default function PoliticsForm({ admin, editData }) {
             onChange={(e) => setActivity(e.target.value)}
           >
             <option value="default" disabled>
-              {editData.activity ? activity : "انتخاب"}
+              {editData && editData.activity ? activity : "انتخاب"}
             </option>
             {uniActivities.map((activity, index) => {
               return (
@@ -313,7 +313,7 @@ export default function PoliticsForm({ admin, editData }) {
             onChange={(e) => setActivity(e.target.value)}
           >
             <option value="default" disabled>
-              {editData.activity ? activity : "انتخاب"}
+              {editData && editData.activity ? activity : "انتخاب"}
             </option>
             {onsActivities.map((activity, index) => {
               return (

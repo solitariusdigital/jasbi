@@ -32,7 +32,7 @@ export default function Politics({ politics }) {
   );
   const [selectedItem, setSelectedItem] = useState({});
   const [displayForm, setDisplayForm] = useState(false);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState(null);
 
   const categories = [{ name: "قبل انقلاب" }, { name: "بعد انقلاب" }];
   const types = [
@@ -148,7 +148,7 @@ export default function Politics({ politics }) {
                           sx={{ color: "#57a361" }}
                         />
                       )}
-                      {permissionControl === "super" && (
+                      {permissionControl !== "user" && (
                         <EditIcon
                           className={classes.edit}
                           onClick={() => getEditItem(item["_id"])}

@@ -23,7 +23,7 @@ export default function Academic({ academics }) {
   const [category, setCategory] = useState("پروژه" || "دستاور" || "تدریس");
   const [displayForm, setDisplayForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState(null);
 
   const getEditItem = async (id) => {
     let data = await getAcademicApi(id);
@@ -121,7 +121,7 @@ export default function Academic({ academics }) {
                           sx={{ color: "#57a361" }}
                         />
                       )}
-                      {permissionControl === "super" && (
+                      {permissionControl !== "user" && (
                         <EditIcon
                           className={classes.edit}
                           onClick={() => getEditItem(item["_id"])}
