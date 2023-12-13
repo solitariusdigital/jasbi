@@ -25,6 +25,7 @@ export default function Home({
   publications,
   media,
   speech,
+  biography,
 }) {
   const [expandedItem, setExpandedItem] = useState(null);
   const { screenSize, setScreenSize } = useContext(StateContext);
@@ -124,6 +125,27 @@ export default function Home({
             <div className={classes.information}>
               <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
               <div className={classes.section}>
+                <div
+                  className={classes.details}
+                  onClick={() => activateNav("/biography")}
+                >
+                  <Image
+                    className={classes.image}
+                    src={bullet}
+                    placeholder="blur"
+                    alt="image"
+                    width={40}
+                    height={40}
+                    loading="eager"
+                    as="image"
+                  />
+                  <p>زندگینامه</p>
+                  <h2>
+                    {enToFaDigits(
+                      biography?.filter((item) => item.confirm).length
+                    )}
+                  </h2>
+                </div>
                 <div
                   className={classes.details}
                   onClick={() => activateNav("/politics")}
@@ -295,6 +317,25 @@ export default function Home({
         <div className={classes.information}>
           <h3>دستاوردها و فعالیتهای دکتر جاسبی</h3>
           <div className={classes.section}>
+            <div
+              className={classes.details}
+              onClick={() => activateNav("/biography")}
+            >
+              <Image
+                className={classes.image}
+                src={bullet}
+                placeholder="blur"
+                alt="image"
+                width={40}
+                height={40}
+                loading="eager"
+                as="image"
+              />
+              <p>زندگینامه</p>
+              <h2>
+                {enToFaDigits(biography?.filter((item) => item.confirm).length)}
+              </h2>
+            </div>
             <div
               className={classes.details}
               onClick={() => activateNav("/politics")}
@@ -547,6 +588,7 @@ export async function getServerSideProps(context) {
         publications: JSON.parse(JSON.stringify(publications)),
         media: JSON.parse(JSON.stringify(media)),
         speech: JSON.parse(JSON.stringify(speech)),
+        biography: JSON.parse(JSON.stringify(biography)),
         timelineData: JSON.parse(JSON.stringify(timelineData)),
         archiveArray: JSON.parse(JSON.stringify(archiveArray)),
       },
