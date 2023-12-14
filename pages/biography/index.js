@@ -93,7 +93,7 @@ export default function Biography({ biographys }) {
                         />
                       )}
                       <div>
-                        <h3>{item.title}</h3>
+                        <h3 className={classes.title}>{item.title}</h3>
                         {item.media && (
                           <div className={classes.mediaContainer}>
                             <Image
