@@ -8,6 +8,7 @@ import publicationModel from "@/models/Publication";
 import politicModel from "@/models/Politic";
 import mediaModel from "@/models/Media";
 import speachModel from "@/models/Speech";
+import biographyModel from "@/models/Biography";
 import { NextSeo } from "next-seo";
 import BannerPattern from "@/components/BannerPattern";
 import {
@@ -236,6 +237,7 @@ export async function getServerSideProps(context) {
     const publications = await publicationModel.find();
     const media = await mediaModel.find();
     const speech = await speachModel.find();
+    const biography = await biographyModel.find();
 
     const archiveArray = [
       ...academics,
@@ -243,6 +245,7 @@ export async function getServerSideProps(context) {
       ...publications,
       ...media,
       ...speech,
+      ...biography,
     ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return {

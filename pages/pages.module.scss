@@ -75,6 +75,7 @@
 .inputSearch {
   @include mixins.row-space-between-center();
   direction: rtl;
+  margin-bottom: 20px;
 
   @include mixins.mobile {
     display: flex;
