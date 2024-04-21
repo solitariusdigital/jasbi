@@ -8,7 +8,14 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export default function Timeline({ timelineData }) {
   const [displayDetails, setDisplayDetails] = useState(false);
-  const [timeline, setTimeline] = useState(timelineData);
+  const [timeline, setTimeline] = useState(
+    timelineData
+      .map((item) => ({
+        ...item,
+        data: item.data.filter((subItem) => subItem.confirm),
+      }))
+      .filter((item) => item.data.length > 0)
+  );
   const [details, setDetails] = useState({});
   const [description, setDescription] = useState("");
 
@@ -59,11 +66,11 @@ export default function Timeline({ timelineData }) {
           onClick={() => scrollLeft()}
         />
         <div className={classes.timeline} id="timeline">
-          {timelineData
+          {timeline
             .map((time, index) => {
               const handleSelectChange = (e) => {
                 const selectedIndex = e.target.value;
-                const updatedTimelineData = timelineData.map((t, i) => {
+                const updatedTimelineData = timeline.map((t, i) => {
                   if (i === index) {
                     return {
                       ...t,
