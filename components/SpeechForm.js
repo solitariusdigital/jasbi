@@ -26,7 +26,7 @@ export default function MediaForm({ admin, editData }) {
   const [loader, setLoader] = useState(false);
   const [editMedia, setEditMedia] = useState(editData ? true : false);
 
-  const sourceLink = "https://jasbi.storage.iran.liara.space";
+  const sourceLink = "https://jassbi.storage.iran.liara.space";
 
   useEffect(() => {
     if (editData) {

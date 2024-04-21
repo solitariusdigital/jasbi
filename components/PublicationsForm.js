@@ -33,7 +33,7 @@ export default function PublicationsForm({ editData }) {
   const [editMedia, setEditMedia] = useState(editData ? true : false);
 
   const categories = ["مقالات", "کتاب"];
-  const sourceLink = "https://jasbi.storage.iran.liara.space";
+  const sourceLink = "https://jassbi.storage.iran.liara.space";
 
   const showAlert = (message) => {
     setAlert(message);

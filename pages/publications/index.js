@@ -39,7 +39,7 @@ export default function Publications({ publications }) {
         openGraph={{
           type: "website",
           locale: "fa_IR",
-          url: "https://jasbi.net/",
+          url: "https://jassbi.net/",
           siteName: "دکتر جاسبی",
         }}
       />

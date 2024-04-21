@@ -43,7 +43,7 @@ export default function Footer() {
       </div>
       <div className={classes.copyright}>
         <p>کليه حقوق اين وب سایت به دکتر جاسبی تعلق دارد</p>
-        <p>jasbi.net @Copyright {enToFaDigits(1402)}</p>
+        <p>jassbi.net @Copyright {enToFaDigits(1402)}</p>
         {/* <div
           className={classes.row}
           onClick={() => window.open("https://musetechlab.com/")}

@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ["jasbi.storage.iran.liara.space"],
+    domains: ["jassbi.storage.iran.liara.space"],
   },
 };
 

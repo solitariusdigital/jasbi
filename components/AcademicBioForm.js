@@ -32,7 +32,7 @@ export default function AcademicBioForm({ admin, type, editData }) {
   const [loader, setLoader] = useState(false);
   const [editMedia, setEditMedia] = useState(editData ? true : false);
 
-  const sourceLink = "https://jasbi.storage.iran.liara.space";
+  const sourceLink = "https://jassbi.storage.iran.liara.space";
 
   const showAlert = (message) => {
     setAlert(message);

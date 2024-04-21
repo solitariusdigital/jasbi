@@ -104,7 +104,7 @@ export default function Home({
         openGraph={{
           type: "website",
           locale: "fa_IR",
-          url: "https://jasbi.net/",
+          url: "https://jassbi.net/",
           siteName: "دکتر جاسبی",
         }}
       />
@@ -113,8 +113,8 @@ export default function Home({
           <div className={classes.imageBoxDesktop}>
             <Image
               className={classes.image}
-              src="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
-              blurDataURL="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
+              src="https://jassbi.storage.iran.liara.space/cover/imgCover.jpg"
+              blurDataURL="https://jassbi.storage.iran.liara.space/cover/imgCover.jpg"
               placeholder="blur"
               alt="image"
               layout="fill"
@@ -302,8 +302,8 @@ export default function Home({
         {screenSize !== "desktop" && (
           <Image
             className={classes.image}
-            src="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
-            blurDataURL="https://jasbi.storage.iran.liara.space/cover/imgCover.jpg"
+            src="https://jassbi.storage.iran.liara.space/cover/imgCover.jpg"
+            blurDataURL="https://jassbi.storage.iran.liara.space/cover/imgCover.jpg"
             placeholder="blur"
             alt="image"
             layout="fill"

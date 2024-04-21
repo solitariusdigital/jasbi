@@ -58,7 +58,7 @@ export default function PoliticsForm({ admin, editData }) {
     "انتشارات",
   ];
 
-  const sourceLink = "https://jasbi.storage.iran.liara.space";
+  const sourceLink = "https://jassbi.storage.iran.liara.space";
 
   useEffect(() => {
     if (editData) {
