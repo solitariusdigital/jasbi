@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.0",
     "aws-sdk": "^2.1510.0",
-    "@mui/material": "^5.14.20",
+    "@mui/material": "^5.15.14",
     "eslint": "8.55.0",
     "eslint-config-next": "14.1.0",
     "kavenegar": "^1.1.4",
