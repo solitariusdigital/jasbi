@@ -11,7 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.0",
+    "@mui/icons-material": "^5.15.14",
     "aws-sdk": "^2.1510.0",
     "@mui/material": "^5.14.20",
     "eslint": "8.55.0",
