@@ -57,13 +57,13 @@ export default function ActionComponent({ item, route }) {
     const users = await getUsersApi();
     const admin = users.find((user) => user["_id"] === currentUser["_id"]);
 
-    const decryptedBytes = AES.decrypt(
-      admin.code,
-      process.env.NEXT_PUBLIC_CRYPTO_SECRETKEY
-    );
-    const decryptedPassword = decryptedBytes.toString(enc.Utf8);
+    // const decryptedBytes = AES.decrypt(
+    //   admin.code,
+    //   process.env.NEXT_PUBLIC_CRYPTO_SECRETKEY
+    // );
+    // const decryptedPassword = decryptedBytes.toString(enc.Utf8);
 
-    if (decryptedPassword === password) {
+    if (admin.code === password) {
       const message = `${
         type === "confirm" ? "انتشار مطمئنی؟" : "پنهان مطمئنی؟"
       }`;
