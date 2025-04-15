@@ -15,7 +15,7 @@
     "aws-sdk": "^2.1596.0",
     "@mui/material": "^5.15.14",
     "eslint-config-next": "15.0.0",
-    "eslint": "9.0.0",
+    "eslint": "9.15.0",
     "kavenegar": "^1.1.4",
     "mongodb-shell": "^1.0.1",
     "mongoose": "^8.3.1",
