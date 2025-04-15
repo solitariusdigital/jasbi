@@ -103,7 +103,7 @@ export default function Biography({ biographys }) {
                               alt="image"
                               loading="eager"
                               layout="fill"
-                              objectFit="cover"
+                              objectFit="contain"
                               priority
                               as="image"
                               onClick={() => {

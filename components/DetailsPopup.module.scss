@@ -83,5 +83,9 @@
     @include mixins.tablet {
       width: 100%;
     }
+
+    p {
+      direction: rtl;
+    }
   }
 }

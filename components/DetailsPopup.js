@@ -6,18 +6,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { enToFaDigits } from "@/services/utility";
 
 export default function DetailsPopup({ selectedItem }) {
-  const { screenSize, setScreenSize } = useContext(StateContext);
   const { displayDetailsPopup, setDisplayDetailsPopup } =
     useContext(StateContext);
 
   return (
-    <div
-      className={`${classes.popUp} ${
-        screenSize === "desktop"
-          ? "animate__animated animate__slideInRight"
-          : ""
-      }`}
-    >
+    <div className={classes.popUp}>
       <CloseIcon
         className="icon"
         onClick={() => setDisplayDetailsPopup(false)}
@@ -48,7 +41,7 @@ export default function DetailsPopup({ selectedItem }) {
                 alt="image"
                 loading="eager"
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
                 priority
               />
             </div>

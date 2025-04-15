@@ -96,7 +96,7 @@ export default function Media({ media }) {
                               blurDataURL={item.media}
                               alt="image"
                               loading="eager"
-                              objectFit="cover"
+                              objectFit="contain"
                               layout="fill"
                               priority
                               as="image"

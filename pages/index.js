@@ -489,7 +489,7 @@ export default function Home({
                       blurDataURL={item.media}
                       alt="image"
                       loading="eager"
-                      objectFit="cover"
+                      objectFit="contain"
                       layout="fill"
                       priority
                       as="image"

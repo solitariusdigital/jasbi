@@ -130,7 +130,7 @@ export default function Publications({ publications }) {
                               alt="image"
                               loading="eager"
                               layout="fill"
-                              objectFit="cover"
+                              objectFit="contain"
                               priority
                               as="image"
                               onClick={() => {

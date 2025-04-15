@@ -144,7 +144,7 @@ export default function Academic({ academics }) {
                               alt="image"
                               loading="eager"
                               layout="fill"
-                              objectFit="cover"
+                              objectFit="contain"
                               as="image"
                               onClick={() => {
                                 setSelectedItem(item);

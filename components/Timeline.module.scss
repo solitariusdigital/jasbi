@@ -188,8 +188,9 @@
   }
 
   .description {
-    text-align: right;
     width: 80%;
+    text-align: right;
+    direction: rtl;
 
     @include mixins.mobile {
       width: 100%;
