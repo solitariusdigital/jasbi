@@ -27,6 +27,6 @@
     "react-secure-storage": "^1.3.2",
     "sass": "^1.74.1",
     "sharp": "^0.33.3",
-    "webpack": "^5.88.2"
+    "webpack": "^5.94.0"
   }
 }
