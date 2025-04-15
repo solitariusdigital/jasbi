@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "جاسبی",
-  "short_name": "جاسبی",
+  "name": "Jassbi",
+  "short_name": "Jassbi",
   "icons": [
     {
       "src": "/icon-192x192.png",
